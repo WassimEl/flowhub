@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowHub — Plateforme Multi-Outils</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0b14;
+            --bg-secondary: #11121f;
+            --bg-tertiary: #1a1b2e;
+            --bg-card: #141528;
+            --bg-glass: rgba(20, 21, 40, 0.7);
+            --text-primary: #e8e9f0;
+            --text-secondary: #8b8da3;
+            --text-muted: #4a4d6a;
+            --accent: #818cf8;
+            --accent-light: #a5b4fc;
+            --accent-bg: rgba(129, 140, 248, 0.12);
+            --border: rgba(255, 255, 255, 0.06);
+            --border2: rgba(255, 255, 255, 0.1);
+            --green: #34d399;
+            --yellow: #fbbf24;
+            --red: #f87171;
+            --orange: #fb923c;
+            --purple: #c084fc;
+            --pink: #f472b6;
+            --teal: #2dd4bf;
+            --radius: 14px;
+            --radius-sm: 10px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .app-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(10, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .nav-brand-text {
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-bg);
+            color: var(--accent-light);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .nav-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--accent-bg);
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--purple));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(129, 140, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(129, 140, 248, 0.5);
+            color: white;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        /* ===== PAGES ===== */
+        .page {
+            display: none;
+            padding-top: 64px;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ===== HOME PAGE ===== */
+        .home-hero {
+            padding: 80px 40px 60px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .home-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .home-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .home-cta .btn {
+            padding: 12px 28px;
+            font-size: 15px;
+        }
+
+        /* Quick stats */
+        .home-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .home-stat {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .home-stat:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .home-stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .home-stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Modules grid */
+        .home-modules {
+            padding: 0 40px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+
+        .module-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+            background: var(--accent-bg);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .module-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .module-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .module-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .module-badge {
+            padding: 2px 8px;
+            border-radius: 99px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+        }
+
+        /* ===== KANBAN PAGE ===== */
+        .kanban-container {
+            padding: 24px 28px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .kanban-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .kanban-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+        }
+
+        .kanban-toolbar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            opacity: 0.5;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .filter-chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--accent-bg);
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            align-items: start;
+        }
+
+        .kanban-column {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            min-height: 500px;
+            transition: all 0.3s;
+        }
+
+        .kanban-column.drag-over {
+            background: rgba(129, 140, 248, 0.05);
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(129, 140, 248, 0.1);
+        }
+
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .column-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .column-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .dot-todo { background: var(--yellow); color: var(--yellow); }
+        .dot-progress { background: var(--accent); color: var(--accent); }
+        .dot-done { background: var(--green); color: var(--green); }
+
+        .task-count {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 100px;
+        }
+
+        .task-card {
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-tertiary));
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            cursor: grab;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: rgba(129, 140, 248, 0.3);
+        }
+
+        .task-card:hover::before {
+            opacity: 1;
+        }
+
+        .task-card.dragging {
+            opacity: 0.4;
+            cursor: grabbing;
+            transform: rotate(3deg) scale(0.95);
+        }
+
+        .task-priority {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .priority-high { background: rgba(248, 113, 113, 0.15); color: var(--red); border: 1px solid rgba(248, 113, 113, 0.3); }
+        .priority-medium { background: rgba(251, 191, 36, 0.15); color: var(--yellow); border: 1px solid rgba(251, 191, 36, 0.3); }
+        .priority-low { background: rgba(129, 140, 248, 0.15); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.3); }
+
+        .task-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .task-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .task-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            background: var(--accent-bg);
+            color: var(--accent-light);
+            font-weight: 500;
+            border: 1px solid rgba(129, 140, 248, 0.15);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .task-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .task-date.overdue { color: var(--red); font-weight: 600; }
+        .task-date.soon { color: var(--yellow); }
+
+        .task-assignees {
+            display: flex;
+            gap: -4px;
+            margin-top: 8px;
+        }
+
+        .assignee {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+            border: 2px solid var(--bg-card);
+            margin-left: -6px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .assignee:first-child { margin-left: 0; }
+        .assignee:hover { transform: scale(1.2); z-index: 10; }
+
+        .task-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            display: flex;
+            gap: 4px;
+        }
+
+        .task-card:hover .task-actions {
+            opacity: 1;
+        }
+
+        .task-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .task-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .task-progress {
+            height: 3px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .task-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .empty-state-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        /* ===== TOOLS PAGE (MacHub) ===== */
+        .tools-container {
+            padding: 24px 28px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tools-header {
+            margin-bottom: 32px;
+        }
+
+        .tools-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .tools-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .tool-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+            background: var(--accent-bg);
+            border: 1px solid rgba(129, 140, 248, 0.2);
+        }
+
+        .tool-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .tool-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .tool-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .status-ready {
+            background: rgba(52, 211, 153, 0.1);
+            color: var(--green);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        .status-soon {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--yellow);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-tertiary));
+            border-radius: var(--radius);
+            padding: 28px;
+            width: 90%;
+            max-width: 520px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Assignee selector */
+        .assignee-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .assignee-option {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .assignee-option:hover {
+            transform: scale(1.15);
+        }
+
+        .assignee-option.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.3);
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow);
+            animation: slideIn 0.3s ease;
+            min-width: 280px;
+        }
+
+        .toast-success { border-left: 3px solid var(--green); }
+        .toast-error { border-left: 3px solid var(--red); }
+        .toast-info { border-left: 3px solid var(--accent); }
+
+        /* ===== SYNC STATUS ===== */
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 4px 12px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .sync-status.synced { color: var(--green); }
+        .sync-status.syncing { color: var(--yellow); }
+        .sync-status.error { color: var(--red); }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(129, 140, 248, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(129, 140, 248, 0.2); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .kanban-board { grid-template-columns: 1fr; }
+            .home-stats { grid-template-columns: repeat(2, 1fr); }
+            .home-hero h1 { font-size: 36px; }
+        }
+
+        @media (max-width: 640px) {
+            .app-nav { padding: 0 16px; }
+            .nav-links { display: none; }
+            .home-hero { padding: 60px 20px; }
+            .home-stats { grid-template-columns: 1fr 1fr; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ===== DROPDOWN ===== */
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 6px;
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 50;
+        }
+        .dropdown-menu.active { display: block; animation: slideIn 0.2s ease; }
+        .dropdown-item {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dropdown-item:hover { background: var(--accent-bg); color: var(--accent-light); }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Navigation -->
+    <nav class="app-nav">
+        <div class="nav-brand" onclick="showPage('home')">
+            <div class="nav-brand-icon">◈</div>
+            <span class="nav-brand-text">FlowHub</span>
+        </div>
+        <div class="nav-links">
+            <button class="nav-link active" onclick="showPage('home')" data-page="home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Accueil
+            </button>
+            <button class="nav-link" onclick="showPage('kanban')" data-page="kanban">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Kanban
+            </button>
+            <button class="nav-link" onclick="showPage('tools')" data-page="tools">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                Outils
+            </button>
+        </div>
+        <div class="nav-actions">
+            <div class="sync-status" id="sync-status">
+                <span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
+                <span id="sync-text">Local</span>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-icon" onclick="toggleDropdown()" title="Menu">⋮</button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <div class="dropdown-item" onclick="exportJSON()">📤 Exporter JSON</div>
+                    <div class="dropdown-item" onclick="importJSON()">📥 Importer JSON</div>
+                    <div class="dropdown-item" onclick="configureCloud()">☁️ Configurer Cloud</div>
+                    <div class="dropdown-item" onclick="resetData()">🗑 Réinitialiser</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="openTaskModal()">+ Nouvelle tâche</button>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE: HOME ===== -->
+    <div class="page active" id="page-home">
+        <div class="home-hero">
+            <h1>Ta plateforme<br>de productivité</h1>
+            <p>FlowHub regroupe tes outils de gestion de projet, de configuration serveur et d'utilitaires en un seul endroit. Synchronisé sur tous tes appareils.</p>
+            <div class="home-cta">
+                <button class="btn btn-primary" onclick="showPage('kanban')">🚀 Ouvrir le Kanban</button>
+                <button class="btn" onclick="showPage('tools')">🛠️ Explorer les outils</button>
+            </div>
+        </div>
+
+        <div class="home-stats">
+            <div class="home-stat">
+                <div class="home-stat-value" id="home-task-count">0</div>
+                <div class="home-stat-label">Tâches actives</div>
+            </div>
+            <div class="home-stat">
+                <div class="home-stat-value" id="home-done-count">0</div>
+                <div class="home-stat-label">Terminées</div>
+            </div>
+            <div class="home-stat">
+                <div class="home-stat-value" id="home-tool-count">2</div>
+                <div class="home-stat-label">Outils disponibles</div>
+            </div>
+            <div class="home-stat">
+                <div class="home-stat-value" id="home-progress">0%</div>
+                <div class="home-stat-label">Progression</div>
+            </div>
+        </div>
+
+        <div class="home-modules">
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px;color:var(--accent)"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Modules
+            </h2>
+            <p class="section-subtitle">Accède rapidement à tes outils favoris</p>
+            <div class="modules-grid">
+                <div class="module-card" onclick="showPage('kanban')">
+                    <div class="module-icon">📋</div>
+                    <div class="module-name">Gestionnaire de Projets</div>
+                    <div class="module-desc">Kanban board avec drag & drop, priorités, tags et assignation de membres. Synchronisation cloud via GitHub Gist.</div>
+                    <div class="module-meta">
+                        <span class="module-badge">Kanban</span>
+                        <span class="module-badge">Cloud</span>
+                    </div>
+                </div>
+                <div class="module-card" onclick="showPage('tools')">
+                    <div class="module-icon">🖥️</div>
+                    <div class="module-name">Mac mini M4 Hub</div>
+                    <div class="module-desc">Sélecteur de projets serveur, comparatif des modèles Apple Silicon et calculateur de ressources en temps réel.</div>
+                    <div class="module-meta">
+                        <span class="module-badge">Serveur</span>
+                        <span class="module-badge">Comparatif</span>
+                    </div>
+                </div>
+                <div class="module-card" onclick="showToast('Bientôt disponible !', 'info')">
+                    <div class="module-icon">📝</div>
+                    <div class="module-name">Notes Rapides</div>
+                    <div class="module-desc">Bloc-notes Markdown avec catégorisation par projet et export. Parfait pour les idées et réunions.</div>
+                    <div class="module-meta">
+                        <span class="module-badge" style="border-color:var(--yellow);color:var(--yellow)">Bientôt</span>
+                    </div>
+                </div>
+                <div class="module-card" onclick="showToast('Bientôt disponible !', 'info')">
+                    <div class="module-icon">⏱️</div>
+                    <div class="module-name">Pomodoro Timer</div>
+                    <div class="module-desc">Timer de productivité avec statistiques journalières et intégration aux tâches du Kanban.</div>
+                    <div class="module-meta">
+                        <span class="module-badge" style="border-color:var(--yellow);color:var(--yellow)">Bientôt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: KANBAN ===== -->
+    <div class="page" id="page-kanban">
+        <div class="kanban-container">
+            <div class="kanban-header">
+                <h2>📋 Gestionnaire de Projets</h2>
+            </div>
+            <div class="kanban-toolbar">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Rechercher une tâche..." oninput="filterKanban()">
+                </div>
+                <div class="filter-group">
+                    <button class="filter-chip active" onclick="setKanbanFilter('all', this)">Tout</button>
+                    <button class="filter-chip" onclick="setKanbanFilter('high', this)">🔴 Haute</button>
+                    <button class="filter-chip" onclick="setKanbanFilter('medium', this)">🟡 Moyenne</button>
+                    <button class="filter-chip" onclick="setKanbanFilter('low', this)">🔵 Basse</button>
+                </div>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-column" data-status="todo">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <span class="column-dot dot-todo"></span>
+                            À faire
+                        </div>
+                        <span class="task-count" id="badge-todo">0</span>
+                    </div>
+                    <div class="tasks-list" id="todo-list"></div>
+                </div>
+                <div class="kanban-column" data-status="progress">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <span class="column-dot dot-progress"></span>
+                            En cours
+                        </div>
+                        <span class="task-count" id="badge-progress">0</span>
+                    </div>
+                    <div class="tasks-list" id="progress-list"></div>
+                </div>
+                <div class="kanban-column" data-status="done">
+                    <div class="column-header">
+                        <div class="column-title">
+                            <span class="column-dot dot-done"></span>
+                            Terminé
+                        </div>
+                        <span class="task-count" id="badge-done">0</span>
+                    </div>
+                    <div class="tasks-list" id="done-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: TOOLS ===== -->
+    <div class="page" id="page-tools">
+        <div class="tools-container">
+            <div class="tools-header">
+                <h2>🛠️ Outils & Utilitaires</h2>
+                <p>Collection d'outils pour configurer, comparer et optimiser tes projets.</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="showToast('MacHub chargé ! Redirection...', 'success'); setTimeout(() => loadMacHub(), 1000)">
+                    <div class="tool-icon">🖥️</div>
+                    <div class="tool-name">Mac mini M4 Hub</div>
+                    <div class="tool-desc">Sélecteur interactif de projets serveur, comparatif complet des modèles Apple Silicon (M1 → M4 Pro) avec calculateur de ressources RAM/SSD/énergie.</div>
+                    <span class="tool-status status-ready">✅ Disponible</span>
+                </div>
+                <div class="tool-card" onclick="showToast('Bientôt disponible', 'info')">
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-name">Générateur de Palettes</div>
+                    <div class="tool-desc">Extraction de couleurs depuis image, export CSS/JSON et vérificateur de contraste WCAG.</div>
+                    <span class="tool-status status-soon">⏳ Bientôt</span>
+                </div>
+                <div class="tool-card" onclick="showToast('Bientôt disponible', 'info')">
+                    <div class="tool-icon">🔐</div>
+                    <div class="tool-name">Générateur de Mots de Passe</div>
+                    <div class="tool-desc">Mots de passe sécurisés avec vérification de force, historique local et check HaveIBeenPwned.</div>
+                    <span class="tool-status status-soon">⏳ Bientôt</span>
+                </div>
+                <div class="tool-card" onclick="showToast('Bientôt disponible', 'info')">
+                    <div class="tool-icon">📐</div>
+                    <div class="tool-name">Convertisseur d'Unités</div>
+                    <div class="tool-desc">Conversion dev (px/rem/em), tech (Go/GiB, Mbps/MB/s) et temps (fuseaux horaires).</div>
+                    <span class="tool-status status-soon">⏳ Bientôt</span>
+                </div>
+                <div class="tool-card" onclick="showToast('Bientôt disponible', 'info')">
+                    <div class="tool-icon">🧮</div>
+                    <div class="tool-name">Calculateur Cloud</div>
+                    <div class="tool-desc">Compare le coût AWS/GCP/Azure vs self-hosted avec calculateur de break-even.</div>
+                    <span class="tool-status status-soon">⏳ Bientôt</span>
+                </div>
+                <div class="tool-card" onclick="showToast('Bientôt disponible', 'info')">
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-name">Testeur de Regex</div>
+                    <div class="tool-desc">Live match avec highlight, cheat sheet intégrée et sauvegarde de patterns favoris.</div>
+                    <span class="tool-status status-soon">⏳ Bientôt</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: TASK ===== -->
+    <div class="modal-overlay" id="task-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Nouvelle tâche</h3>
+                <button class="btn btn-icon" onclick="closeTaskModal()" style="width:32px;height:32px;">✕</button>
+            </div>
+            <form id="task-form" onsubmit="saveTask(event)">
+                <input type="hidden" id="task-id">
+                <div class="form-group">
+                    <label class="form-label">Titre</label>
+                    <input type="text" class="form-input" id="task-title" placeholder="Nom de la tâche" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" id="task-desc" placeholder="Décrivez la tâche..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Priorité</label>
+                        <select class="form-select" id="task-priority">
+                            <option value="low">Basse</option>
+                            <option value="medium" selected>Moyenne</option>
+                            <option value="high">Haute</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Statut</label>
+                        <select class="form-select" id="task-status">
+                            <option value="todo" selected>À faire</option>
+                            <option value="progress">En cours</option>
+                            <option value="done">Terminé</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Assignés</label>
+                    <div class="assignee-selector" id="assignee-selector"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Progression (%)</label>
+                    <input type="range" class="form-input" id="task-progress" min="0" max="100" value="0" oninput="document.getElementById('progress-val').textContent = this.value + '%'">
+                    <div style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:4px;" id="progress-val">0%</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags (séparés par des virgules)</label>
+                    <input type="text" class="form-input" id="task-tags" placeholder="design, urgent, frontend">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date d'échéance</label>
+                    <input type="date" class="form-input" id="task-date">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" onclick="closeTaskModal()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ===== DATA =====
+        let tasks = JSON.parse(localStorage.getItem('flowhub_tasks')) || [
+            { id: '1', title: 'Configurer Vercel', desc: 'Déployer FlowHub sur Vercel', priority: 'high', status: 'todo', tags: ['devops', 'urgent'], date: '2026-06-05', progress: 0, assignees: ['JD'] },
+            { id: '2', title: 'Setup GitHub Gist', desc: 'Configurer la synchro cloud', priority: 'high', status: 'progress', tags: ['devops'], date: '2026-06-03', progress: 45, assignees: ['JD', 'AL'] },
+            { id: '3', title: 'Intégrer MacHub', desc: 'Ajouter le sélecteur Mac mini', priority: 'medium', status: 'done', tags: ['feature'], date: '2026-05-25', progress: 100, assignees: [] },
+            { id: '4', title: 'Design page accueil', desc: 'Créer la landing page', priority: 'medium', status: 'todo', tags: ['design', 'ui'], date: '2026-06-10', progress: 10, assignees: ['MK'] }
+        ];
+
+        const MEMBERS = [
+            { id: 'JD', name: 'Jean Dupont', color: '#818cf8', initials: 'JD' },
+            { id: 'AL', name: 'Alice Lefebvre', color: '#34d399', initials: 'AL' },
+            { id: 'MK', name: 'Marie Klein', color: '#f472b6', initials: 'MK' },
+            { id: 'TB', name: 'Thomas Bernard', color: '#fb923c', initials: 'TB' }
+        ];
+
+        let currentFilter = 'all';
+        let draggedTask = null;
+        let selectedAssignees = new Set();
+
+        // ===== NAVIGATION =====
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.querySelector(`[data-page="${pageId}"]`)?.classList.add('active');
+            
+            if (pageId === 'home') updateHomeStats();
+            if (pageId === 'kanban') renderKanban();
+        }
+
+        // ===== HOME STATS =====
+        function updateHomeStats() {
+            const total = tasks.length;
+            const done = tasks.filter(t => t.status === 'done').length;
+            const progress = total > 0 ? Math.round((done / total) * 100) : 0;
+            
+            document.getElementById('home-task-count').textContent = total;
+            document.getElementById('home-done-count').textContent = done;
+            document.getElementById('home-progress').textContent = progress + '%';
+        }
+
+        // ===== KANBAN =====
+        function renderKanban() {
+            const columns = {
+                todo: document.getElementById('todo-list'),
+                progress: document.getElementById('progress-list'),
+                done: document.getElementById('done-list')
+            };
+
+            Object.values(columns).forEach(col => col.innerHTML = '');
+
+            const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
+            const filtered = tasks.filter(t => {
+                const matchesSearch = t.title.toLowerCase().includes(searchTerm) || 
+                                    t.desc.toLowerCase().includes(searchTerm) ||
+                                    t.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                const matchesFilter = currentFilter === 'all' || t.priority === currentFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            filtered.sort((a, b) => {
+                const priorityOrder = { high: 0, medium: 1, low: 2 };
+                if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+                    return priorityOrder[a.priority] - priorityOrder[b.priority];
+                }
+                return new Date(a.date) - new Date(b.date);
+            });
+
+            filtered.forEach(task => {
+                const card = createTaskCard(task);
+                columns[task.status].appendChild(card);
+            });
+
+            Object.entries(columns).forEach(([status, col]) => {
+                if (col.children.length === 0) {
+                    col.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><div>Aucune tâche</div></div>`;
+                }
+            });
+
+            updateKanbanStats();
+            saveToStorage();
+        }
+
+        function createTaskCard(task) {
+            const div = document.createElement('div');
+            div.className = 'task-card';
+            div.draggable = true;
+            div.dataset.id = task.id;
+
+            const priorityLabels = { high: 'Haute', medium: 'Moyenne', low: 'Basse' };
+            const priorityClasses = { high: 'priority-high', medium: 'priority-medium', low: 'priority-low' };
+            const tagsHtml = task.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('');
+            
+            const today = new Date();
+            const dueDate = task.date ? new Date(task.date) : null;
+            let dateClass = '';
+            let dateIcon = '📅';
+            
+            if (dueDate) {
+                const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+                if (diffDays < 0) { dateClass = 'overdue'; dateIcon = '⚠️'; }
+                else if (diffDays <= 2) { dateClass = 'soon'; dateIcon = '⏰'; }
+            }
+
+            const progress = task.progress || 0;
+            const assigneesHtml = (task.assignees || []).map(aid => {
+                const member = MEMBERS.find(m => m.id === aid);
+                if (!member) return '';
+                return `<div class="assignee" style="background:${member.color}" title="${member.name}">${member.initials}</div>`;
+            }).join('');
+
+            div.innerHTML = `
+                <div class="task-priority ${priorityClasses[task.priority]}">${priorityLabels[task.priority]}</div>
+                <div class="task-title">${escapeHtml(task.title)}</div>
+                ${task.desc ? `<div class="task-desc">${escapeHtml(task.desc)}</div>` : ''}
+                <div class="task-meta">
+                    <div class="task-tags">${tagsHtml}</div>
+                    <div class="task-date ${dateClass}">${dateIcon} ${formatDate(task.date)}</div>
+                </div>
+                ${assigneesHtml ? `<div class="task-assignees">${assigneesHtml}</div>` : ''}
+                ${progress > 0 ? `
+                <div class="task-progress"><div class="task-progress-bar" style="width: ${progress}%"></div></div>
+                ` : ''}
+                <div class="task-actions">
+                    <button class="task-btn" onclick="editTask('${task.id}')" title="Modifier">✎</button>
+                    <button class="task-btn" onclick="deleteTask('${task.id}')" title="Supprimer">🗑</button>
+                </div>
+            `;
+
+            div.addEventListener('dragstart', handleDragStart);
+            div.addEventListener('dragend', handleDragEnd);
+
+            return div;
+        }
+
+        function updateKanbanStats() {
+            const counts = { todo: 0, progress: 0, done: 0 };
+            tasks.forEach(t => counts[t.status]++);
+            
+            document.getElementById('badge-todo').textContent = counts.todo;
+            document.getElementById('badge-progress').textContent = counts.progress;
+            document.getElementById('badge-done').textContent = counts.done;
+        }
+
+        // ===== DRAG & DROP =====
+        function setupDragAndDrop() {
+            document.querySelectorAll('.kanban-column').forEach(col => {
+                col.addEventListener('dragover', handleDragOver);
+                col.addEventListener('dragleave', handleDragLeave);
+                col.addEventListener('drop', handleDrop);
+            });
+        }
+
+        function handleDragStart(e) {
+            draggedTask = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            draggedTask = null;
+            document.querySelectorAll('.kanban-column').forEach(col => col.classList.remove('drag-over'));
+        }
+
+        function handleDragOver(e) { e.preventDefault(); this.classList.add('drag-over'); }
+        function handleDragLeave(e) { this.classList.remove('drag-over'); }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            if (!draggedTask) return;
+
+            const taskId = draggedTask.dataset.id;
+            const newStatus = this.dataset.status;
+            const task = tasks.find(t => t.id === taskId);
+
+            if (task && task.status !== newStatus) {
+                task.status = newStatus;
+                if (newStatus === 'done') task.progress = 100;
+                if (newStatus === 'todo') task.progress = 0;
+                renderKanban();
+                showToast(`Tâche déplacée`, 'success');
+            }
+        }
+
+        // ===== MODAL =====
+        function openTaskModal(taskId = null) {
+            const modal = document.getElementById('task-modal');
+            const title = document.getElementById('modal-title');
+            selectedAssignees.clear();
+
+            // Build assignee selector
+            const selector = document.getElementById('assignee-selector');
+            selector.innerHTML = '';
+            MEMBERS.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'assignee-option';
+                div.style.background = m.color;
+                div.textContent = m.initials;
+                div.title = m.name;
+                div.onclick = () => {
+                    div.classList.toggle('selected');
+                    if (selectedAssignees.has(m.id)) selectedAssignees.delete(m.id);
+                    else selectedAssignees.add(m.id);
+                };
+                selector.appendChild(div);
+            });
+
+            if (taskId) {
+                const task = tasks.find(t => t.id === taskId);
+                if (!task) return;
+                title.textContent = 'Modifier la tâche';
+                document.getElementById('task-id').value = task.id;
+                document.getElementById('task-title').value = task.title;
+                document.getElementById('task-desc').value = task.desc || '';
+                document.getElementById('task-priority').value = task.priority;
+                document.getElementById('task-status').value = task.status;
+                document.getElementById('task-progress').value = task.progress || 0;
+                document.getElementById('progress-val').textContent = (task.progress || 0) + '%';
+                document.getElementById('task-tags').value = task.tags.join(', ');
+                document.getElementById('task-date').value = task.date;
+                
+                // Select existing assignees
+                (task.assignees || []).forEach(aid => {
+                    selectedAssignees.add(aid);
+                    const opt = selector.querySelector(`[title="${MEMBERS.find(m=>m.id===aid)?.name}"]`);
+                    if (opt) opt.classList.add('selected');
+                });
+            } else {
+                title.textContent = 'Nouvelle tâche';
+                document.getElementById('task-form').reset();
+                document.getElementById('task-id').value = '';
+                document.getElementById('task-date').value = new Date().toISOString().split('T')[0];
+                document.getElementById('progress-val').textContent = '0%';
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeTaskModal() {
+            document.getElementById('task-modal').classList.remove('active');
+        }
+
+        function saveTask(e) {
+            e.preventDefault();
+            const id = document.getElementById('task-id').value;
+            const title = document.getElementById('task-title').value;
+            const desc = document.getElementById('task-desc').value;
+            const priority = document.getElementById('task-priority').value;
+            const status = document.getElementById('task-status').value;
+            const progress = parseInt(document.getElementById('task-progress').value);
+            const tags = document.getElementById('task-tags').value.split(',').map(t => t.trim()).filter(t => t);
+            const date = document.getElementById('task-date').value;
+
+            if (id) {
+                const task = tasks.find(t => t.id === id);
+                if (task) Object.assign(task, { title, desc, priority, status, progress, tags, date, assignees: [...selectedAssignees] });
+            } else {
+                tasks.push({
+                    id: Date.now().toString(),
+                    title, desc, priority, status, progress, tags, date,
+                    assignees: [...selectedAssignees]
+                });
+            }
+
+            closeTaskModal();
+            renderKanban();
+            updateHomeStats();
+            showToast(id ? 'Tâche mise à jour' : 'Tâche créée', 'success');
+        }
+
+        function editTask(id) { openTaskModal(id); }
+
+        function deleteTask(id) {
+            if (confirm('Supprimer cette tâche ?')) {
+                tasks = tasks.filter(t => t.id !== id);
+                renderKanban();
+                updateHomeStats();
+                showToast('Tâche supprimée', 'info');
+            }
+        }
+
+        // ===== FILTERS =====
+        function filterKanban() { renderKanban(); }
+
+        function setKanbanFilter(filter, btn) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            renderKanban();
+        }
+
+        // ===== EXPORT / IMPORT =====
+        function exportJSON() {
+            document.getElementById('dropdown-menu').classList.remove('active');
+            const data = JSON.stringify(tasks, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `flowhub-export-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Export réussi', 'success');
+        }
+
+        function importJSON() {
+            document.getElementById('dropdown-menu').classList.remove('active');
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        if (Array.isArray(data)) {
+                            tasks = data;
+                            renderKanban();
+                            updateHomeStats();
+                            showToast('Import réussi', 'success');
+                        }
+                    } catch (err) { showToast('Fichier invalide', 'error'); }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function resetData() {
+            document.getElementById('dropdown-menu').classList.remove('active');
+            if (confirm('Réinitialiser toutes les données ?')) {
+                localStorage.removeItem('flowhub_tasks');
+                tasks = [];
+                renderKanban();
+                updateHomeStats();
+                showToast('Données réinitialisées', 'info');
+            }
+        }
+
+        function configureCloud() {
+            document.getElementById('dropdown-menu').classList.remove('active');
+            showToast('Configuration cloud - voir le guide complet', 'info');
+        }
+
+        // ===== UTILS =====
+        function saveToStorage() {
+            localStorage.setItem('flowhub_tasks', JSON.stringify(tasks));
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icons = { success: '✓', error: '✕', info: 'ℹ' };
+            toast.innerHTML = `<span>${icons[type]}</span><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function toggleDropdown() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        }
+
+        function loadMacHub() {
+            showToast('MacHub se charge...', 'info');
+            // Ici tu intégrerais le contenu de ton fichier MacHub
+        }
+
+        // ===== EVENTS =====
+        document.addEventListener('DOMContentLoaded', () => {
+            setupDragAndDrop();
+            updateHomeStats();
+            
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown')) {
+                    document.getElementById('dropdown-menu')?.classList.remove('active');
+                }
+            });
+        });
+
+        document.getElementById('task-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeTaskModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeTaskModal();
+            if (e.key === 'n' && e.ctrlKey) {
+                e.preventDefault();
+                openTaskModal();
+            }
+        });
+    </script>
+</body>
+</html>
