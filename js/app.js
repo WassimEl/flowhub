@@ -509,3 +509,92 @@ window.GGBuild = GGBuild;
 window.HabitTracker = HabitTracker;
 window.TripPlanner = TripPlanner;
 window.DecisionMaker = DecisionMaker;
+
+
+// ===== EVENT LISTENERS FOR STATIC HTML =====
+function setupEventListeners() {
+  // Auth
+  const authBtn = document.getElementById('auth-btn');
+  const authInput = document.getElementById('auth-username');
+  if (authBtn) authBtn.addEventListener('click', () => App.login());
+  if (authInput) authInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') App.login(); });
+
+  // Navigation
+  const navHome = document.getElementById('nav-home');
+  const navKanban = document.getElementById('nav-kanban');
+  const navTools = document.getElementById('nav-tools');
+  const navBrand = document.getElementById('nav-brand');
+  if (navHome) navHome.addEventListener('click', () => App.showPage('home'));
+  if (navKanban) navKanban.addEventListener('click', () => App.showPage('kanban'));
+  if (navTools) navTools.addEventListener('click', () => App.showPage('tools'));
+  if (navBrand) navBrand.addEventListener('click', () => App.showPage('home'));
+
+  // CTA buttons
+  const ctaKanban = document.getElementById('cta-kanban');
+  const ctaTools = document.getElementById('cta-tools');
+  if (ctaKanban) ctaKanban.addEventListener('click', () => App.showPage('kanban'));
+  if (ctaTools) ctaTools.addEventListener('click', () => App.showPage('tools'));
+
+  // Dropdown
+  const dropdownBtn = document.getElementById('dropdown-btn');
+  if (dropdownBtn) dropdownBtn.addEventListener('click', () => App.toggleDropdown());
+
+  // Dropdown items
+  document.getElementById('export-json')?.addEventListener('click', () => App.exportJSON());
+  document.getElementById('import-json')?.addEventListener('click', () => App.importJSON());
+  document.getElementById('config-cloud')?.addEventListener('click', () => App.configureCloud());
+  document.getElementById('switch-user')?.addEventListener('click', () => App.switchUser());
+  document.getElementById('reset-data')?.addEventListener('click', () => App.resetData());
+
+  // New task button
+  const newTaskBtn = document.getElementById('new-task-btn');
+  if (newTaskBtn) newTaskBtn.addEventListener('click', () => Kanban.openTaskModal());
+
+  // Modal
+  const modalClose = document.getElementById('modal-close');
+  const modalCancel = document.getElementById('modal-cancel');
+  const taskModal = document.getElementById('task-modal');
+  if (modalClose) modalClose.addEventListener('click', () => Kanban.closeTaskModal());
+  if (modalCancel) modalCancel.addEventListener('click', () => Kanban.closeTaskModal());
+  if (taskModal) taskModal.addEventListener('click', (e) => { if (e.target === taskModal) Kanban.closeTaskModal(); });
+
+  // Task form
+  const taskForm = document.getElementById('task-form');
+  if (taskForm) taskForm.addEventListener('submit', (e) => Kanban.saveTask(e));
+
+  // Search
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.addEventListener('input', () => Kanban.filter());
+
+  // Filter chips
+  document.getElementById('filter-all')?.addEventListener('click', function() { Kanban.setFilter('all', this); });
+  document.getElementById('filter-high')?.addEventListener('click', function() { Kanban.setFilter('high', this); });
+  document.getElementById('filter-medium')?.addEventListener('click', function() { Kanban.setFilter('medium', this); });
+  document.getElementById('filter-low')?.addEventListener('click', function() { Kanban.setFilter('low', this); });
+
+  // Progress slider
+  const progressSlider = document.getElementById('task-progress');
+  if (progressSlider) {
+    progressSlider.addEventListener('input', function() {
+      document.getElementById('progress-val').textContent = this.value + '%';
+    });
+  }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown')) {
+      document.getElementById('dropdown-menu')?.classList.remove('active');
+    }
+  });
+
+  // Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') Kanban.closeTaskModal();
+    if (e.key === 'n' && e.ctrlKey) { e.preventDefault(); Kanban.openTaskModal(); }
+  });
+}
+
+// Run setup after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  setupEventListeners();
+});

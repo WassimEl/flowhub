@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlowBoard — Plateforme Multi-Outils</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="./css/styles.css">
+<style>
+/* Auth loading state */
+.auth-loading { display: none; text-align: center; padding: 20px; }
+.auth-loading.show { display: block; }
+.auth-loading-spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
 </head>
 <body>
 
@@ -17,28 +24,32 @@
         <div style="font-size:48px;margin-bottom:16px;">◈</div>
         <h2>Bienvenue sur FlowBoard</h2>
         <p>Entre ton pseudo pour accéder à ton espace personnel. Tes données restent sur cet appareil.</p>
-        <input type="text" class="auth-input" id="auth-username" placeholder="Ton pseudo..." maxlength="20">
+        <input type="text" class="auth-input" id="auth-username" placeholder="Ton pseudo..." maxlength="20" autocomplete="username">
         <div class="auth-error" id="auth-error">Pseudo requis (min 2 caractères)</div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="App.login()">🚀 Entrer</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" id="auth-btn">🚀 Entrer</button>
+        <div class="auth-loading" id="auth-loading">
+            <div class="auth-loading-spinner"></div>
+            <div style="color:var(--text-muted);font-size:13px;">Chargement de FlowBoard...</div>
+        </div>
         <p style="margin-top:16px;font-size:11px;color:var(--text-muted);">Les mots de passe sont stockés localement et liés à ton pseudo. Partage le lien, chacun a ses propres données.</p>
     </div>
 </div>
 
-<nav class="app-nav">
-    <div class="nav-brand" onclick="App.showPage('home')">
+<nav class="app-nav" id="app-nav" style="display:none;">
+    <div class="nav-brand" id="nav-brand">
         <div class="nav-brand-icon">◈</div>
         <span class="nav-brand-text">FlowBoard</span>
     </div>
     <div class="nav-links">
-        <button class="nav-link active" onclick="App.showPage('home')" data-page="home">
+        <button class="nav-link active" data-page="home" id="nav-home">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             Accueil
         </button>
-        <button class="nav-link" onclick="App.showPage('kanban')" data-page="kanban">
+        <button class="nav-link" data-page="kanban" id="nav-kanban">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             Kanban
         </button>
-        <button class="nav-link" onclick="App.showPage('tools')" data-page="tools">
+        <button class="nav-link" data-page="tools" id="nav-tools">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             Outils
         </button>
@@ -53,16 +64,16 @@
             <span id="sync-text">Local</span>
         </div>
         <div class="dropdown">
-            <button class="btn btn-icon" onclick="App.toggleDropdown()" title="Menu">⋮</button>
+            <button class="btn btn-icon" id="dropdown-btn" title="Menu">⋮</button>
             <div class="dropdown-menu" id="dropdown-menu">
-                <div class="dropdown-item" onclick="App.exportJSON()">📤 Exporter JSON</div>
-                <div class="dropdown-item" onclick="App.importJSON()">📥 Importer JSON</div>
-                <div class="dropdown-item" onclick="App.configureCloud()">☁️ Configurer Cloud</div>
-                <div class="dropdown-item" onclick="App.switchUser()">👤 Changer de compte</div>
-                <div class="dropdown-item" onclick="App.resetData()">🗑 Réinitialiser</div>
+                <div class="dropdown-item" id="export-json">📤 Exporter JSON</div>
+                <div class="dropdown-item" id="import-json">📥 Importer JSON</div>
+                <div class="dropdown-item" id="config-cloud">☁️ Configurer Cloud</div>
+                <div class="dropdown-item" id="switch-user">👤 Changer de compte</div>
+                <div class="dropdown-item" id="reset-data">🗑 Réinitialiser</div>
             </div>
         </div>
-        <button class="btn btn-primary" onclick="Kanban.openTaskModal()">+ Nouvelle tâche</button>
+        <button class="btn btn-primary" id="new-task-btn">+ Nouvelle tâche</button>
     </div>
 </nav>
 
@@ -72,8 +83,8 @@
         <h1>FlowBoard</h1>
         <p>Ton hub personnel pour gérer, comparer et créer — tout en un seul endroit.</p>
         <div class="home-cta">
-            <button class="btn btn-primary" onclick="App.showPage('kanban')">🚀 Ouvrir le Kanban</button>
-            <button class="btn" onclick="App.showPage('tools')">🛠️ Explorer les outils</button>
+            <button class="btn btn-primary" id="cta-kanban">🚀 Ouvrir le Kanban</button>
+            <button class="btn" id="cta-tools">🛠️ Explorer les outils</button>
         </div>
     </div>
     <div class="home-stats">
@@ -97,12 +108,12 @@
     <div class="kanban-container">
         <div class="kanban-header"><h2>📋 Gestionnaire de Projets</h2></div>
         <div class="kanban-toolbar">
-            <div class="search-box"><input type="text" id="search-input" placeholder="Rechercher une tâche..." oninput="Kanban.filter()"></div>
+            <div class="search-box"><input type="text" id="search-input" placeholder="Rechercher une tâche..."></div>
             <div class="filter-group">
-                <button class="filter-chip active" onclick="Kanban.setFilter('all',this)">Tout</button>
-                <button class="filter-chip" onclick="Kanban.setFilter('high',this)">🔴 Haute</button>
-                <button class="filter-chip" onclick="Kanban.setFilter('medium',this)">🟡 Moyenne</button>
-                <button class="filter-chip" onclick="Kanban.setFilter('low',this)">🔵 Basse</button>
+                <button class="filter-chip active" data-filter="all" id="filter-all">Tout</button>
+                <button class="filter-chip" data-filter="high" id="filter-high">🔴 Haute</button>
+                <button class="filter-chip" data-filter="medium" id="filter-medium">🟡 Moyenne</button>
+                <button class="filter-chip" data-filter="low" id="filter-low">🔵 Basse</button>
             </div>
         </div>
         <div class="kanban-board">
@@ -146,8 +157,8 @@
 <!-- MODAL TÂCHE -->
 <div class="modal-overlay" id="task-modal">
     <div class="modal">
-        <div class="modal-header"><h3 id="modal-title">Nouvelle tâche</h3><button class="btn btn-icon" onclick="Kanban.closeTaskModal()" style="width:32px;height:32px;">✕</button></div>
-        <form id="task-form" onsubmit="Kanban.saveTask(event)">
+        <div class="modal-header"><h3 id="modal-title">Nouvelle tâche</h3><button class="btn btn-icon" id="modal-close" style="width:32px;height:32px;">✕</button></div>
+        <form id="task-form">
             <input type="hidden" id="task-id">
             <div class="form-group"><label class="form-label">Titre</label><input type="text" class="form-input" id="task-title" placeholder="Nom de la tâche" required></div>
             <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="task-desc" placeholder="Décrivez la tâche..."></textarea></div>
@@ -156,15 +167,15 @@
                 <div class="form-group"><label class="form-label">Statut</label><select class="form-select" id="task-status"><option value="todo" selected>À faire</option><option value="progress">En cours</option><option value="done">Terminé</option></select></div>
             </div>
             <div class="form-group"><label class="form-label">Assignés</label><div class="assignee-selector" id="assignee-selector"></div></div>
-            <div class="form-group"><label class="form-label">Progression (%)</label><input type="range" class="form-input" id="task-progress" min="0" max="100" value="0" oninput="document.getElementById('progress-val').textContent=this.value+'%'"><div style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:4px;" id="progress-val">0%</div></div>
+            <div class="form-group"><label class="form-label">Progression (%)</label><input type="range" class="form-input" id="task-progress" min="0" max="100" value="0"><div style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:4px;" id="progress-val">0%</div></div>
             <div class="form-group"><label class="form-label">Tags (séparés par des virgules)</label><input type="text" class="form-input" id="task-tags" placeholder="design, urgent, frontend"></div>
             <div class="form-group"><label class="form-label">Date d'échéance</label><input type="date" class="form-input" id="task-date"></div>
-            <div class="modal-footer"><button type="button" class="btn" onclick="Kanban.closeTaskModal()">Annuler</button><button type="submit" class="btn btn-primary">Enregistrer</button></div>
+            <div class="modal-footer"><button type="button" class="btn" id="modal-cancel">Annuler</button><button type="submit" class="btn btn-primary">Enregistrer</button></div>
         </form>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script type="module" src="js/app.js"></script>
+<script type="module" src="./js/app.js"></script>
 </body>
 </html>
