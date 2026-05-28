@@ -125,7 +125,6 @@ export const PasswordVault = {
     this.renderVault();
     if (window.App) window.App.showToast('Mot de passe sauvegardé', 'success');
 
-    // Reset inputs
     document.getElementById('pwd-service').value = '';
     document.getElementById('pwd-username').value = '';
   },

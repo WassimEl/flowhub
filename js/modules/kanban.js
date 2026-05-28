@@ -5,7 +5,6 @@ export const Kanban = {
   draggedTask: null,
   selectedAssignees: new Set(),
 
-  // ===== RENDER =====
   render() {
     const columns = { 
       todo: document.getElementById('todo-list'), 
@@ -100,7 +99,6 @@ export const Kanban = {
     if (badgeDone) badgeDone.textContent = counts.done;
   },
 
-  // ===== DRAG & DROP =====
   setupDragAndDrop() {
     document.querySelectorAll('.kanban-column').forEach(col => {
       col.addEventListener('dragover', (e) => this.handleDragOver(e, col));
@@ -140,7 +138,6 @@ export const Kanban = {
     }
   },
 
-  // ===== MODAL =====
   openTaskModal(taskId = null) {
     const modal = document.getElementById('task-modal');
     const title = document.getElementById('modal-title');
@@ -216,13 +213,7 @@ export const Kanban = {
     } else {
       this.tasks.push({ 
         id: Date.now().toString(), 
-        title, 
-        desc, 
-        priority, 
-        status, 
-        progress, 
-        tags, 
-        date, 
+        title, desc, priority, status, progress, tags, date, 
         assignees: [...this.selectedAssignees] 
       });
     }
@@ -247,7 +238,6 @@ export const Kanban = {
     }
   },
 
-  // ===== FILTERS =====
   filter() { this.render(); },
 
   setFilter(filter, btn) {
@@ -257,7 +247,6 @@ export const Kanban = {
     this.render();
   },
 
-  // ===== DATA =====
   MEMBERS: [
     {id:'JD',name:'Jean Dupont',color:'#818cf8',initials:'JD'},
     {id:'AL',name:'Alice Lefebvre',color:'#34d399',initials:'AL'},
@@ -265,8 +254,3 @@ export const Kanban = {
     {id:'TB',name:'Thomas Bernard',color:'#fb923c',initials:'TB'}
   ],
 };
-
-// Setup drag & drop after DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-  Kanban.setupDragAndDrop();
-});

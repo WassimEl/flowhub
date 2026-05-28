@@ -7,8 +7,7 @@ FlowBoard est un hub personnel regroupant des outils de gestion de projet, de co
 ```
 flowboard/
 ├── index.html              # Point d'entrée principal
-├── vercel.json             # Configuration Vercel
-├── middleware.js           # Protection admin (Edge)
+├── vercel.json             # Configuration Vercel (headers sécurité)
 ├── css/
 │   └── styles.css          # Tous les styles
 └── js/
@@ -29,10 +28,10 @@ flowboard/
 - Les données sont stockées dans `localStorage` avec préfixe `flowboard_<pseudo>_`
 - **Chaque utilisateur a ses propres données isolées** — partage le lien, chacun a son espace
 
-### Section MacHub — Protection Admin
-- **Client-side** : Verrouillage par mot de passe (`1980`) dans l'interface
-- **Server-side (Vercel)** : Middleware Edge qui protège les routes `/admin/*`
-- Le statut admin est persisté en localStorage par utilisateur
+### Section MacHub — Protection Admin (Client-Side)
+- Mot de passe admin : **`1980`**
+- Verrouillage dans l'interface avec persistance `localStorage` par utilisateur
+- Une fois déverrouillé, l'accès reste ouvert pour ce pseudo sur ce navigateur
 
 ### Coffre MDP — Isolation par Utilisateur
 - Le coffre mots de passe utilise la clé de stockage `flowboard_<pseudo>_vault`
@@ -47,12 +46,11 @@ flowboard/
 ## 🚀 Déploiement Vercel
 
 ```bash
-# Installer Vercel CLI
-npm i -g vercel
-
-# Déployer
+# Déployer directement
 vercel --prod
 ```
+
+**Note :** C'est un site statique HTML/CSS/JS. Aucun build step nécessaire.
 
 ## 🛠️ Outils Inclus
 
@@ -67,6 +65,6 @@ vercel --prod
 
 ## 📝 Notes
 
-- Le middleware Vercel est une protection supplémentaire côté serveur
-- La protection principale est client-side (mot de passe `1980`)
-- Pour une sécurité renforcée, remplacez le mot de passe par une variable d'environnement Vercel
+- La protection admin est **client-side** — c'est un site 100% frontend
+- Pour une sécurité renforcée, le mot de passe peut être changé dans `js/modules/machub.js`
+- Les données restent locales (`localStorage`) sauf si sync GitHub Gist activée

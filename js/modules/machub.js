@@ -132,7 +132,6 @@ export const MacHub = {
       window.App.isAdmin = true;
       localStorage.setItem(window.App.getStorageKey('admin'), 'true');
       window.App.showToast('Accès admin accordé', 'success');
-      // Re-render this tool
       const container = document.getElementById('tool-machub');
       if (container) this.render(container);
     } else {

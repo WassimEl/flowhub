@@ -1,18 +1,4 @@
 {
-  "version": 2,
-  "routes": [
-    {
-      "src": "/admin/(.*)",
-      "middlewarePath": "middleware.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
