@@ -595,6 +595,8 @@ function setupEventListeners() {
 }
 
 // Run setup after DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  setupEventListeners();
-});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupEventListeners);
+} else {
+  setupEventListeners(); // DOM already ready, run immediately
+}
