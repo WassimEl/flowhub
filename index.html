@@ -918,6 +918,7 @@ function login() {
 function switchUser() {
     document.getElementById('dropdown-menu').classList.remove('active');
     localStorage.removeItem('flowboard_user');
+    localStorage.removeItem('flowboard_admin');
     currentUser = null; isAdmin = false;
     document.getElementById('auth-overlay').style.display = 'flex';
     document.getElementById('user-badge').style.display = 'none';
@@ -941,7 +942,7 @@ function loadUserData() {
     if (!habits.length) habits = [{id:'1',name:'Sport',emoji:'💪',days:{}},{id:'2',name:'Lecture',emoji:'📚',days:{}},{id:'3',name:'Code',emoji:'💻',days:{}}];
     const savedMovies = localStorage.getItem(getStorageKey('movies'));
     if (savedMovies) { try { movieList = JSON.parse(savedMovies); } catch(e) {} }
-    isAdmin = localStorage.getItem(getStorageKey('admin')) === 'true';
+    isAdmin = localStorage.getItem('flowboard_admin') === 'true';
     // Don't re-render kanban here — tasks are shared and already rendered on init
     updateHomeStats(); renderPasswordVault();
     renderNotesTabs(); renderHabits(); renderMovieList();
@@ -951,7 +952,7 @@ function loadUserData() {
 function checkAdmin() {
     if (document.getElementById('admin-pwd').value === ADMIN_PASSWORD) {
         isAdmin = true;
-        localStorage.setItem(getStorageKey('admin'), 'true');
+        localStorage.setItem('flowboard_admin', 'true');
         document.getElementById('machub-locked').style.display = 'none';
         document.getElementById('machub-content').style.display = 'block';
         showToast('Accès admin accordé ✓', 'success');
@@ -1738,8 +1739,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     setInterval(()=>{if(localStorage.getItem('flowboard_gist_token'))syncToGist();},30000);
     document.addEventListener('click',e=>{if(!e.target.closest('.dropdown'))document.getElementById('dropdown-menu')?.classList.remove('active');});
 
-    // MacHub admin check on load
-    if(currentUser){isAdmin=localStorage.getItem(getStorageKey('admin'))==='true';}
+    // MacHub admin check on load — use global key (not per-user)
+    isAdmin = localStorage.getItem('flowboard_admin') === 'true';
 
     // Load shared kanban tasks for ALL visitors (read-only by default)
     const sharedTasks = localStorage.getItem('flowboard_shared_tasks');
@@ -1748,9 +1749,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     renderKanban();
     updateHomeStats();
 
-    // Init first tool view
-    document.getElementById('tool-machub').style.display='block';
-    document.getElementById('tool-machub').classList.add('active');
+    // Init first tool view — respect admin lock
+    activateTool('machub');
 });
 
 document.getElementById('task-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeTaskModal();});
