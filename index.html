@@ -12,7 +12,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .app-nav{position:fixed;top:0;left:0;right:0;height:64px;background:rgba(10,11,20,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:1000}
 .nav-brand{display:flex;align-items:center;gap:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;cursor:pointer}
 .nav-brand-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;box-shadow:0 0 20px rgba(129,140,248,0.3);animation:glow 3s ease-in-out infinite}
-.nav-brand-text{background:linear-gradient(135deg,var(--text-primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-brand-text{background:linear-gradient(135deg,var(--text-primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:4px;align-items:center}
 .nav-link{padding:8px 16px;border-radius:8px;border:none;background:transparent;color:var(--text-secondary);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px}
 .nav-link:hover{background:var(--bg-tertiary);color:var(--text-primary)}
@@ -24,10 +24,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .btn-primary{background:linear-gradient(135deg,var(--accent),var(--purple));color:white;border:none;box-shadow:0 4px 15px rgba(129,140,248,0.3)}
 .btn-primary:hover{box-shadow:0 6px 25px rgba(129,140,248,0.5);color:white}
 .btn-icon{width:36px;height:36px;padding:0;justify-content:center;border-radius:8px}
+.btn-danger{background:rgba(248,113,113,0.15);color:var(--red);border-color:rgba(248,113,113,0.3)}
+.btn-danger:hover{background:rgba(248,113,113,0.25);color:var(--red)}
 .page{display:none;padding-top:64px;min-height:100vh}
 .page.active{display:block}
 .home-hero{padding:80px 40px 60px;text-align:center;max-width:900px;margin:0 auto}
-.home-hero h1{font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:700;line-height:1.1;margin-bottom:20px;background:linear-gradient(135deg,var(--text-primary),var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.home-hero h1{font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:700;line-height:1.1;margin-bottom:20px;background:linear-gradient(135deg,var(--text-primary),var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .home-hero p{font-size:18px;color:var(--text-secondary);line-height:1.7;max-width:600px;margin:0 auto 40px}
 .home-cta{display:flex;gap:12px;justify-content:center;margin-bottom:60px}
 .home-cta .btn{padding:12px 28px;font-size:15px}
@@ -49,6 +51,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .module-desc{font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px}
 .module-meta{display:flex;gap:12px;font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace}
 .module-badge{padding:2px 8px;border-radius:99px;background:var(--bg-tertiary);border:1px solid var(--border)}
+.module-badge-locked{padding:2px 8px;border-radius:99px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:var(--red)}
 .kanban-container{padding:24px 28px;max-width:1400px;margin:0 auto}
 .kanban-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
 .kanban-header h2{font-family:'Space Grotesk',sans-serif;font-size:24px}
@@ -113,6 +116,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .tool-status{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:500}
 .status-ready{background:rgba(52,211,153,0.1);color:var(--green);border:1px solid rgba(52,211,153,0.2)}
 .status-soon{background:rgba(251,191,36,0.1);color:var(--yellow);border:1px solid rgba(251,191,36,0.2)}
+.status-locked{background:rgba(248,113,113,0.1);color:var(--red);border:1px solid rgba(248,113,113,0.2)}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:2000;opacity:0;transition:opacity 0.3s}
 .modal-overlay.active{display:flex;opacity:1}
 .modal{background:linear-gradient(145deg,var(--bg-card),var(--bg-tertiary));border-radius:var(--radius);padding:28px;width:90%;max-width:520px;box-shadow:0 25px 50px rgba(0,0,0,0.5);border:1px solid var(--border);transform:scale(0.95);transition:transform 0.3s;max-height:90vh;overflow-y:auto}
@@ -157,7 +161,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .pwd-options{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
 .pwd-option{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-primary);border-radius:8px}
 .pwd-slider{width:100%;margin-bottom:20px}
-.lol-tool{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:800px;margin:0 auto}
+.lol-tool{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:900px;margin:0 auto}
 .lol-players{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
 .lol-player-input{padding:10px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;outline:none}
 .lol-player-input:focus{border-color:var(--accent)}
@@ -218,6 +222,50 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .compat-ok{color:var(--green)}
 .compat-warn{color:var(--yellow)}
 .compat-no{color:var(--red)}
+
+/* ===== AUTH SYSTEM ===== */
+.auth-overlay{position:fixed;inset:0;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;z-index:5000}
+.auth-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;width:90%;max-width:420px;box-shadow:var(--shadow);text-align:center}
+.auth-box h2{font-family:'Space Grotesk',sans-serif;font-size:28px;margin-bottom:8px}
+.auth-box p{color:var(--text-secondary);font-size:14px;margin-bottom:28px}
+.auth-input{width:100%;padding:12px 16px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;margin-bottom:16px;outline:none;transition:all 0.2s}
+.auth-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(129,140,248,0.1)}
+.auth-error{color:var(--red);font-size:13px;margin-top:-8px;margin-bottom:16px;display:none}
+.auth-error.show{display:block}
+.user-badge{display:flex;align-items:center;gap:8px;padding:4px 12px;background:var(--bg-card);border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--text-secondary);font-family:'JetBrains Mono',monospace}
+.user-badge .avatar{width:24px;height:24px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:600}
+
+/* ===== PASSWORD VAULT ===== */
+.pwd-vault-list{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.pwd-vault-item{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all 0.2s}
+.pwd-vault-item:hover{border-color:var(--accent)}
+.pwd-vault-info{flex:1}
+.pwd-vault-name{font-weight:600;font-size:14px;margin-bottom:4px}
+.pwd-vault-meta{font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace}
+.pwd-vault-actions{display:flex;gap:6px}
+.pwd-vault-btn{padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg-tertiary);color:var(--text-secondary);font-size:12px;cursor:pointer;transition:all 0.2s}
+.pwd-vault-btn:hover{background:var(--accent);color:white;border-color:var(--accent)}
+
+/* ===== CHARACTER GENERATOR ===== */
+.char-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-top:20px}
+.char-card{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;text-align:center;transition:all 0.3s;cursor:pointer}
+.char-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+.char-card img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:12px;border:2px solid var(--border)}
+.char-card .char-name{font-weight:600;font-size:14px;margin-bottom:4px}
+.char-card .char-detail{font-size:12px;color:var(--text-secondary)}
+.char-card.selected{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 20px rgba(129,140,248,0.2)}
+.char-card.selected img{border-color:var(--accent)}
+
+/* ===== TOURNAMENT BRACKET ===== */
+.bracket-round{margin-bottom:24px}
+.bracket-round-title{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:var(--accent);margin-bottom:12px}
+.bracket-match{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;transition:all 0.2s}
+.bracket-match:hover{border-color:var(--accent)}
+.bracket-match.winner{background:rgba(52,211,153,0.05);border-color:var(--green)}
+.bracket-match .match-players{display:flex;align-items:center;gap:8px;flex:1}
+.bracket-match .match-vs{color:var(--text-muted);font-size:12px;font-family:'JetBrains Mono',monospace}
+.bracket-match .match-actions{display:flex;gap:6px}
+
 @media(max-width:1024px){.kanban-board{grid-template-columns:1fr}.home-stats{grid-template-columns:repeat(2,1fr)}.home-hero h1{font-size:36px}.lol-teams{grid-template-columns:1fr}.qr-options{grid-template-columns:1fr}.project-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}.ram-stats{grid-template-columns:1fr}}
 @media(max-width:640px){.app-nav{padding:0 16px}.nav-links{display:none}.home-hero{padding:60px 20px}.home-stats{grid-template-columns:1fr 1fr}.modules-grid{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.lol-players{grid-template-columns:1fr}.mac-table{font-size:11px}.mac-table th,.mac-table td{padding:8px}}
 ::-webkit-scrollbar{width:8px;height:8px}
@@ -226,10 +274,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
 <div class="toast-container" id="toast-container"></div>
+
+<!-- ===== AUTH OVERLAY ===== -->
+<div class="auth-overlay" id="auth-overlay">
+    <div class="auth-box">
+        <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+        <h2>Bienvenue sur FlowHub</h2>
+        <p>Entre ton pseudo pour accéder à ton espace personnel. Tes données restent sur cet appareil.</p>
+        <input type="text" class="auth-input" id="auth-username" placeholder="Ton pseudo..." maxlength="20">
+        <div class="auth-error" id="auth-error">Pseudo requis (min 2 caractères)</div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="login()">🚀 Entrer</button>
+        <p style="margin-top:16px;font-size:11px;color:var(--text-muted);">Les mots de passe sont stockés localement et liés à ton pseudo. Partage le lien, chacun a ses propres données.</p>
+    </div>
+</div>
 
 <nav class="app-nav">
     <div class="nav-brand" onclick="showPage('home')">
@@ -251,6 +313,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
         </button>
     </div>
     <div class="nav-actions">
+        <div class="user-badge" id="user-badge" style="display:none;">
+            <div class="avatar" id="user-avatar">?</div>
+            <span id="user-name">Invité</span>
+        </div>
         <div class="sync-status" id="sync-status">
             <span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>
             <span id="sync-text">Local</span>
@@ -261,6 +327,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <div class="dropdown-item" onclick="exportJSON()">📤 Exporter JSON</div>
                 <div class="dropdown-item" onclick="importJSON()">📥 Importer JSON</div>
                 <div class="dropdown-item" onclick="configureCloud()">☁️ Configurer Cloud</div>
+                <div class="dropdown-item" onclick="switchUser()">👤 Changer de compte</div>
                 <div class="dropdown-item" onclick="resetData()">🗑 Réinitialiser</div>
             </div>
         </div>
@@ -271,8 +338,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 <!-- PAGE: HOME -->
 <div class="page active" id="page-home">
     <div class="home-hero">
-        <h1>Ta plateforme<br>de productivité</h1>
-        <p>FlowHub regroupe tes outils de gestion de projet, de configuration serveur et d'utilitaires en un seul endroit. Synchronisé sur tous tes appareils.</p>
+        <h1>FlowHub</h1>
+        <p>Ton hub personnel pour gérer, comparer et créer — tout en un seul endroit.</p>
         <div class="home-cta">
             <button class="btn btn-primary" onclick="showPage('kanban')">🚀 Ouvrir le Kanban</button>
             <button class="btn" onclick="showPage('tools')">🛠️ Explorer les outils</button>
@@ -281,7 +348,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div class="home-stats">
         <div class="home-stat"><div class="home-stat-value" id="home-task-count">0</div><div class="home-stat-label">Tâches actives</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-done-count">0</div><div class="home-stat-label">Terminées</div></div>
-        <div class="home-stat"><div class="home-stat-value" id="home-tool-count">5</div><div class="home-stat-label">Outils disponibles</div></div>
+        <div class="home-stat"><div class="home-stat-value" id="home-tool-count">6</div><div class="home-stat-label">Outils disponibles</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-progress">0%</div><div class="home-stat-label">Progression</div></div>
     </div>
     <div class="home-modules">
@@ -297,7 +364,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <div class="module-desc">Kanban board avec drag & drop, priorités, tags et assignation de membres. Synchronisation cloud via GitHub Gist.</div>
                 <div class="module-meta"><span class="module-badge">Kanban</span><span class="module-badge">Cloud</span></div>
             </div>
-            <div class="module-card" onclick="showPage('tools');activateTool('machub')">
+            <div class="module-card" onclick="showPage('tools');activateTool('machub')" id="module-machub">
                 <div class="module-icon">🖥️</div>
                 <div class="module-name">Mac mini M4 Hub</div>
                 <div class="module-desc">Sélecteur interactif de projets serveur, comparatif complet des modèles Apple Silicon avec calculateur de ressources RAM/SSD/énergie.</div>
@@ -317,15 +384,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             </div>
             <div class="module-card" onclick="showPage('tools');activateTool('pwd')">
                 <div class="module-icon">🔐</div>
-                <div class="module-name">Générateur de Mots de Passe</div>
-                <div class="module-desc">Mots de passe sécurisés générés localement. Aucune donnée envoyée sur Internet. Parfait pour tes services self-hosted.</div>
+                <div class="module-name">Coffre Mots de Passe</div>
+                <div class="module-desc">Génère et sauvegarde tes mots de passe localement. Chaque utilisateur a son propre coffre sécurisé.</div>
                 <div class="module-meta"><span class="module-badge">Sécurité</span><span class="module-badge">Local</span></div>
             </div>
-            <div class="module-card" onclick="showToast('Bientôt disponible !','info')">
-                <div class="module-icon">📝</div>
-                <div class="module-name">Notes Rapides</div>
-                <div class="module-desc">Bloc-notes Markdown avec catégorisation par projet et export. Parfait pour les idées et réunions.</div>
-                <div class="module-meta"><span class="module-badge" style="border-color:var(--yellow);color:var(--yellow)">Bientôt</span></div>
+            <div class="module-card" onclick="showPage('tools');activateTool('char')">
+                <div class="module-icon">🎭</div>
+                <div class="module-name">Générateur de Personnages</div>
+                <div class="module-desc">Génère des personnages aléatoires avec nom et avatar pour tes parties LoL ou tes projets créatifs.</div>
+                <div class="module-meta"><span class="module-badge">Gaming</span><span class="module-badge">Fun</span></div>
             </div>
         </div>
     </div>
@@ -379,113 +446,149 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
         </div>
         <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;">
             <button class="btn active" id="btn-tool-machub" onclick="activateTool('machub')">🖥️ MacHub</button>
-            <button class="btn" id="btn-tool-lol" onclick="activateTool('lol')">⚔️ LoL Team Builder</button>
+            <button class="btn" id="btn-tool-lol" onclick="activateTool('lol')">⚔️ LoL</button>
             <button class="btn" id="btn-tool-qr" onclick="activateTool('qr')">📱 QR Code</button>
-            <button class="btn" id="btn-tool-pwd" onclick="activateTool('pwd')">🔐 Mots de passe</button>
+            <button class="btn" id="btn-tool-pwd" onclick="activateTool('pwd')">🔐 Coffre MDP</button>
+            <button class="btn" id="btn-tool-char" onclick="activateTool('char')">🎭 Personnages</button>
         </div>
 
         <!-- MacHub -->
         <div id="tool-machub" class="tool-view">
-            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;">
-                <div style="text-align:center;margin-bottom:32px;">
-                    <div style="font-size:48px;margin-bottom:12px;">🖥️</div>
-                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Mac mini M4 Hub</h3>
-                    <p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Comparatif complet, sélecteur de projets serveur interactif et calculateur de ressources.</p>
-                </div>
-                <div class="machub-tabs">
-                    <button class="machub-tab active" onclick="showMacTab('compare')" data-tab="compare">📊 Comparatif</button>
-                    <button class="machub-tab" onclick="showMacTab('projects')" data-tab="projects">🚀 Projets Serveur</button>
-                    <button class="machub-tab" onclick="showMacTab('ram')" data-tab="ram">🧮 Calculateur RAM</button>
-                </div>
-                <div class="machub-content active" id="tab-compare">
-                    <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Classement du plus performant au moins performant. Prix indicatifs selon la configuration.</p>
-                    <div style="overflow-x:auto;">
-                        <table class="mac-table">
-                            <thead><tr><th>Modèle</th><th>Chip</th><th>CPU</th><th>GPU</th><th>RAM Max</th><th>SSD Max</th><th>Conso Max</th><th>Conso Idle</th><th>Prix (base→max)</th></tr></thead>
-                            <tbody>
-                                <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4pro">M4 PRO</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4 Pro</a></div></td><td>M4 Pro (14c)</td><td>14 cœurs<br><small style="color:var(--text-muted)">10P+4E</small></td><td>20 cœurs</td><td>64 Go</td><td>8 To</td><td><span style="color:var(--red)">~65W</span></td><td><span style="color:var(--green)">~8W</span></td><td class="mac-price">1 599€ → 4 199€</td></tr>
-                                <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4">M4</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4</a></div></td><td>M4 (10c)</td><td>10 cœurs<br><small style="color:var(--text-muted)">4P+6E</small></td><td>10 cœurs</td><td>32 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~35W</span></td><td><span style="color:var(--green)">~5W</span></td><td class="mac-price">699€ → 1 599€</td></tr>
-                                <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2pro">M2 PRO</span><a href="https://www.apple.com/fr/mac-mini/" target="_blank" class="mac-link">Mac mini M2 Pro</a></div></td><td>M2 Pro (12c)</td><td>12 cœurs<br><small style="color:var(--text-muted)">8P+4E</small></td><td>19 cœurs</td><td>32 Go</td><td>8 To</td><td><span style="color:var(--red)">~55W</span></td><td><span style="color:var(--green)">~7W</span></td><td class="mac-price">1 499€ → 3 899€</td></tr>
-                                <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2">M2</span><a href="https://www.apple.com/fr/mac-mini/" target="_blank" class="mac-link">Mac mini M2</a></div></td><td>M2 (8c)</td><td>8 cœurs<br><small style="color:var(--text-muted)">4P+4E</small></td><td>10 cœurs</td><td>24 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~30W</span></td><td><span style="color:var(--green)">~5W</span></td><td class="mac-price">699€ → 1 399€</td></tr>
-                                <tr><td><div class="mac-model-name"><span class="mac-chip chip-m1">M1</span>Mac mini M1 (2020)</div></td><td>M1 (8c)</td><td>8 cœurs<br><small style="color:var(--text-muted)">4P+4E</small></td><td>8 cœurs</td><td>16 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~39W</span></td><td><span style="color:var(--green)">~7W</span></td><td class="mac-price">799€ → 1 299€ <small style="color:var(--text-muted)">(occasion)</small></td></tr>
-                            </tbody>
-                        </table>
+            <div id="machub-locked" style="display:none;text-align:center;padding:80px 40px;">
+                <div style="font-size:64px;margin-bottom:20px;">🔒</div>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:12px;">Accès Restreint</h3>
+                <p style="color:var(--text-secondary);max-width:400px;margin:0 auto 24px;">Cette section est réservée aux administrateurs. Entre le mot de passe admin pour continuer.</p>
+                <input type="password" class="auth-input" id="admin-pwd" placeholder="Mot de passe admin..." style="max-width:280px;margin:0 auto 16px;display:block;" onkeydown="if(event.key==='Enter')checkAdmin()">
+                <div class="auth-error" id="admin-error" style="max-width:280px;margin:0 auto 16px;">Mot de passe incorrect</div>
+                <button class="btn btn-primary" onclick="checkAdmin()" style="max-width:280px;width:100%;justify-content:center;">🔓 Déverrouiller</button>
+            </div>
+            <div id="machub-content">
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;">
+                    <div style="text-align:center;margin-bottom:32px;">
+                        <div style="font-size:48px;margin-bottom:12px;">🖥️</div>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Mac mini M4 Hub</h3>
+                        <p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Comparatif complet, sélecteur de projets serveur interactif et calculateur de ressources.</p>
                     </div>
-                    <div style="background:var(--bg-primary);border-radius:var(--radius-sm);padding:20px;margin-top:16px;">
-                        <h4 style="font-size:14px;margin-bottom:12px;color:var(--accent)">💡 Notre recommandation</h4>
-                        <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Pour un usage serveur polyvalent (media + LLM + VPN + dev), le <strong style="color:var(--text-primary)">Mac mini M4 avec 16 Go de RAM</strong> offre le meilleur rapport performance/prix/consommation. Le M4 Pro n'est utile que si tu fais du montage vidéo 4K+ ou que tu veux héberger plusieurs LLM lourds en parallèle.</p>
+                    <div class="machub-tabs">
+                        <button class="machub-tab active" onclick="showMacTab('compare')" data-tab="compare">📊 Comparatif</button>
+                        <button class="machub-tab" onclick="showMacTab('projects')" data-tab="projects">🚀 Projets Serveur</button>
+                        <button class="machub-tab" onclick="showMacTab('ram')" data-tab="ram">🧮 Calculateur RAM</button>
                     </div>
-                </div>
-                <div class="machub-content" id="tab-projects">
-                    <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Sélectionne les projets que tu veux héberger sur ton Mac mini M4. Les liens te mènent vers les repos officiels ou les guides d'installation.</p>
-                    <div class="project-grid" id="project-grid"></div>
-                    <div class="ram-meter">
-                        <h4>📊 Consommation estimée des projets sélectionnés</h4>
-                        <div class="ram-bar-container" id="ram-bar"><div class="ram-bar-segment" id="ram-used" style="width:0%;background:var(--accent)"></div><div class="ram-bar-segment" id="ram-free" style="width:100%;background:var(--bg-tertiary);color:var(--text-muted)">16 Go libres</div></div>
-                        <div class="ram-legend" id="ram-legend"></div>
-                        <div class="ram-stats">
-                            <div class="ram-stat"><div class="ram-stat-value" id="ram-total">16 Go</div><div class="ram-stat-label">RAM totale</div></div>
-                            <div class="ram-stat"><div class="ram-stat-value" id="ram-allocated">0 Go</div><div class="ram-stat-label">Allouée</div></div>
-                            <div class="ram-stat"><div class="ram-stat-value" id="ram-remaining">16 Go</div><div class="ram-stat-label">Disponible</div></div>
+                    <div class="machub-content active" id="tab-compare">
+                        <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Classement du plus performant au moins performant. Prix indicatifs selon la configuration.</p>
+                        <div style="overflow-x:auto;">
+                            <table class="mac-table">
+                                <thead><tr><th>Modèle</th><th>Chip</th><th>CPU</th><th>GPU</th><th>RAM Max</th><th>SSD Max</th><th>Conso Max</th><th>Conso Idle</th><th>Prix (base→max)</th></tr></thead>
+                                <tbody>
+                                    <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4pro">M4 PRO</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4 Pro</a></div></td><td>M4 Pro (14c)</td><td>14 cœurs<br><small style="color:var(--text-muted)">10P+4E</small></td><td>20 cœurs</td><td>64 Go</td><td>8 To</td><td><span style="color:var(--red)">~65W</span></td><td><span style="color:var(--green)">~8W</span></td><td class="mac-price">1 599€ → 4 199€</td></tr>
+                                    <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4">M4</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4</a></div></td><td>M4 (10c)</td><td>10 cœurs<br><small style="color:var(--text-muted)">4P+6E</small></td><td>10 cœurs</td><td>32 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~35W</span></td><td><span style="color:var(--green)">~5W</span></td><td class="mac-price">699€ → 1 599€</td></tr>
+                                    <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2pro">M2 PRO</span><a href="https://www.apple.com/fr/mac-mini/" target="_blank" class="mac-link">Mac mini M2 Pro</a></div></td><td>M2 Pro (12c)</td><td>12 cœurs<br><small style="color:var(--text-muted)">8P+4E</small></td><td>19 cœurs</td><td>32 Go</td><td>8 To</td><td><span style="color:var(--red)">~55W</span></td><td><span style="color:var(--green)">~7W</span></td><td class="mac-price">1 499€ → 3 899€</td></tr>
+                                    <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2">M2</span><a href="https://www.apple.com/fr/mac-mini/" target="_blank" class="mac-link">Mac mini M2</a></div></td><td>M2 (8c)</td><td>8 cœurs<br><small style="color:var(--text-muted)">4P+4E</small></td><td>10 cœurs</td><td>24 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~30W</span></td><td><span style="color:var(--green)">~5W</span></td><td class="mac-price">699€ → 1 399€</td></tr>
+                                    <tr><td><div class="mac-model-name"><span class="mac-chip chip-m1">M1</span>Mac mini M1 (2020)</div></td><td>M1 (8c)</td><td>8 cœurs<br><small style="color:var(--text-muted)">4P+4E</small></td><td>8 cœurs</td><td>16 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~39W</span></td><td><span style="color:var(--green)">~7W</span></td><td class="mac-price">799€ → 1 299€ <small style="color:var(--text-muted)">(occasion)</small></td></tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="ram-warning" id="ram-warning">⚠️ Attention : tu dépasses la capacité RAM de 16 Go. macOS utilisera le swap (SSD) ce qui réduira les performances. Pense à passer à 24 Go ou 32 Go.</div>
+                        <div style="background:var(--bg-primary);border-radius:var(--radius-sm);padding:20px;margin-top:16px;">
+                            <h4 style="font-size:14px;margin-bottom:12px;color:var(--accent)">💡 Notre recommandation</h4>
+                            <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Pour un usage serveur polyvalent (media + LLM + VPN + dev), le <strong style="color:var(--text-primary)">Mac mini M4 avec 16 Go de RAM</strong> offre le meilleur rapport performance/prix/consommation. Le M4 Pro n'est utile que si tu fais du montage vidéo 4K+ ou que tu veux héberger plusieurs LLM lourds en parallèle.</p>
+                        </div>
                     </div>
-                    <div class="compatibility-check">
-                        <h4>🎨 Compatibilité Photoshop & Apps Pro</h4>
-                        <div class="compat-item"><span class="compat-ok">✓</span> Photoshop 2025 — Parfaitement compatible, accélération Metal native</div>
-                        <div class="compat-item"><span class="compat-ok">✓</span> Illustrator — Fonctionne sans problème</div>
-                        <div class="compat-item"><span class="compat-ok">✓</span> Final Cut Pro — Excellent, encode HEVC/H.264 accéléré hardware</div>
-                        <div class="compat-item"><span class="compat-ok">✓</span> Xcode — Compilation ultra-rapide</div>
-                        <div class="compat-item"><span class="compat-warn">⚠</span> After Effects — Fonctionne mais 16 Go peut être juste pour les gros projets</div>
-                        <div class="compat-item"><span class="compat-ok">✓</span> Blender — Support Metal 3, rendu accéléré</div>
-                        <div class="compat-item"><span class="compat-ok">✓</span> DaVinci Resolve — Accélération complète via Metal</div>
+                    <div class="machub-content" id="tab-projects">
+                        <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Sélectionne les projets que tu veux héberger sur ton Mac mini M4. Les liens te mènent vers les repos officiels ou les guides d'installation.</p>
+                        <div class="project-grid" id="project-grid"></div>
+                        <div class="ram-meter">
+                            <h4>📊 Consommation estimée des projets sélectionnés</h4>
+                            <div class="ram-bar-container" id="ram-bar"><div class="ram-bar-segment" id="ram-used" style="width:0%;background:var(--accent)"></div><div class="ram-bar-segment" id="ram-free" style="width:100%;background:var(--bg-tertiary);color:var(--text-muted)">16 Go libres</div></div>
+                            <div class="ram-legend" id="ram-legend"></div>
+                            <div class="ram-stats">
+                                <div class="ram-stat"><div class="ram-stat-value" id="ram-total">16 Go</div><div class="ram-stat-label">RAM totale</div></div>
+                                <div class="ram-stat"><div class="ram-stat-value" id="ram-allocated">0 Go</div><div class="ram-stat-label">Allouée</div></div>
+                                <div class="ram-stat"><div class="ram-stat-value" id="ram-remaining">16 Go</div><div class="ram-stat-label">Disponible</div></div>
+                            </div>
+                            <div class="ram-warning" id="ram-warning">⚠️ Attention : tu dépasses la capacité RAM de 16 Go. macOS utilisera le swap (SSD) ce qui réduira les performances. Pense à passer à 24 Go ou 32 Go.</div>
+                        </div>
+                        <div class="compatibility-check">
+                            <h4>🎨 Compatibilité Photoshop & Apps Pro</h4>
+                            <div class="compat-item"><span class="compat-ok">✓</span> Photoshop 2025 — Parfaitement compatible, accélération Metal native</div>
+                            <div class="compat-item"><span class="compat-ok">✓</span> Illustrator — Fonctionne sans problème</div>
+                            <div class="compat-item"><span class="compat-ok">✓</span> Final Cut Pro — Excellent, encode HEVC/H.264 accéléré hardware</div>
+                            <div class="compat-item"><span class="compat-ok">✓</span> Xcode — Compilation ultra-rapide</div>
+                            <div class="compat-item"><span class="compat-warn">⚠</span> After Effects — Fonctionne mais 16 Go peut être juste pour les gros projets</div>
+                            <div class="compat-item"><span class="compat-ok">✓</span> Blender — Support Metal 3, rendu accéléré</div>
+                            <div class="compat-item"><span class="compat-ok">✓</span> DaVinci Resolve — Accélération complète via Metal</div>
+                        </div>
                     </div>
-                </div>
-                <div class="machub-content" id="tab-ram">
-                    <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Simule différentes configurations de RAM et vois l'impact sur tes projets.</p>
-                    <div class="form-group" style="max-width:300px;">
-                        <label class="form-label">Configuration RAM</label>
-                        <select class="form-select" id="ram-config" onchange="updateRamCalc()">
-                            <option value="8">8 Go (base)</option>
-                            <option value="16" selected>16 Go (+200€)</option>
-                            <option value="24">24 Go (+400€)</option>
-                            <option value="32">32 Go (+600€)</option>
-                        </select>
+                    <div class="machub-content" id="tab-ram">
+                        <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Simule différentes configurations de RAM et vois l'impact sur tes projets.</p>
+                        <div class="form-group" style="max-width:300px;">
+                            <label class="form-label">Configuration RAM</label>
+                            <select class="form-select" id="ram-config" onchange="updateRamCalc()">
+                                <option value="8">8 Go (base)</option>
+                                <option value="16" selected>16 Go (+200€)</option>
+                                <option value="24">24 Go (+400€)</option>
+                                <option value="32">32 Go (+600€)</option>
+                            </select>
+                        </div>
+                        <div id="ram-calc-result" style="margin-top:20px;"></div>
                     </div>
-                    <div id="ram-calc-result" style="margin-top:20px;"></div>
                 </div>
             </div>
         </div>
 
-        <!-- LoL -->
+        <!-- LoL Hub -->
         <div id="tool-lol" class="tool-view" style="display:none;">
             <div class="lol-tool">
-                <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:8px;">⚔️ LoL Team Builder & Tournoi</h3>
-                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Crée des équipes aléatoires et organise des tournois 1v1</p>
-                <div class="form-group">
-                    <label class="form-label">Joueurs (un par ligne)</label>
-                    <div class="lol-players" id="lol-players">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 1" value="Wassim">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 2" value="Jean">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 3" value="Alice">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 4" value="Thomas">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 5" value="Marie">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 6" value="Lucas">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 7" value="Emma">
-                        <input type="text" class="lol-player-input" placeholder="Joueur 8" value="Nathan">
-                    </div>
-                    <button class="btn btn-primary" onclick="generateLoLTeams()" style="width:100%;justify-content:center;">🎲 Générer les équipes</button>
+                <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:8px;">⚔️ LoL Hub</h3>
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Team Builder aléatoire et Tournoi 1v1 avec bracket</p>
+
+                <div class="machub-tabs">
+                    <button class="machub-tab active" onclick="showLoLTab('team')" data-lol-tab="team">👥 Team Builder</button>
+                    <button class="machub-tab" onclick="showLoLTab('tournament')" data-lol-tab="tournament">🏆 Tournoi 1v1</button>
                 </div>
-                <div id="lol-teams-result" style="display:none;">
-                    <div class="lol-teams">
-                        <div class="lol-team lol-team-blue"><h4>🔵 Équipe Bleue</h4><ul id="team-blue" style="list-style:none;color:var(--text-secondary);font-size:14px;line-height:2;"></ul></div>
-                        <div class="lol-team lol-team-red"><h4>🔴 Équipe Rouge</h4><ul id="team-red" style="list-style:none;color:var(--text-secondary);font-size:14px;line-height:2;"></ul></div>
+
+                <!-- Team Builder Tab -->
+                <div class="machub-content active" id="lol-tab-team">
+                    <div class="form-group">
+                        <label class="form-label">Joueurs (un par ligne)</label>
+                        <div class="lol-players" id="lol-players">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 1" value="Anas">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 2" value="Abdallah">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 3" value="Taha">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 4" value="Youssef">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 5" value="Wassim">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 6" value="Momo">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 7" value="Kissi">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 8" value="Rayane">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 9" value="Attilio">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 10" value="Hichem">
+                        </div>
+                        <button class="btn btn-primary" onclick="generateLoLTeams()" style="width:100%;justify-content:center;">🎲 Générer les équipes</button>
                     </div>
-                    <button class="btn btn-primary" onclick="generateLoLBracket()" style="width:100%;justify-content:center;margin-top:20px;">🏆 Générer le bracket 1v1</button>
-                    <div class="lol-bracket" id="lol-bracket" style="display:none;">
-                        <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:16px;">📋 Bracket Tournoi</h4>
-                        <div id="bracket-matches"></div>
+                    <div id="lol-teams-result" style="display:none;">
+                        <div class="lol-teams">
+                            <div class="lol-team lol-team-blue"><h4>🔵 Équipe Bleue</h4><ul id="team-blue" style="list-style:none;color:var(--text-secondary);font-size:14px;line-height:2;"></ul></div>
+                            <div class="lol-team lol-team-red"><h4>🔴 Équipe Rouge</h4><ul id="team-red" style="list-style:none;color:var(--text-secondary);font-size:14px;line-height:2;"></ul></div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Tournament Tab -->
+                <div class="machub-content" id="lol-tab-tournament">
+                    <div class="form-group">
+                        <label class="form-label">Participants du tournoi (un par ligne)</label>
+                        <div class="lol-players" id="tournament-players">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 1" value="Anas">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 2" value="Abdallah">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 3" value="Taha">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 4" value="Youssef">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 5" value="Wassim">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 6" value="Momo">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 7" value="Kissi">
+                            <input type="text" class="lol-player-input" placeholder="Joueur 8" value="Rayane">
+                        </div>
+                        <button class="btn btn-primary" onclick="generateTournament()" style="width:100%;justify-content:center;">🏆 Générer le bracket</button>
+                    </div>
+                    <div id="tournament-bracket" style="display:none;margin-top:24px;"></div>
                 </div>
             </div>
         </div>
@@ -528,28 +631,68 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             </div>
         </div>
 
-        <!-- Password -->
+        <!-- Password Vault -->
         <div id="tool-pwd" class="tool-view" style="display:none;">
             <div class="pwd-tool">
-                <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:8px;">🔐 Générateur de Mots de Passe</h3>
-                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;"><strong style="color:var(--yellow)">⚠️ Avertissement sécurité :</strong> Cet outil génère des mots de passe localement (rien n'est envoyé sur Internet). Cependant, pour des mots de passe critiques (banque, email principal), utilise un gestionnaire dédié comme Bitwarden ou 1Password.</p>
+                <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:8px;">🔐 Coffre Mots de Passe</h3>
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;"><strong style="color:var(--yellow)">⚠️ Avertissement sécurité :</strong> Cet outil génère et stocke des mots de passe localement (rien n'est envoyé sur Internet). Chaque utilisateur a son propre coffre lié à son pseudo.</p>
+
+                <div class="form-row" style="margin-bottom:20px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Nom du service</label>
+                        <input type="text" class="form-input" id="pwd-service" placeholder="ex: Netflix, GitHub, Discord...">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Identifiant / Email</label>
+                        <input type="text" class="form-input" id="pwd-username" placeholder="ex: mon.email@...">
+                    </div>
+                </div>
+
                 <div class="pwd-display" id="pwd-display">Clique sur "Générer" pour créer un mot de passe<div class="pwd-strength" id="pwd-strength" style="background:var(--text-muted);"></div></div>
                 <div class="pwd-options">
                     <div class="pwd-option"><span>Longueur : <span id="pwd-len-val">16</span></span><input type="range" class="pwd-slider" id="pwd-length" min="8" max="64" value="16" oninput="document.getElementById('pwd-len-val').textContent=this.value"></div>
                     <div class="pwd-option"><span>Majuscules (A-Z)</span><input type="checkbox" id="pwd-upper" checked></div>
-                    <div class="pwd-option"><span>Minuscules (a-z)</span><input type="checkbox" id="pwd-lower" checked></div>
+                    <div class="pwd-option"><span>Minuscules (a-z)</span><input type="checkbox" id="pwd-lowe" checked></div>
                     <div class="pwd-option"><span>Chiffres (0-9)</span><input type="checkbox" id="pwd-numbers" checked></div>
                     <div class="pwd-option"><span>Symboles (!@#$...)</span><input type="checkbox" id="pwd-symbols" checked></div>
                 </div>
                 <button class="btn btn-primary" onclick="generatePassword()" style="width:100%;justify-content:center;margin-bottom:12px;">🎲 Générer</button>
+                <button class="btn" onclick="savePasswordToVault()" style="width:100%;justify-content:center;margin-bottom:12px;">💾 Sauvegarder dans le coffre</button>
                 <button class="btn" onclick="copyPassword()" style="width:100%;justify-content:center;">📋 Copier</button>
+
+                <div style="margin-top:24px;">
+                    <h4 style="font-family:'Space Grotesk',sans-serif;font-size:16px;margin-bottom:12px;">📂 Mon Coffre (<span id="vault-count">0</span>)</h4>
+                    <div class="pwd-vault-list" id="pwd-vault-list"></div>
+                </div>
+
                 <div style="margin-top:20px;padding:16px;background:var(--bg-primary);border-radius:8px;font-size:12px;color:var(--text-muted);"><strong>💡 Conseil :</strong> Pour tes services self-hosted (Vaultwarden, Nextcloud), un mot de passe de 20+ caractères avec tous les types est recommandé.</div>
+            </div>
+        </div>
+
+        <!-- Character Generator -->
+        <div id="tool-char" class="tool-view" style="display:none;">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:900px;margin:0 auto;">
+                <div style="text-align:center;margin-bottom:32px;">
+                    <div style="font-size:48px;margin-bottom:12px;">🎭</div>
+                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Générateur de Personnages</h3>
+                    <p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Génère des personnages aléatoires avec nom et avatar. Parfait pour tes parties LoL ou tes projets créatifs.</p>
+                </div>
+                <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="generateCharacters(4)">🎲 Générer 4 personnages</button>
+                    <button class="btn" onclick="generateCharacters(8)">🎲 Générer 8 personnages</button>
+                    <button class="btn" onclick="generateCharacters(10)">🎲 Générer 10 personnages</button>
+                </div>
+                <div class="char-grid" id="char-grid"></div>
+                <div id="char-selected-info" style="margin-top:24px;padding:20px;background:var(--bg-primary);border-radius:var(--radius-sm);border:1px solid var(--border);display:none;">
+                    <h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:12px;">🎯 Personnage sélectionné</h4>
+                    <div id="char-selected-details"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL TÂCHE -->
 <div class="modal-overlay" id="task-modal">
     <div class="modal">
         <div class="modal-header"><h3 id="modal-title">Nouvelle tâche</h3><button class="btn btn-icon" onclick="closeTaskModal()" style="width:32px;height:32px;">✕</button></div>
@@ -572,22 +715,99 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-// ===== DATA =====
-let tasks=JSON.parse(localStorage.getItem('flowhub_tasks'))||[
-    {id:'1',title:'Configurer Vercel',desc:'Déployer FlowHub sur Vercel',priority:'high',status:'todo',tags:['devops','urgent'],date:'2026-06-05',progress:0,assignees:['JD']},
-    {id:'2',title:'Setup GitHub Gist',desc:'Configurer la synchro cloud',priority:'high',status:'progress',tags:['devops'],date:'2026-06-03',progress:45,assignees:['JD','AL']},
-    {id:'3',title:'Intégrer MacHub',desc:'Ajouter le sélecteur Mac mini',priority:'medium',status:'done',tags:['feature'],date:'2026-05-25',progress:100,assignees:[]},
-    {id:'4',title:'Ajouter LoL Team Builder',desc:"Intégrer le générateur d'équipes",priority:'medium',status:'todo',tags:['gaming','fun'],date:'2026-06-10',progress:10,assignees:['MK']}
-];
+// ===== AUTH & USER SYSTEM =====
+let currentUser = null;
+const ADMIN_PASSWORD = '1980';
+let isAdmin = false;
 
-const MEMBERS=[
+function login() {
+    const username = document.getElementById('auth-username').value.trim();
+    if (username.length < 2) {
+        document.getElementById('auth-error').classList.add('show');
+        return;
+    }
+    document.getElementById('auth-error').classList.remove('show');
+    currentUser = username;
+    localStorage.setItem('flowhub_user', username);
+
+    // Update UI
+    document.getElementById('auth-overlay').style.display = 'none';
+    document.getElementById('user-badge').style.display = 'flex';
+    document.getElementById('user-name').textContent = username;
+    document.getElementById('user-avatar').textContent = username.substring(0, 2).toUpperCase();
+
+    // Load user data
+    loadUserData();
+    showToast('Bienvenue ' + username + ' !', 'success');
+}
+
+function switchUser() {
+    document.getElementById('dropdown-menu').classList.remove('active');
+    localStorage.removeItem('flowhub_user');
+    currentUser = null;
+    isAdmin = false;
+    document.getElementById('auth-overlay').style.display = 'flex';
+    document.getElementById('user-badge').style.display = 'none';
+    document.getElementById('auth-username').value = '';
+}
+
+function getStorageKey(key) {
+    return currentUser ? 'flowhub_' + currentUser + '_' + key : 'flowhub_' + key;
+}
+
+function loadUserData() {
+    if (!currentUser) return;
+
+    // Load tasks
+    const savedTasks = localStorage.getItem(getStorageKey('tasks'));
+    if (savedTasks) {
+        try { tasks = JSON.parse(savedTasks); } catch(e) {}
+    } else {
+        tasks = [
+            {id:'1',title:'Configurer Vercel',desc:'Déployer FlowHub sur Vercel',priority:'high',status:'todo',tags:['devops','urgent'],date:'2026-06-05',progress:0,assignees:['JD']},
+            {id:'2',title:'Setup GitHub Gist',desc:'Configurer la synchro cloud',priority:'high',status:'progress',tags:['devops'],date:'2026-06-03',progress:45,assignees:['JD','AL']},
+            {id:'3',title:'Intégrer MacHub',desc:'Ajouter le sélecteur Mac mini',priority:'medium',status:'done',tags:['feature'],date:'2026-05-25',progress:100,assignees:[]},
+            {id:'4',title:'Ajouter LoL Team Builder',desc:"Intégrer le générateur d'équipes",priority:'medium',status:'todo',tags:['gaming','fun'],date:'2026-06-10',progress:10,assignees:['MK']}
+        ];
+    }
+
+    // Load password vault
+    const savedVault = localStorage.getItem(getStorageKey('vault'));
+    if (savedVault) {
+        try { passwordVault = JSON.parse(savedVault); } catch(e) { passwordVault = []; }
+    } else {
+        passwordVault = [];
+    }
+
+    // Load selected projects
+    const savedProjects = localStorage.getItem(getStorageKey('projects'));
+    if (savedProjects) {
+        try { selectedProjects = new Set(JSON.parse(savedProjects)); } catch(e) { selectedProjects = new Set(); }
+    } else {
+        selectedProjects = new Set();
+    }
+
+    // Check admin status
+    isAdmin = localStorage.getItem(getStorageKey('admin')) === 'true';
+
+    renderKanban();
+    updateHomeStats();
+    renderPasswordVault();
+    if (document.getElementById('project-grid').children.length > 0) renderProjectGrid();
+}
+
+// ===== DATA =====
+let tasks = [];
+let passwordVault = [];
+
+const MEMBERS = [
     {id:'JD',name:'Jean Dupont',color:'#818cf8',initials:'JD'},
     {id:'AL',name:'Alice Lefebvre',color:'#34d399',initials:'AL'},
     {id:'MK',name:'Marie Klein',color:'#f472b6',initials:'MK'},
     {id:'TB',name:'Thomas Bernard',color:'#fb923c',initials:'TB'}
 ];
 
-const PROJECTS=[
+const PROJECTS = [
     {id:'jellyfin',name:'Jellyfin',icon:'🎬',desc:'Serveur média open-source (alternative à Plex)',ram:1.5,link:'https://jellyfin.org/downloads/server',color:'#00a4dc'},
     {id:'emby',name:'Emby',icon:'📺',desc:'Serveur média avec transcodage hardware',ram:2,link:'https://emby.media/download.html',color:'#52b54b'},
     {id:'plex',name:'Plex',icon:'🎞️',desc:'Serveur média avec apps clients',ram:2,link:'https://www.plex.tv/media-server-downloads/',color:'#e5a00d'},
@@ -614,346 +834,394 @@ const PROJECTS=[
     {id:'moonlight',name:'Moonlight',icon:'🌙',desc:'Streaming de jeux depuis le Mac',ram:0.5,link:'https://moonlight-stream.org/',color:'#1a73e8'}
 ];
 
-let selectedProjects=new Set();
-let currentFilter='all';
-let draggedTask=null;
-let selectedAssignees=new Set();
-let qrCodeObj=null;
+let selectedProjects = new Set();
+let currentFilter = 'all';
+let draggedTask = null;
+let selectedAssignees = new Set();
+let qrCodeObj = null;
+let selectedChar = null;
 
-// ===== NAVIGATION =====
-function showPage(pageId){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-    document.getElementById('page-'+pageId).classList.add('active');
-    document.querySelector(`[data-page="${pageId}"]`)?.classList.add('active');
-    if(pageId==='home')updateHomeStats();
-    if(pageId==='kanban')renderKanban();
+// ===== ADMIN CHECK =====
+function checkAdmin() {
+    const input = document.getElementById('admin-pwd').value;
+    if (input === ADMIN_PASSWORD) {
+        isAdmin = true;
+        localStorage.setItem(getStorageKey('admin'), 'true');
+        document.getElementById('machub-locked').style.display = 'none';
+        document.getElementById('machub-content').style.display = 'block';
+        showToast('Accès admin accordé', 'success');
+    } else {
+        document.getElementById('admin-error').classList.add('show');
+        setTimeout(() => document.getElementById('admin-error').classList.remove('show'), 3000);
+    }
 }
 
-function activateTool(toolId){
-    document.querySelectorAll('.tool-view').forEach(v=>v.style.display='none');
-    document.querySelectorAll('[id^="btn-tool-"]').forEach(b=>b.classList.remove('active'));
-    document.getElementById('tool-'+toolId).style.display='block';
-    document.getElementById('btn-tool-'+toolId)?.classList.add('active');
+// ===== NAVIGATION =====
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    document.querySelector(`[data-page="${pageId}"]`)?.classList.add('active');
+    if (pageId === 'home') updateHomeStats();
+    if (pageId === 'kanban') renderKanban();
+}
+
+function activateTool(toolId) {
+    document.querySelectorAll('.tool-view').forEach(v => v.style.display = 'none');
+    document.querySelectorAll('[id^="btn-tool-"]').forEach(b => b.classList.remove('active'));
+    document.getElementById('tool-' + toolId).style.display = 'block';
+    document.getElementById('btn-tool-' + toolId)?.classList.add('active');
+
+    // Handle MacHub admin lock
+    if (toolId === 'machub') {
+        if (isAdmin) {
+            document.getElementById('machub-locked').style.display = 'none';
+            document.getElementById('machub-content').style.display = 'block';
+        } else {
+            document.getElementById('machub-locked').style.display = 'block';
+            document.getElementById('machub-content').style.display = 'none';
+        }
+    }
 }
 
 // ===== HOME STATS =====
-function updateHomeStats(){
-    const total=tasks.length;
-    const done=tasks.filter(t=>t.status==='done').length;
-    const progress=total>0?Math.round((done/total)*100):0;
-    document.getElementById('home-task-count').textContent=total;
-    document.getElementById('home-done-count').textContent=done;
-    document.getElementById('home-progress').textContent=progress+'%';
+function updateHomeStats() {
+    const total = tasks.length;
+    const done = tasks.filter(t => t.status === 'done').length;
+    const progress = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('home-task-count').textContent = total;
+    document.getElementById('home-done-count').textContent = done;
+    document.getElementById('home-progress').textContent = progress + '%';
 }
 
 // ===== KANBAN =====
-function renderKanban(){
-    const columns={todo:document.getElementById('todo-list'),progress:document.getElementById('progress-list'),done:document.getElementById('done-list')};
-    Object.values(columns).forEach(col=>col.innerHTML='');
-    const searchTerm=document.getElementById('search-input')?.value.toLowerCase()||'';
-    const filtered=tasks.filter(t=>{
-        const matchesSearch=t.title.toLowerCase().includes(searchTerm)||t.desc.toLowerCase().includes(searchTerm)||t.tags.some(tag=>tag.toLowerCase().includes(searchTerm));
-        const matchesFilter=currentFilter==='all'||t.priority===currentFilter;
-        return matchesSearch&&matchesFilter;
+function renderKanban() {
+    const columns = { todo: document.getElementById('todo-list'), progress: document.getElementById('progress-list'), done: document.getElementById('done-list') };
+    Object.values(columns).forEach(col => col.innerHTML = '');
+    const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
+    const filtered = tasks.filter(t => {
+        const matchesSearch = t.title.toLowerCase().includes(searchTerm) || t.desc.toLowerCase().includes(searchTerm) || t.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+        const matchesFilter = currentFilter === 'all' || t.priority === currentFilter;
+        return matchesSearch && matchesFilter;
     });
-    filtered.sort((a,b)=>{
-        const priorityOrder={high:0,medium:1,low:2};
-        if(priorityOrder[a.priority]!==priorityOrder[b.priority])return priorityOrder[a.priority]-priorityOrder[b.priority];
-        return new Date(a.date)-new Date(b.date);
+    filtered.sort((a, b) => {
+        const priorityOrder = { high: 0, medium: 1, low: 2 };
+        if (priorityOrder[a.priority] !== priorityOrder[b.priority]) return priorityOrder[a.priority] - priorityOrder[b.priority];
+        return new Date(a.date) - new Date(b.date);
     });
-    filtered.forEach(task=>{const card=createTaskCard(task);columns[task.status].appendChild(card);});
-    Object.entries(columns).forEach(([status,col])=>{if(col.children.length===0)col.innerHTML='<div class="empty-state"><div class="empty-state-icon">📋</div><div>Aucune tâche</div></div>';});
+    filtered.forEach(task => { const card = createTaskCard(task); columns[task.status].appendChild(card); });
+    Object.entries(columns).forEach(([status, col]) => { if (col.children.length === 0) col.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div>Aucune tâche</div></div>'; });
     updateKanbanStats();
     saveToStorage();
 }
 
-function createTaskCard(task){
-    const div=document.createElement('div');
-    div.className='task-card';
-    div.draggable=true;
-    div.dataset.id=task.id;
-    const priorityLabels={high:'Haute',medium:'Moyenne',low:'Basse'};
-    const priorityClasses={high:'priority-high',medium:'priority-medium',low:'priority-low'};
-    const tagsHtml=task.tags.map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join('');
-    const today=new Date();
-    const dueDate=task.date?new Date(task.date):null;
-    let dateClass='';let dateIcon='📅';
-    if(dueDate){const diffDays=Math.ceil((dueDate-today)/(1000*60*60*24));if(diffDays<0){dateClass='overdue';dateIcon='⚠️';}else if(diffDays<=2){dateClass='soon';dateIcon='⏰';}}
-    const progress=task.progress||0;
-    const assigneesHtml=(task.assignees||[]).map(aid=>{const member=MEMBERS.find(m=>m.id===aid);if(!member)return'';return`<div class="assignee" style="background:${member.color}" title="${member.name}">${member.initials}</div>`;}).join('');
-    div.innerHTML=`<div class="task-priority ${priorityClasses[task.priority]}">${priorityLabels[task.priority]}</div><div class="task-title">${escapeHtml(task.title)}</div>${task.desc?`<div class="task-desc">${escapeHtml(task.desc)}</div>`:''}<div class="task-meta"><div class="task-tags">${tagsHtml}</div><div class="task-date ${dateClass}">${dateIcon} ${formatDate(task.date)}</div></div>${assigneesHtml?`<div class="task-assignees">${assigneesHtml}</div>`:''}${progress>0?`<div class="task-progress"><div class="task-progress-bar" style="width:${progress}%"></div></div>`:''}<div class="task-actions"><button class="task-btn" onclick="editTask('${task.id}')" title="Modifier">✎</button><button class="task-btn" onclick="deleteTask('${task.id}')" title="Supprimer">🗑</button></div>`;
-    div.addEventListener('dragstart',handleDragStart);
-    div.addEventListener('dragend',handleDragEnd);
+function createTaskCard(task) {
+    const div = document.createElement('div');
+    div.className = 'task-card';
+    div.draggable = true;
+    div.dataset.id = task.id;
+    const priorityLabels = { high: 'Haute', medium: 'Moyenne', low: 'Basse' };
+    const priorityClasses = { high: 'priority-high', medium: 'priority-medium', low: 'priority-low' };
+    const tagsHtml = task.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('');
+    const today = new Date();
+    const dueDate = task.date ? new Date(task.date) : null;
+    let dateClass = ''; let dateIcon = '📅';
+    if (dueDate) { const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24)); if (diffDays < 0) { dateClass = 'overdue'; dateIcon = '⚠️'; } else if (diffDays <= 2) { dateClass = 'soon'; dateIcon = '⏰'; } }
+    const progress = task.progress || 0;
+    const assigneesHtml = (task.assignees || []).map(aid => { const member = MEMBERS.find(m => m.id === aid); if (!member) return ''; return `<div class="assignee" style="background:${member.color}" title="${member.name}">${member.initials}</div>`; }).join('');
+    div.innerHTML = `<div class="task-priority ${priorityClasses[task.priority]}">${priorityLabels[task.priority]}</div><div class="task-title">${escapeHtml(task.title)}</div>${task.desc ? `<div class="task-desc">${escapeHtml(task.desc)}</div>` : ''}<div class="task-meta"><div class="task-tags">${tagsHtml}</div><div class="task-date ${dateClass}">${dateIcon} ${formatDate(task.date)}</div></div>${assigneesHtml ? `<div class="task-assignees">${assigneesHtml}</div>` : ''}${progress > 0 ? `<div class="task-progress"><div class="task-progress-bar" style="width:${progress}%"></div></div>` : ''}<div class="task-actions"><button class="task-btn" onclick="editTask('${task.id}')" title="Modifier">✎</button><button class="task-btn" onclick="deleteTask('${task.id}')" title="Supprimer">🗑</button></div>`;
+    div.addEventListener('dragstart', handleDragStart);
+    div.addEventListener('dragend', handleDragEnd);
     return div;
 }
 
-function updateKanbanStats(){
-    const counts={todo:0,progress:0,done:0};
-    tasks.forEach(t=>counts[t.status]++);
-    document.getElementById('badge-todo').textContent=counts.todo;
-    document.getElementById('badge-progress').textContent=counts.progress;
-    document.getElementById('badge-done').textContent=counts.done;
+function updateKanbanStats() {
+    const counts = { todo: 0, progress: 0, done: 0 };
+    tasks.forEach(t => counts[t.status]++);
+    document.getElementById('badge-todo').textContent = counts.todo;
+    document.getElementById('badge-progress').textContent = counts.progress;
+    document.getElementById('badge-done').textContent = counts.done;
 }
 
 // ===== DRAG & DROP =====
-function setupDragAndDrop(){
-    document.querySelectorAll('.kanban-column').forEach(col=>{
-        col.addEventListener('dragover',handleDragOver);
-        col.addEventListener('dragleave',handleDragLeave);
-        col.addEventListener('drop',handleDrop);
+function setupDragAndDrop() {
+    document.querySelectorAll('.kanban-column').forEach(col => {
+        col.addEventListener('dragover', handleDragOver);
+        col.addEventListener('dragleave', handleDragLeave);
+        col.addEventListener('drop', handleDrop);
     });
 }
 
-function handleDragStart(e){draggedTask=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
-function handleDragEnd(e){this.classList.remove('dragging');draggedTask=null;document.querySelectorAll('.kanban-column').forEach(col=>col.classList.remove('drag-over'));}
-function handleDragOver(e){e.preventDefault();this.classList.add('drag-over');}
-function handleDragLeave(e){this.classList.remove('drag-over');}
+function handleDragStart(e) { draggedTask = this; this.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; }
+function handleDragEnd(e) { this.classList.remove('dragging'); draggedTask = null; document.querySelectorAll('.kanban-column').forEach(col => col.classList.remove('drag-over')); }
+function handleDragOver(e) { e.preventDefault(); this.classList.add('drag-over'); }
+function handleDragLeave(e) { this.classList.remove('drag-over'); }
 
-function handleDrop(e){
+function handleDrop(e) {
     e.preventDefault();
     this.classList.remove('drag-over');
-    if(!draggedTask)return;
-    const taskId=draggedTask.dataset.id;
-    const newStatus=this.dataset.status;
-    const task=tasks.find(t=>t.id===taskId);
-    if(task&&task.status!==newStatus){
-        task.status=newStatus;
-        if(newStatus==='done')task.progress=100;
-        if(newStatus==='todo')task.progress=0;
+    if (!draggedTask) return;
+    const taskId = draggedTask.dataset.id;
+    const newStatus = this.dataset.status;
+    const task = tasks.find(t => t.id === taskId);
+    if (task && task.status !== newStatus) {
+        task.status = newStatus;
+        if (newStatus === 'done') task.progress = 100;
+        if (newStatus === 'todo') task.progress = 0;
         renderKanban();
-        showToast('Tâche déplacée','success');
+        showToast('Tâche déplacée', 'success');
     }
 }
 
 // ===== MODAL =====
-function openTaskModal(taskId=null){
-    const modal=document.getElementById('task-modal');
-    const title=document.getElementById('modal-title');
+function openTaskModal(taskId = null) {
+    const modal = document.getElementById('task-modal');
+    const title = document.getElementById('modal-title');
     selectedAssignees.clear();
-    const selector=document.getElementById('assignee-selector');
-    selector.innerHTML='';
-    MEMBERS.forEach(m=>{
-        const div=document.createElement('div');
-        div.className='assignee-option';
-        div.style.background=m.color;
-        div.textContent=m.initials;
-        div.title=m.name;
-        div.onclick=()=>{div.classList.toggle('selected');if(selectedAssignees.has(m.id))selectedAssignees.delete(m.id);else selectedAssignees.add(m.id);};
+    const selector = document.getElementById('assignee-selector');
+    selector.innerHTML = '';
+    MEMBERS.forEach(m => {
+        const div = document.createElement('div');
+        div.className = 'assignee-option';
+        div.style.background = m.color;
+        div.textContent = m.initials;
+        div.title = m.name;
+        div.onclick = () => { div.classList.toggle('selected'); if (selectedAssignees.has(m.id)) selectedAssignees.delete(m.id); else selectedAssignees.add(m.id); };
         selector.appendChild(div);
     });
-    if(taskId){
-        const task=tasks.find(t=>t.id===taskId);
-        if(!task)return;
-        title.textContent='Modifier la tâche';
-        document.getElementById('task-id').value=task.id;
-        document.getElementById('task-title').value=task.title;
-        document.getElementById('task-desc').value=task.desc||'';
-        document.getElementById('task-priority').value=task.priority;
-        document.getElementById('task-status').value=task.status;
-        document.getElementById('task-progress').value=task.progress||0;
-        document.getElementById('progress-val').textContent=(task.progress||0)+'%';
-        document.getElementById('task-tags').value=task.tags.join(', ');
-        document.getElementById('task-date').value=task.date;
-        (task.assignees||[]).forEach(aid=>{selectedAssignees.add(aid);const member=MEMBERS.find(m=>m.id===aid);if(member){const opt=Array.from(selector.children).find(el=>el.title===member.name);if(opt)opt.classList.add('selected');}});
-    }else{
-        title.textContent='Nouvelle tâche';
+    if (taskId) {
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
+        title.textContent = 'Modifier la tâche';
+        document.getElementById('task-id').value = task.id;
+        document.getElementById('task-title').value = task.title;
+        document.getElementById('task-desc').value = task.desc || '';
+        document.getElementById('task-priority').value = task.priority;
+        document.getElementById('task-status').value = task.status;
+        document.getElementById('task-progress').value = task.progress || 0;
+        document.getElementById('progress-val').textContent = (task.progress || 0) + '%';
+        document.getElementById('task-tags').value = task.tags.join(', ');
+        document.getElementById('task-date').value = task.date;
+        (task.assignees || []).forEach(aid => { selectedAssignees.add(aid); const member = MEMBERS.find(m => m.id === aid); if (member) { const opt = Array.from(selector.children).find(el => el.title === member.name); if (opt) opt.classList.add('selected'); } });
+    } else {
+        title.textContent = 'Nouvelle tâche';
         document.getElementById('task-form').reset();
-        document.getElementById('task-id').value='';
-        document.getElementById('task-date').value=new Date().toISOString().split('T')[0];
-        document.getElementById('progress-val').textContent='0%';
+        document.getElementById('task-id').value = '';
+        document.getElementById('task-date').value = new Date().toISOString().split('T')[0];
+        document.getElementById('progress-val').textContent = '0%';
     }
     modal.classList.add('active');
 }
 
-function closeTaskModal(){document.getElementById('task-modal').classList.remove('active');}
+function closeTaskModal() { document.getElementById('task-modal').classList.remove('active'); }
 
-function saveTask(e){
+function saveTask(e) {
     e.preventDefault();
-    const id=document.getElementById('task-id').value;
-    const title=document.getElementById('task-title').value;
-    const desc=document.getElementById('task-desc').value;
-    const priority=document.getElementById('task-priority').value;
-    const status=document.getElementById('task-status').value;
-    const progress=parseInt(document.getElementById('task-progress').value);
-    const tags=document.getElementById('task-tags').value.split(',').map(t=>t.trim()).filter(t=>t);
-    const date=document.getElementById('task-date').value;
-    if(id){
-        const task=tasks.find(t=>t.id===id);
-        if(task)Object.assign(task,{title,desc,priority,status,progress,tags,date,assignees:[...selectedAssignees]});
-    }else{
-        tasks.push({id:Date.now().toString(),title,desc,priority,status,progress,tags,date,assignees:[...selectedAssignees]});
+    const id = document.getElementById('task-id').value;
+    const title = document.getElementById('task-title').value;
+    const desc = document.getElementById('task-desc').value;
+    const priority = document.getElementById('task-priority').value;
+    const status = document.getElementById('task-status').value;
+    const progress = parseInt(document.getElementById('task-progress').value);
+    const tags = document.getElementById('task-tags').value.split(',').map(t => t.trim()).filter(t => t);
+    const date = document.getElementById('task-date').value;
+    if (id) {
+        const task = tasks.find(t => t.id === id);
+        if (task) Object.assign(task, { title, desc, priority, status, progress, tags, date, assignees: [...selectedAssignees] });
+    } else {
+        tasks.push({ id: Date.now().toString(), title, desc, priority, status, progress, tags, date, assignees: [...selectedAssignees] });
     }
     closeTaskModal();
     renderKanban();
     updateHomeStats();
-    showToast(id?'Tâche mise à jour':'Tâche créée','success');
+    showToast(id ? 'Tâche mise à jour' : 'Tâche créée', 'success');
 }
 
-function editTask(id){openTaskModal(id);}
+function editTask(id) { openTaskModal(id); }
 
-function deleteTask(id){
-    if(confirm('Supprimer cette tâche ?')){
-        tasks=tasks.filter(t=>t.id!==id);
+function deleteTask(id) {
+    if (confirm('Supprimer cette tâche ?')) {
+        tasks = tasks.filter(t => t.id !== id);
         renderKanban();
         updateHomeStats();
-        showToast('Tâche supprimée','info');
+        showToast('Tâche supprimée', 'info');
     }
 }
 
 // ===== FILTERS =====
-function filterKanban(){renderKanban();}
-function setKanbanFilter(filter,btn){
-    currentFilter=filter;
-    document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+function filterKanban() { renderKanban(); }
+function setKanbanFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
     renderKanban();
 }
 
 // ===== EXPORT / IMPORT =====
-function exportJSON(){
+function exportJSON() {
     document.getElementById('dropdown-menu').classList.remove('active');
-    const data=JSON.stringify(tasks,null,2);
-    const blob=new Blob([data],{type:'application/json'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download=`flowhub-export-${new Date().toISOString().split('T')[0]}.json`;
+    const data = JSON.stringify({ tasks, passwordVault, selectedProjects: [...selectedProjects] }, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `flowhub-export-${currentUser || 'anonymous'}-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Export réussi','success');
+    showToast('Export réussi', 'success');
 }
 
-function importJSON(){
+function importJSON() {
     document.getElementById('dropdown-menu').classList.remove('active');
-    const input=document.createElement('input');
-    input.type='file';
-    input.accept='.json';
-    input.onchange=(e)=>{
-        const file=e.target.files[0];
-        if(!file)return;
-        const reader=new FileReader();
-        reader.onload=(event)=>{
-            try{
-                const data=JSON.parse(event.target.result);
-                if(Array.isArray(data)){tasks=data;renderKanban();updateHomeStats();showToast('Import réussi','success');}
-            }catch(err){showToast('Fichier invalide','error');}
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const data = JSON.parse(event.target.result);
+                if (data.tasks && Array.isArray(data.tasks)) { tasks = data.tasks; }
+                if (data.passwordVault && Array.isArray(data.passwordVault)) { passwordVault = data.passwordVault; }
+                if (data.selectedProjects) { selectedProjects = new Set(data.selectedProjects); }
+                renderKanban();
+                updateHomeStats();
+                renderPasswordVault();
+                showToast('Import réussi', 'success');
+            } catch (err) { showToast('Fichier invalide', 'error'); }
         };
         reader.readAsText(file);
     };
     input.click();
 }
 
-function resetData(){
+function resetData() {
     document.getElementById('dropdown-menu').classList.remove('active');
-    if(confirm('Réinitialiser toutes les données ?')){
-        localStorage.removeItem('flowhub_tasks');
-        tasks=[];
+    if (confirm('Réinitialiser toutes les données ?')) {
+        localStorage.removeItem(getStorageKey('tasks'));
+        localStorage.removeItem(getStorageKey('vault'));
+        localStorage.removeItem(getStorageKey('projects'));
+        tasks = [];
+        passwordVault = [];
+        selectedProjects = new Set();
         renderKanban();
         updateHomeStats();
-        showToast('Données réinitialisées','info');
+        renderPasswordVault();
+        showToast('Données réinitialisées', 'info');
     }
 }
 
-function configureCloud(){
+function configureCloud() {
     document.getElementById('dropdown-menu').classList.remove('active');
-    const token=prompt('efc2fbf0f71a26056db67cc448c75458');
-    if(token===null)return;
-    if(token===''){localStorage.removeItem('flowhub_gist_token');localStorage.removeItem('flowhub_gist_id');updateSyncStatus('local');showToast('Synchro cloud désactivée','info');return;}
-    localStorage.setItem('flowhub_gist_token',token);
+    const token = prompt('Entre ton token GitHub Gist (laisse vide pour désactiver):');
+    if (token === null) return;
+    if (token === '') { localStorage.removeItem('flowhub_gist_token'); localStorage.removeItem('flowhub_gist_id'); updateSyncStatus('local'); showToast('Synchro cloud désactivée', 'info'); return; }
+    localStorage.setItem('flowhub_gist_token', token);
     syncToGist();
 }
 
 // ===== GITHUB GIST SYNC =====
-async function syncToGist(){
-    const token=localStorage.getItem('flowhub_gist_token');
-    if(!token)return;
+async function syncToGist() {
+    const token = localStorage.getItem('flowhub_gist_token');
+    if (!token) return;
     updateSyncStatus('syncing');
-    try{
-        let gistId=localStorage.getItem('flowhub_gist_id');
-        const data=JSON.stringify(tasks,null,2);
-        if(gistId){
-            await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'flowhub-data.json':{content:data}},description:'FlowHub - Données de synchronisation'})});
-        }else{
-            const res=await fetch('https://api.github.com/gists',{method:'POST',headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},body:JSON.stringify({public:false,description:'FlowHub - Données de synchronisation',files:{'flowhub-data.json':{content:data}}})});
-            const json=await res.json();
-            if(json.id)localStorage.setItem('flowhub_gist_id',json.id);
+    try {
+        let gistId = localStorage.getItem('flowhub_gist_id');
+        const data = JSON.stringify({ tasks, passwordVault, selectedProjects: [...selectedProjects] }, null, 2);
+        if (gistId) {
+            await fetch(`https://api.github.com/gists/${gistId}`, { method: 'PATCH', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ files: { 'flowhub-data.json': { content: data } }, description: 'FlowHub - Données de synchronisation' }) });
+        } else {
+            const res = await fetch('https://api.github.com/gists', { method: 'POST', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ public: false, description: 'FlowHub - Données de synchronisation', files: { 'flowhub-data.json': { content: data } } }) });
+            const json = await res.json();
+            if (json.id) localStorage.setItem('flowhub_gist_id', json.id);
         }
         updateSyncStatus('synced');
-        showToast('Synchronisé sur GitHub Gist','success');
-    }catch(err){updateSyncStatus('error');showToast('Erreur de synchro cloud','error');}
+        showToast('Synchronisé sur GitHub Gist', 'success');
+    } catch (err) { updateSyncStatus('error'); showToast('Erreur de synchro cloud', 'error'); }
 }
 
-async function loadFromGist(){
-    const token=localStorage.getItem('flowhub_gist_token');
-    const gistId=localStorage.getItem('flowhub_gist_id');
-    if(!token||!gistId)return;
-    try{
-        const res=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`token ${token}`}});
-        const json=await res.json();
-        const content=json.files['flowhub-data.json']?.content;
-        if(content){tasks=JSON.parse(content);renderKanban();updateHomeStats();updateSyncStatus('synced');}
-    }catch(err){updateSyncStatus('error');}
+async function loadFromGist() {
+    const token = localStorage.getItem('flowhub_gist_token');
+    const gistId = localStorage.getItem('flowhub_gist_id');
+    if (!token || !gistId) return;
+    try {
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers: { 'Authorization': `token ${token}` } });
+        const json = await res.json();
+        const content = json.files['flowhub-data.json']?.content;
+        if (content) {
+            const data = JSON.parse(content);
+            if (data.tasks) tasks = data.tasks;
+            if (data.passwordVault) passwordVault = data.passwordVault;
+            if (data.selectedProjects) selectedProjects = new Set(data.selectedProjects);
+            renderKanban();
+            updateHomeStats();
+            renderPasswordVault();
+            updateSyncStatus('synced');
+        }
+    } catch (err) { updateSyncStatus('error'); }
 }
 
-function updateSyncStatus(state){
-    const el=document.getElementById('sync-status');
-    const txt=document.getElementById('sync-text');
-    el.className='sync-status '+state;
-    const labels={local:'Local',syncing:'Sync...',synced:'Cloud ✓',error:'Erreur'};
-    txt.textContent=labels[state]||'Local';
+function updateSyncStatus(state) {
+    const el = document.getElementById('sync-status');
+    const txt = document.getElementById('sync-text');
+    el.className = 'sync-status ' + state;
+    const labels = { local: 'Local', syncing: 'Sync...', synced: 'Cloud ✓', error: 'Erreur' };
+    txt.textContent = labels[state] || 'Local';
 }
 
 // ===== MACHUB =====
-function showMacTab(tabId){
-    document.querySelectorAll('.machub-tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.machub-content').forEach(c=>c.classList.remove('active'));
+function showMacTab(tabId) {
+    document.querySelectorAll('.machub-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.machub-content').forEach(c => c.classList.remove('active'));
     document.querySelector(`[data-tab="${tabId}"]`)?.classList.add('active');
-    document.getElementById('tab-'+tabId)?.classList.add('active');
-    if(tabId==='projects')renderProjectGrid();
+    document.getElementById('tab-' + tabId)?.classList.add('active');
+    if (tabId === 'projects') renderProjectGrid();
 }
 
-function renderProjectGrid(){
-    const grid=document.getElementById('project-grid');
-    if(!grid)return;
-    grid.innerHTML='';
-    PROJECTS.forEach(p=>{
-        const card=document.createElement('div');
-        card.className='project-card'+(selectedProjects.has(p.id)?' selected':'');
-        card.innerHTML=`<div class="project-icon">${p.icon}</div><div class="project-name">${p.name}</div><div class="project-desc">${p.desc}</div><div class="project-ram">💾 ~${p.ram} Go RAM</div>`;
-        card.onclick=()=>toggleProject(p.id);
+function renderProjectGrid() {
+    const grid = document.getElementById('project-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    PROJECTS.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'project-card' + (selectedProjects.has(p.id) ? ' selected' : '');
+        card.innerHTML = `<div class="project-icon">${p.icon}</div><div class="project-name">${p.name}</div><div class="project-desc">${p.desc}</div><div class="project-ram">💾 ~${p.ram} Go RAM</div>`;
+        card.onclick = () => toggleProject(p.id);
         grid.appendChild(card);
     });
     updateRamMeter();
 }
 
-function toggleProject(id){
-    if(selectedProjects.has(id))selectedProjects.delete(id);
+function toggleProject(id) {
+    if (selectedProjects.has(id)) selectedProjects.delete(id);
     else selectedProjects.add(id);
+    localStorage.setItem(getStorageKey('projects'), JSON.stringify([...selectedProjects]));
     renderProjectGrid();
 }
 
-function updateRamMeter(){
-    const totalRam=16;
-    let usedRam=0;
-    const segments=[];
-    selectedProjects.forEach(pid=>{const p=PROJECTS.find(x=>x.id===pid);if(p){usedRam+=p.ram;segments.push({name:p.name,ram:p.ram,color:p.color});}});
-    const usedPct=Math.min((usedRam/totalRam)*100,100);
-    const freeRam=Math.max(totalRam-usedRam,0);
-    const freePct=100-usedPct;
-    const bar=document.getElementById('ram-bar');
-    const legend=document.getElementById('ram-legend');
-    if(bar){
-        let barHtml='';
-        segments.forEach(s=>{const pct=(s.ram/totalRam)*100;barHtml+=`<div class="ram-bar-segment" style="width:${pct}%;background:${s.color}" title="${s.name}: ${s.ram} Go">${s.name}</div>`;});
-        if(freeRam>0)barHtml+=`<div class="ram-bar-segment" style="width:${freePct}%;background:var(--bg-tertiary);color:var(--text-muted)">${freeRam.toFixed(1)} Go libres</div>`;
-        bar.innerHTML=barHtml;
+function updateRamMeter() {
+    const totalRam = 16;
+    let usedRam = 0;
+    const segments = [];
+    selectedProjects.forEach(pid => { const p = PROJECTS.find(x => x.id === pid); if (p) { usedRam += p.ram; segments.push({ name: p.name, ram: p.ram, color: p.color }); } });
+    const usedPct = Math.min((usedRam / totalRam) * 100, 100);
+    const freeRam = Math.max(totalRam - usedRam, 0);
+    const freePct = 100 - usedPct;
+    const bar = document.getElementById('ram-bar');
+    const legend = document.getElementById('ram-legend');
+    if (bar) {
+        let barHtml = '';
+        segments.forEach(s => { const pct = (s.ram / totalRam) * 100; barHtml += `<div class="ram-bar-segment" style="width:${pct}%;background:${s.color}" title="${s.name}: ${s.ram} Go">${s.name}</div>`; });
+        if (freeRam > 0) barHtml += `<div class="ram-bar-segment" style="width:${freePct}%;background:var(--bg-tertiary);color:var(--text-muted)">${freeRam.toFixed(1)} Go libres</div>`;
+        bar.innerHTML = barHtml;
     }
-    if(legend)legend.innerHTML=segments.map(s=>`<div class="ram-legend-item"><div class="ram-legend-dot" style="background:${s.color}"></div><span>${s.name} — ${s.ram} Go</span></div>`).join('');
-    document.getElementById('ram-allocated').textContent=usedRam.toFixed(1)+' Go';
-    document.getElementById('ram-remaining').textContent=freeRam.toFixed(1)+' Go';
-    const warning=document.getElementById('ram-warning');
-    if(warning)warning.classList.toggle('show',usedRam>totalRam);
+    if (legend) legend.innerHTML = segments.map(s => `<div class="ram-legend-item"><div class="ram-legend-dot" style="background:${s.color}"></div><span>${s.name} — ${s.ram} Go</span></div>`).join('');
+    document.getElementById('ram-allocated').textContent = usedRam.toFixed(1) + ' Go';
+    document.getElementById('ram-remaining').textContent = freeRam.toFixed(1) + ' Go';
+    const warning = document.getElementById('ram-warning');
+    if (warning) warning.classList.toggle('show', usedRam > totalRam);
 }
 
 function updateRamCalc() {
@@ -968,153 +1236,368 @@ function updateRamCalc() {
     container.innerHTML = `<div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;padding:20px;"><h4 style="margin-bottom:12px;font-family:'Space Grotesk',sans-serif;">Configuration ${config} Go</h4><p style="color:var(--text-secondary);font-size:13px;line-height:1.7;margin-bottom:12px;">${rec}</p><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:12px;color:var(--text-muted);"><div>🎬 Jellyfin: OK</div><div>🧠 Ollama (7B): ${config >= 16 ? 'OK' : 'Trop juste'}</div><div>🧠 Ollama (13B): ${config >= 24 ? 'OK' : 'Non'}</div><div>🎨 Photoshop: ${config >= 16 ? 'OK' : 'Lent'}</div><div>☁️ Nextcloud: OK</div><div>🏠 Home Assistant: OK</div></div></div>`;
 }
 
-// ===== LOL TOOL =====
-function generateLoLTeams(){
-    const inputs=document.querySelectorAll('.lol-player-input');
-    const players=Array.from(inputs).map(i=>i.value.trim()).filter(v=>v);
-    if(players.length<2){showToast('Ajoute au moins 2 joueurs','error');return;}
-    const shuffled=[...players].sort(()=>Math.random()-0.5);
-    const mid=Math.ceil(shuffled.length/2);
-    const team1=shuffled.slice(0,mid);
-    const team2=shuffled.slice(mid);
-    document.getElementById('team-blue').innerHTML=team1.map(p=>`<li>👤 ${escapeHtml(p)}</li>`).join('');
-    document.getElementById('team-red').innerHTML=team2.map(p=>`<li>👤 ${escapeHtml(p)}</li>`).join('');
-    document.getElementById('lol-teams-result').style.display='block';
-    document.getElementById('lol-bracket').style.display='none';
-    showToast('Équipes générées !','success');
+// ===== LOL HUB =====
+function showLoLTab(tabId) {
+    document.querySelectorAll('[data-lol-tab]').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('[id^="lol-tab-"]').forEach(c => c.classList.remove('active'));
+    document.querySelector(`[data-lol-tab="${tabId}"]`)?.classList.add('active');
+    document.getElementById('lol-tab-' + tabId)?.classList.add('active');
 }
 
-function generateLoLBracket() {
-    const inputs = document.querySelectorAll('.lol-player-input');
+function generateLoLTeams() {
+    const inputs = document.querySelectorAll('#lol-players .lol-player-input');
+    const players = Array.from(inputs).map(i => i.value.trim()).filter(v => v);
+    if (players.length < 2) { showToast('Ajoute au moins 2 joueurs', 'error'); return; }
+    const shuffled = [...players].sort(() => Math.random() - 0.5);
+    const mid = Math.ceil(shuffled.length / 2);
+    const team1 = shuffled.slice(0, mid);
+    const team2 = shuffled.slice(mid);
+    document.getElementById('team-blue').innerHTML = team1.map(p => `<li>👤 ${escapeHtml(p)}</li>`).join('');
+    document.getElementById('team-red').innerHTML = team2.map(p => `<li>👤 ${escapeHtml(p)}</li>`).join('');
+    document.getElementById('lol-teams-result').style.display = 'block';
+    showToast('Équipes générées !', 'success');
+}
+
+function generateTournament() {
+    const inputs = document.querySelectorAll('#tournament-players .lol-player-input');
     const players = Array.from(inputs).map(i => i.value.trim()).filter(v => v);
     if (players.length < 2) { showToast('Ajoute au moins 2 joueurs', 'error'); return; }
     const shuffled = [...players].sort(() => Math.random() - 0.5);
     const matches = [];
     for (let i = 0; i < shuffled.length; i += 2) {
-        if (shuffled[i + 1]) matches.push({ p1: shuffled[i], p2: shuffled[i + 1], round: 1 });
-        else matches.push({ p1: shuffled[i], p2: 'BYE', round: 1, bye: true });
+        if (shuffled[i + 1]) matches.push({ p1: shuffled[i], p2: shuffled[i + 1], round: 1, winner: null });
+        else matches.push({ p1: shuffled[i], p2: 'BYE', round: 1, bye: true, winner: shuffled[i] });
     }
-    const container = document.getElementById('bracket-matches');
-    container.innerHTML = `<div style="margin-bottom:16px;font-size:14px;font-weight:600;color:var(--accent)">Tour 1 — Quarts de finale</div>${matches.map((m, i) => `<div class="lol-match ${m.bye ? 'lol-match-winner' : ''}"><div><div style="font-weight:600">${escapeHtml(m.p1)}</div><div style="font-size:12px;color:var(--text-muted)">vs</div><div style="font-weight:600">${escapeHtml(m.p2)}</div></div><div style="display:flex;gap:8px;">${m.bye ? '<span style="color:var(--green);font-size:12px">✓ Qualifié d\'office</span>' : `<button class="btn" style="font-size:11px;padding:4px 10px" onclick="this.parentElement.parentElement.classList.add('lol-match-winner');showToast('${escapeHtml(m.p1)} gagne !','success')">${escapeHtml(m.p1)} gagne</button><button class="btn" style="font-size:11px;padding:4px 10px" onclick="this.parentElement.parentElement.classList.add('lol-match-winner');showToast('${escapeHtml(m.p2)} gagne !','success')">${escapeHtml(m.p2)} gagne</button>`}</div></div>`).join('')}`;
-    document.getElementById('lol-bracket').style.display = 'block';
+
+    let html = '<div class="bracket-round"><div class="bracket-round-title">Tour 1 — Quarts de finale</div>';
+    matches.forEach((m, i) => {
+        html += `<div class="bracket-match ${m.bye ? 'winner' : ''}" id="match-r1-${i}">
+            <div class="match-players">
+                <span style="font-weight:600">${escapeHtml(m.p1)}</span>
+                <span class="match-vs">vs</span>
+                <span style="font-weight:600">${escapeHtml(m.p2)}</span>
+            </div>
+            <div class="match-actions">
+                ${m.bye ? '<span style="color:var(--green);font-size:12px">✓ Qualifié</span>' : 
+                `<button class="pwd-vault-btn" onclick="setWinner('match-r1-${i}', '${escapeHtml(m.p1)}')">${escapeHtml(m.p1)} gagne</button>
+                <button class="pwd-vault-btn" onclick="setWinner('match-r1-${i}', '${escapeHtml(m.p2)}')">${escapeHtml(m.p2)} gagne</button>`}
+            </div>
+        </div>`;
+    });
+    html += '</div>';
+
+    document.getElementById('tournament-bracket').innerHTML = html;
+    document.getElementById('tournament-bracket').style.display = 'block';
     showToast('Bracket généré !', 'success');
 }
 
-// ===== QR CODE =====
-function updateQRForm(){
-    const type=document.getElementById('qr-type').value;
-    document.getElementById('qr-form-url').style.display=type==='url'?'block':'none';
-    document.getElementById('qr-form-wifi').style.display=type==='wifi'?'block':'none';
-    document.getElementById('qr-form-vcard').style.display=type==='vcard'?'block':'none';
-    document.getElementById('qr-form-text').style.display=type==='text'?'block':'none';
-    document.getElementById('qr-result').style.display='none';
-}
-
-function generateQR(){
-    const type=document.getElementById('qr-type').value;
-    let text='';
-    if(type==='url')text=document.getElementById('qr-url').value;
-    else if(type==='wifi'){const ssid=document.getElementById('qr-ssid').value;const pwd=document.getElementById('qr-password').value;const enc=document.getElementById('qr-encryption').value;text=`WIFI:T:${enc};S:${ssid};P:${pwd};;`;}
-    else if(type==='vcard'){const name=document.getElementById('qr-name').value;const phone=document.getElementById('qr-phone').value;const email=document.getElementById('qr-email').value;text=`BEGIN:VCARD
-VERSION:3.0
-FN:${name}
-TEL:${phone}
-EMAIL:${email}
-END:VCARD`;}
-    else text=document.getElementById('qr-text').value;
-    if(!text){showToast('Entre du contenu','error');return;}
-    const canvas=document.getElementById('qr-canvas');
-    canvas.innerHTML='';
-    const size=parseInt(document.getElementById('qr-size').value);
-    qrCodeObj=new QRCode(canvas,{text:text,width:size,height:size,colorDark:'#e8e9f0',colorLight:'#0a0b14',correctLevel:QRCode.CorrectLevel.M});
-    document.getElementById('qr-result').style.display='flex';
-    showToast('QR Code généré !','success');
-}
-
-function downloadQR(){
-    const canvas=document.querySelector('#qr-canvas canvas');
-    if(!canvas)return;
-    const link=document.createElement('a');
-    link.download='flowhub-qr.png';
-    link.href=canvas.toDataURL('image/png');
-    link.click();
-    showToast('QR Code téléchargé','success');
-}
-
-function copyQRText(){
-    const type=document.getElementById('qr-type').value;
-    let text='';
-    if(type==='url')text=document.getElementById('qr-url').value;
-    else if(type==='wifi')text=`SSID: ${document.getElementById('qr-ssid').value}, MDP: ${document.getElementById('qr-password').value}`;
-    else if(type==='vcard')text=`${document.getElementById('qr-name').value} — ${document.getElementById('qr-phone').value}`;
-    else text=document.getElementById('qr-text').value;
-    navigator.clipboard.writeText(text).then(()=>showToast('Contenu copié','success'));
-}
-
-// ===== PASSWORD =====
-function generatePassword(){
-    const len=parseInt(document.getElementById('pwd-length').value);
-    const upper=document.getElementById('pwd-upper').checked;
-    const lower=document.getElementById('pwd-lower').checked;
-    const numbers=document.getElementById('pwd-numbers').checked;
-    const symbols=document.getElementById('pwd-symbols').checked;
-    let chars='';
-    if(upper)chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    if(lower)chars+='abcdefghijklmnopqrstuvwxyz';
-    if(numbers)chars+='0123456789';
-    if(symbols)chars+='!@#$%^&*()_+-=[]{}|;:,.<>?';
-    if(!chars){showToast('Sélectionne au moins un type','error');return;}
-    let pwd='';
-    const arr=new Uint32Array(len);
-    crypto.getRandomValues(arr);
-    for(let i=0;i<len;i++)pwd+=chars[arr[i]%chars.length];
-    document.getElementById('pwd-display').innerHTML=pwd+'<div class="pwd-strength" id="pwd-strength"></div>';
-    let strength=0;
-    if(upper)strength++;if(lower)strength++;if(numbers)strength++;if(symbols)strength++;
-    if(len>=16)strength++;
-    const bar=document.getElementById('pwd-strength');
-    const colors=['var(--red)','var(--orange)','var(--yellow)','var(--green)','var(--green)'];
-    const widths=['20%','40%','60%','80%','100%'];
-    bar.style.background=colors[Math.min(strength,4)];
-    bar.style.width=widths[Math.min(strength,4)];
-}
-
-function copyPassword(){
-    const pwd=document.getElementById('pwd-display').childNodes[0]?.textContent?.trim();
-    if(pwd&&pwd!=='Clique sur "Générer" pour créer un mot de passe'){
-        navigator.clipboard.writeText(pwd).then(()=>showToast('Mot de passe copié','success'));
+function setWinner(matchId, winner) {
+    const match = document.getElementById(matchId);
+    if (match) {
+        match.classList.add('winner');
+        match.querySelector('.match-actions').innerHTML = `<span style="color:var(--green);font-size:12px;font-weight:600">🏆 ${escapeHtml(winner)}</span>`;
+        showToast(winner + ' gagne !', 'success');
     }
 }
 
-// ===== UTILS =====
-function saveToStorage(){localStorage.setItem('flowhub_tasks',JSON.stringify(tasks));}
-function escapeHtml(text){const div=document.createElement('div');div.textContent=text;return div.innerHTML;}
-function formatDate(dateStr){if(!dateStr)return'';const date=new Date(dateStr);return date.toLocaleDateString('fr-FR',{day:'numeric',month:'short'});}
-function showToast(message,type='info'){
-    const container=document.getElementById('toast-container');
-    const toast=document.createElement('div');
-    toast.className=`toast toast-${type}`;
-    const icons={success:'✓',error:'✕',info:'ℹ'};
-    toast.innerHTML=`<span>${icons[type]}</span><span>${message}</span>`;
-    container.appendChild(toast);
-    setTimeout(()=>toast.remove(),3000);
+// ===== QR CODE =====
+function updateQRForm() {
+    const type = document.getElementById('qr-type').value;
+    document.getElementById('qr-form-url').style.display = type === 'url' ? 'block' : 'none';
+    document.getElementById('qr-form-wifi').style.display = type === 'wifi' ? 'block' : 'none';
+    document.getElementById('qr-form-vcard').style.display = type === 'vcard' ? 'block' : 'none';
+    document.getElementById('qr-form-text').style.display = type === 'text' ? 'block' : 'none';
+    document.getElementById('qr-result').style.display = 'none';
 }
-function toggleDropdown(){document.getElementById('dropdown-menu').classList.toggle('active');}
+
+function generateQR() {
+    const type = document.getElementById('qr-type').value;
+    let text = '';
+    if (type === 'url') text = document.getElementById('qr-url').value;
+    else if (type === 'wifi') { const ssid = document.getElementById('qr-ssid').value; const pwd = document.getElementById('qr-password').value; const enc = document.getElementById('qr-encryption').value; text = `WIFI:T:${enc};S:${ssid};P:${pwd};;`; }
+    else if (type === 'vcard') { const name = document.getElementById('qr-name').value; const phone = document.getElementById('qr-phone').value; const email = document.getElementById('qr-email').value; text = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`; }
+    else text = document.getElementById('qr-text').value;
+    if (!text) { showToast('Entre du contenu', 'error'); return; }
+    const canvas = document.getElementById('qr-canvas');
+    canvas.innerHTML = '';
+    const size = parseInt(document.getElementById('qr-size').value);
+    qrCodeObj = new QRCode(canvas, { text: text, width: size, height: size, colorDark: '#e8e9f0', colorLight: '#0a0b14', correctLevel: QRCode.CorrectLevel.M });
+    document.getElementById('qr-result').style.display = 'flex';
+    showToast('QR Code généré !', 'success');
+}
+
+function downloadQR() {
+    const canvas = document.querySelector('#qr-canvas canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'flowhub-qr.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('QR Code téléchargé', 'success');
+}
+
+function copyQRText() {
+    const type = document.getElementById('qr-type').value;
+    let text = '';
+    if (type === 'url') text = document.getElementById('qr-url').value;
+    else if (type === 'wifi') text = `SSID: ${document.getElementById('qr-ssid').value}, MDP: ${document.getElementById('qr-password').value}`;
+    else if (type === 'vcard') text = `${document.getElementById('qr-name').value} — ${document.getElementById('qr-phone').value}`;
+    else text = document.getElementById('qr-text').value;
+    navigator.clipboard.writeText(text).then(() => showToast('Contenu copié', 'success'));
+}
+
+// ===== PASSWORD VAULT =====
+function generatePassword() {
+    const len = parseInt(document.getElementById('pwd-length').value);
+    const upper = document.getElementById('pwd-upper').checked;
+    const lower = document.getElementById('pwd-lower').checked;
+    const numbers = document.getElementById('pwd-numbers').checked;
+    const symbols = document.getElementById('pwd-symbols').checked;
+    let chars = '';
+    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (lower) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (numbers) chars += '0123456789';
+    if (symbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    if (!chars) { showToast('Sélectionne au moins un type', 'error'); return; }
+    let pwd = '';
+    const arr = new Uint32Array(len);
+    crypto.getRandomValues(arr);
+    for (let i = 0; i < len; i++) pwd += chars[arr[i] % chars.length];
+    document.getElementById('pwd-display').innerHTML = pwd + '<div class="pwd-strength" id="pwd-strength"></div>';
+    let strength = 0;
+    if (upper) strength++; if (lower) strength++; if (numbers) strength++; if (symbols) strength++;
+    if (len >= 16) strength++;
+    const bar = document.getElementById('pwd-strength');
+    const colors = ['var(--red)', 'var(--orange)', 'var(--yellow)', 'var(--green)', 'var(--green)'];
+    const widths = ['20%', '40%', '60%', '80%', '100%'];
+    bar.style.background = colors[Math.min(strength, 4)];
+    bar.style.width = widths[Math.min(strength, 4)];
+}
+
+function copyPassword() {
+    const pwd = document.getElementById('pwd-display').childNodes[0]?.textContent?.trim();
+    if (pwd && pwd !== 'Clique sur "Générer" pour créer un mot de passe') {
+        navigator.clipboard.writeText(pwd).then(() => showToast('Mot de passe copié', 'success'));
+    }
+}
+
+function savePasswordToVault() {
+    const service = document.getElementById('pwd-service').value.trim();
+    const username = document.getElementById('pwd-username').value.trim();
+    const pwd = document.getElementById('pwd-display').childNodes[0]?.textContent?.trim();
+
+    if (!service) { showToast('Entre un nom de service', 'error'); return; }
+    if (!pwd || pwd === 'Clique sur "Générer" pour créer un mot de passe') { showToast('Génère un mot de passe avant tout', 'error'); return; }
+
+    const entry = {
+        id: Date.now().toString(),
+        service: service,
+        username: username,
+        password: pwd,
+        created: new Date().toISOString()
+    };
+    passwordVault.push(entry);
+    localStorage.setItem(getStorageKey('vault'), JSON.stringify(passwordVault));
+    renderPasswordVault();
+    showToast('Mot de passe sauvegardé', 'success');
+
+    // Reset inputs
+    document.getElementById('pwd-service').value = '';
+    document.getElementById('pwd-username').value = '';
+}
+
+function renderPasswordVault() {
+    const list = document.getElementById('pwd-vault-list');
+    const count = document.getElementById('vault-count');
+    if (!list) return;
+    count.textContent = passwordVault.length;
+
+    if (passwordVault.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px;">Aucun mot de passe sauvegardé</div>';
+        return;
+    }
+
+    list.innerHTML = passwordVault.map(entry => `
+        <div class="pwd-vault-item">
+            <div class="pwd-vault-info">
+                <div class="pwd-vault-name">${escapeHtml(entry.service)}</div>
+                <div class="pwd-vault-meta">${entry.username ? escapeHtml(entry.username) : 'Aucun identifiant'} • ${new Date(entry.created).toLocaleDateString('fr-FR')}</div>
+            </div>
+            <div class="pwd-vault-actions">
+                <button class="pwd-vault-btn" onclick="copyVaultPassword('${entry.id}')">📋 Copier</button>
+                <button class="pwd-vault-btn" onclick="showVaultPassword('${entry.id}')">👁 Voir</button>
+                <button class="pwd-vault-btn btn-danger" onclick="deleteVaultPassword('${entry.id}')">🗑</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function copyVaultPassword(id) {
+    const entry = passwordVault.find(e => e.id === id);
+    if (entry) {
+        navigator.clipboard.writeText(entry.password).then(() => showToast('Mot de passe copié', 'success'));
+    }
+}
+
+function showVaultPassword(id) {
+    const entry = passwordVault.find(e => e.id === id);
+    if (entry) {
+        alert(`Service: ${entry.service}\nIdentifiant: ${entry.username || 'N/A'}\nMot de passe: ${entry.password}`);
+    }
+}
+
+function deleteVaultPassword(id) {
+    if (confirm('Supprimer ce mot de passe ?')) {
+        passwordVault = passwordVault.filter(e => e.id !== id);
+        localStorage.setItem(getStorageKey('vault'), JSON.stringify(passwordVault));
+        renderPasswordVault();
+        showToast('Mot de passe supprimé', 'info');
+    }
+}
+
+// ===== CHARACTER GENERATOR =====
+// Utilise l'API randomuser.me pour générer des personnages avec nom + avatar réaliste
+async function generateCharacters(count) {
+    const grid = document.getElementById('char-grid');
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">Chargement...</div>';
+
+    try {
+        const response = await fetch(`https://randomuser.me/api/?results=${count}&nat=fr,us,gb,de,es,it`);
+        const data = await response.json();
+
+        grid.innerHTML = '';
+        data.results.forEach((user, index) => {
+            const card = document.createElement('div');
+            card.className = 'char-card';
+            card.dataset.index = index;
+            card.dataset.name = `${user.name.first} ${user.name.last}`;
+            card.dataset.email = user.email;
+            card.dataset.phone = user.phone;
+            card.dataset.location = `${user.location.city}, ${user.location.country}`;
+            card.dataset.avatar = user.picture.large;
+
+            card.innerHTML = `
+                <img src="${user.picture.large}" alt="${user.name.first}" loading="lazy">
+                <div class="char-name">${user.name.first} ${user.name.last}</div>
+                <div class="char-detail">${user.location.city}, ${user.location.country}</div>
+                <div class="char-detail" style="font-size:11px;color:var(--text-muted);margin-top:4px;">${user.email}</div>
+            `;
+
+            card.onclick = () => selectCharacter(card);
+            grid.appendChild(card);
+        });
+
+        showToast(`${count} personnages générés !`, 'success');
+    } catch (err) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--red);">Erreur de chargement. Réessaie.</div>';
+        showToast('Erreur lors de la génération', 'error');
+    }
+}
+
+function selectCharacter(card) {
+    document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedChar = {
+        name: card.dataset.name,
+        email: card.dataset.email,
+        phone: card.dataset.phone,
+        location: card.dataset.location,
+        avatar: card.dataset.avatar
+    };
+
+    const info = document.getElementById('char-selected-info');
+    const details = document.getElementById('char-selected-details');
+    info.style.display = 'block';
+    details.innerHTML = `
+        <div style="display:flex;align-items:center;gap:16px;">
+            <img src="${selectedChar.avatar}" style="width:64px;height:64px;border-radius:50%;border:2px solid var(--accent);">
+            <div>
+                <div style="font-weight:600;font-size:16px;margin-bottom:4px;">${selectedChar.name}</div>
+                <div style="font-size:13px;color:var(--text-secondary);">📍 ${selectedChar.location}</div>
+                <div style="font-size:13px;color:var(--text-secondary);">📧 ${selectedChar.email}</div>
+                <div style="font-size:13px;color:var(--text-secondary);">📱 ${selectedChar.phone}</div>
+            </div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;">
+            <button class="btn btn-primary" onclick="copyCharInfo()">📋 Copier les infos</button>
+            <button class="btn" onclick="useAsPlayer()">⚔️ Utiliser comme joueur LoL</button>
+        </div>
+    `;
+}
+
+function copyCharInfo() {
+    if (!selectedChar) return;
+    const text = `${selectedChar.name}\n${selectedChar.location}\n${selectedChar.email}\n${selectedChar.phone}`;
+    navigator.clipboard.writeText(text).then(() => showToast('Infos copiées', 'success'));
+}
+
+function useAsPlayer() {
+    if (!selectedChar) return;
+    showToast(`${selectedChar.name} ajouté aux joueurs LoL !`, 'success');
+    // On pourrait ajouter automatiquement au team builder ici
+}
+
+// ===== UTILS =====
+function saveToStorage() {
+    if (currentUser) {
+        localStorage.setItem(getStorageKey('tasks'), JSON.stringify(tasks));
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+}
+
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    const icons = { success: '✓', error: '✕', info: 'ℹ' };
+    toast.innerHTML = `<span>${icons[type]}</span><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function toggleDropdown() { document.getElementById('dropdown-menu').classList.toggle('active'); }
 
 // ===== EVENTS =====
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', () => {
     setupDragAndDrop();
-    updateHomeStats();
     updateRamCalc();
+
+    // Check existing session
+    const savedUser = localStorage.getItem('flowhub_user');
+    if (savedUser) {
+        currentUser = savedUser;
+        document.getElementById('auth-overlay').style.display = 'none';
+        document.getElementById('user-badge').style.display = 'flex';
+        document.getElementById('user-name').textContent = savedUser;
+        document.getElementById('user-avatar').textContent = savedUser.substring(0, 2).toUpperCase();
+        loadUserData();
+    }
+
     loadFromGist();
-    setInterval(()=>{if(localStorage.getItem('flowhub_gist_token'))syncToGist();},30000);
-    document.addEventListener('click',(e)=>{if(!e.target.closest('.dropdown'))document.getElementById('dropdown-menu')?.classList.remove('active');});
+    setInterval(() => { if (localStorage.getItem('flowhub_gist_token')) syncToGist(); }, 30000);
+    document.addEventListener('click', (e) => { if (!e.target.closest('.dropdown')) document.getElementById('dropdown-menu')?.classList.remove('active'); });
 });
 
-document.getElementById('task-modal').addEventListener('click',(e)=>{if(e.target===e.currentTarget)closeTaskModal();});
-document.addEventListener('keydown',(e)=>{
-    if(e.key==='Escape')closeTaskModal();
-    if(e.key==='n'&&e.ctrlKey){e.preventDefault();openTaskModal();}
+document.getElementById('task-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeTaskModal(); });
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeTaskModal();
+    if (e.key === 'n' && e.ctrlKey) { e.preventDefault(); openTaskModal(); }
+});
+
+// Auth enter key
+document.getElementById('auth-username').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') login();
 });
 </script>
 </body>
