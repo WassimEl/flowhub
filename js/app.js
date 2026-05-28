@@ -5,6 +5,23 @@ import { LoLHub } from './modules/lolhub.js';
 import { QRCodeTool } from './modules/qrcode.js';
 import { PasswordVault } from './modules/password.js';
 import { CharacterGen } from './modules/characters.js';
+import { RSSTracker } from './modules/rsstracker.js';
+import { PomodoroTimer } from './modules/pomodoro.js';
+import { Scratchpad } from './modules/scratchpad.js';
+import { FaviconGen } from './modules/favicongen.js';
+import { MindMap } from './modules/mindmap.js';
+import { NameGen } from './modules/namegen.js';
+import { TierList } from './modules/tierlist.js';
+import { MatchFormatter } from './modules/matchformatter.js';
+import { ZenEditor } from './modules/zeneditor.js';
+import { DealTracker } from './modules/dealtracker.js';
+import { MoviePicker } from './modules/moviepicker.js';
+import { MarkdownExporter } from './modules/markdownexporter.js';
+import { DailyNote } from './modules/dailynote.js';
+import { GGBuild } from './modules/ggbuild.js';
+import { HabitTracker } from './modules/habittracker.js';
+import { TripPlanner } from './modules/tripplanner.js';
+import { DecisionMaker } from './modules/decisionmaker.js';
 
 // --- Tool Registry ---
 const TOOLS = [
@@ -13,6 +30,23 @@ const TOOLS = [
   { id: 'qr', name: '📱 QR Code', module: QRCodeTool },
   { id: 'pwd', name: '🔐 Coffre MDP', module: PasswordVault },
   { id: 'char', name: '🎭 Personnages', module: CharacterGen },
+  { id: 'rss', name: '📰 RSS Tracker', module: RSSTracker },
+  { id: 'pomodoro', name: '⏱️ Pomodoro', module: PomodoroTimer },
+  { id: 'scratchpad', name: '📝 Scratchpad', module: Scratchpad },
+  { id: 'favicon', name: '🎨 Favicon Gen', module: FaviconGen },
+  { id: 'mindmap', name: '🧠 Mind Map', module: MindMap },
+  { id: 'namegen', name: '✨ Name Gen', module: NameGen },
+  { id: 'tierlist', name: '📊 Tier List', module: TierList },
+  { id: 'matchfmt', name: '🏅 Match Formatter', module: MatchFormatter },
+  { id: 'zen', name: '🧘 Zen Editor', module: ZenEditor },
+  { id: 'deals', name: '🎮 Deal Tracker', module: DealTracker },
+  { id: 'movie', name: '🎬 Movie Picker', module: MoviePicker },
+  { id: 'mdexport', name: '📄 Markdown Exporter', module: MarkdownExporter },
+  { id: 'dailynote', name: '📓 Daily Note', module: DailyNote },
+  { id: 'ggbuild', name: '🛠️ GGBuild', module: GGBuild },
+  { id: 'habits', name: '🔥 Habit Tracker', module: HabitTracker },
+  { id: 'trip', name: '✈️ Trip Planner', module: TripPlanner },
+  { id: 'decision', name: '🎯 Decision Maker', module: DecisionMaker },
 ];
 
 // --- Global State ---
@@ -21,7 +55,7 @@ const App = {
   isAdmin: false,
   ADMIN_PASSWORD: '1980',
   currentPage: 'home',
-  currentTool: 'machub',
+  currentTool: 'rss',
   modules: {},
 
   // ===== AUTH =====
@@ -89,6 +123,24 @@ const App = {
       MacHub.selectedProjects = new Set();
     }
 
+    // Scratchpad
+    const savedNotes = localStorage.getItem(this.getStorageKey('notes'));
+    if (savedNotes) {
+      try { Scratchpad.notes = JSON.parse(savedNotes); } catch(e) { Scratchpad.notes = []; }
+    }
+
+    // Habits
+    const savedHabits = localStorage.getItem(this.getStorageKey('habits'));
+    if (savedHabits) {
+      try { HabitTracker.habits = JSON.parse(savedHabits); } catch(e) { HabitTracker.habits = []; }
+    }
+
+    // Zen Editor content
+    const savedZen = localStorage.getItem(this.getStorageKey('zen'));
+    if (savedZen) {
+      try { ZenEditor.content = JSON.parse(savedZen); } catch(e) { ZenEditor.content = ''; }
+    }
+
     // Admin
     this.isAdmin = localStorage.getItem(this.getStorageKey('admin')) === 'true';
 
@@ -102,6 +154,9 @@ const App = {
     localStorage.setItem(this.getStorageKey('tasks'), JSON.stringify(Kanban.tasks));
     localStorage.setItem(this.getStorageKey('vault'), JSON.stringify(PasswordVault.vault));
     localStorage.setItem(this.getStorageKey('projects'), JSON.stringify([...MacHub.selectedProjects]));
+    localStorage.setItem(this.getStorageKey('notes'), JSON.stringify(Scratchpad.notes || []));
+    localStorage.setItem(this.getStorageKey('habits'), JSON.stringify(HabitTracker.habits || []));
+    localStorage.setItem(this.getStorageKey('zen'), JSON.stringify(ZenEditor.content || ''));
   },
 
   // ===== NAVIGATION =====
@@ -159,6 +214,7 @@ const App = {
     const progress = total > 0 ? Math.round((done / total) * 100) : 0;
     document.getElementById('home-task-count').textContent = total;
     document.getElementById('home-done-count').textContent = done;
+    document.getElementById('home-tool-count').textContent = TOOLS.length;
     document.getElementById('home-progress').textContent = progress + '%';
   },
 
@@ -167,9 +223,26 @@ const App = {
     const grid = document.getElementById('modules-grid');
     if (!grid) return;
     const modules = [
-      { icon: '📋', name: 'Gestionnaire de Projets', desc: 'Kanban board avec drag & drop, priorités, tags et assignation. Synchronisation cloud via GitHub Gist.', badges: ['Kanban','Cloud'], page: 'kanban' },
+      { icon: '📋', name: 'Gestionnaire de Projets', desc: 'Kanban board avec drag & drop, priorités, tags et assignation. Intégration Pomodoro.', badges: ['Kanban','Productivité'], page: 'kanban' },
       { icon: '🖥️', name: 'Mac mini M4 Hub', desc: 'Sélecteur interactif de projets serveur, comparatif complet des modèles Apple Silicon.', badges: ['Serveur','Comparatif'], page: 'tools', tool: 'machub' },
-      { icon: '⚔️', name: 'LoL Team Builder', desc: 'Crée des équipes aléatoires pour League of Legends et organise des tournois 1v1.', badges: ['Gaming','Tournoi'], page: 'tools', tool: 'lol' },
+      { icon: '⚔️', name: 'LoL Hub', desc: 'Team Builder, Tournament Bracket et Match History Formatter pour League of Legends.', badges: ['Gaming','LoL'], page: 'tools', tool: 'lol' },
+      { icon: '📰', name: 'RSS Tracker', desc: 'Agrégateur de flux RSS pour patch notes, deals et promos gaming.', badges: ['News','Gaming'], page: 'tools', tool: 'rss' },
+      { icon: '⏱️', name: 'Pomodoro Timer', desc: 'Timer productif lié aux tâches Kanban avec historique de sessions.', badges: ['Productivité','Focus'], page: 'tools', tool: 'pomodoro' },
+      { icon: '📝', name: 'Scratchpad', desc: 'Notes rapides avec Markdown, onglets multiples et recherche.', badges: ['Notes','Markdown'], page: 'tools', tool: 'scratchpad' },
+      { icon: '🎨', name: 'Favicon Generator', desc: 'Génère favicons multi-tailles et manifest.json depuis un SVG.', badges: ['Dev','Design'], page: 'tools', tool: 'favicon' },
+      { icon: '🧠', name: 'Mind Map Maker', desc: 'Cartes mentales interactives avec export PNG/SVG.', badges: ['Brainstorm','Design'], page: 'tools', tool: 'mindmap' },
+      { icon: '✨', name: 'Name Generator', desc: 'Génère des noms de projets, variables et équipes esport.', badges: ['Dev','Gaming'], page: 'tools', tool: 'namegen' },
+      { icon: '📊', name: 'Tier List Maker', desc: 'Crée des tier lists avec drag & drop et templates.', badges: ['Gaming','Fun'], page: 'tools', tool: 'tierlist' },
+      { icon: '🏅', name: 'Match Formatter', desc: 'Formate ton historique LoL pour Discord/Reddit.', badges: ['LoL','Social'], page: 'tools', tool: 'matchfmt' },
+      { icon: '🧘', name: 'Zen Editor', desc: 'Éditeur plein écran sans distraction avec objectifs de mots.', badges: ['Writing','Focus'], page: 'tools', tool: 'zen' },
+      { icon: '🎮', name: 'Deal Tracker', desc: 'Suivi des promos jeux vidéo avec alertes de prix.', badges: ['Gaming','Deals'], page: 'tools', tool: 'deals' },
+      { icon: '🎬', name: 'Movie Picker', desc: 'Tirage au sort depuis ta watchlist Letterboxd.', badges: ['Movies','Social'], page: 'tools', tool: 'movie' },
+      { icon: '📄', name: 'Markdown Exporter', desc: 'Exporte n\'importe quel outil en Markdown propre.', badges: ['Export','Obsidian'], page: 'tools', tool: 'mdexport' },
+      { icon: '📓', name: 'Daily Note', desc: 'Template quotidien Obsidian-compatible avec tâches et tracking.', badges: ['Productivité','Obsidian'], page: 'tools', tool: 'dailynote' },
+      { icon: '🛠️', name: 'GGBuild', desc: 'PC Part Picker & Devis pour ta société de montage PC.', badges: ['PC','Business'], page: 'tools', tool: 'ggbuild' },
+      { icon: '🔥', name: 'Habit Tracker', desc: 'Suivi visuel de tes habitudes style GitHub contributions.', badges: ['Productivité','Health'], page: 'tools', tool: 'habits' },
+      { icon: '✈️', name: 'Trip Planner', desc: 'Planifie tes voyages avec budget, checklist et itinéraire.', badges: ['Travel','Planning'], page: 'tools', tool: 'trip' },
+      { icon: '🎯', name: 'Decision Maker', desc: 'Roue de la fortune et tirages pondérés pour décider.', badges: ['Fun','Utility'], page: 'tools', tool: 'decision' },
       { icon: '📱', name: 'Générateur QR Code', desc: 'Génère des QR codes pour WiFi, URLs, vCard. Partage rapide sans taper.', badges: ['QR','Partage'], page: 'tools', tool: 'qr' },
       { icon: '🔐', name: 'Coffre Mots de Passe', desc: 'Génère et sauvegarde tes mots de passe localement. Chaque utilisateur a son propre coffre.', badges: ['Sécurité','Local'], page: 'tools', tool: 'pwd' },
       { icon: '🎭', name: 'Générateur de Personnages', desc: 'Génère des personnages aléatoires avec nom et avatar pour tes parties LoL.', badges: ['Gaming','Fun'], page: 'tools', tool: 'char' },
@@ -190,7 +263,10 @@ const App = {
     const data = JSON.stringify({ 
       tasks: Kanban.tasks, 
       passwordVault: PasswordVault.vault, 
-      selectedProjects: [...MacHub.selectedProjects] 
+      selectedProjects: [...MacHub.selectedProjects],
+      notes: Scratchpad.notes || [],
+      habits: HabitTracker.habits || [],
+      zenContent: ZenEditor.content || ''
     }, null, 2);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -217,6 +293,9 @@ const App = {
           if (data.tasks) Kanban.tasks = data.tasks;
           if (data.passwordVault) PasswordVault.vault = data.passwordVault;
           if (data.selectedProjects) MacHub.selectedProjects = new Set(data.selectedProjects);
+          if (data.notes) Scratchpad.notes = data.notes;
+          if (data.habits) HabitTracker.habits = data.habits;
+          if (data.zenContent) ZenEditor.content = data.zenContent;
           Kanban.render();
           this.updateHomeStats();
           PasswordVault.render();
@@ -235,9 +314,15 @@ const App = {
       localStorage.removeItem(this.getStorageKey('tasks'));
       localStorage.removeItem(this.getStorageKey('vault'));
       localStorage.removeItem(this.getStorageKey('projects'));
+      localStorage.removeItem(this.getStorageKey('notes'));
+      localStorage.removeItem(this.getStorageKey('habits'));
+      localStorage.removeItem(this.getStorageKey('zen'));
       Kanban.tasks = [];
       PasswordVault.vault = [];
       MacHub.selectedProjects = new Set();
+      Scratchpad.notes = [];
+      HabitTracker.habits = [];
+      ZenEditor.content = '';
       Kanban.render();
       this.updateHomeStats();
       PasswordVault.render();
@@ -270,7 +355,10 @@ const App = {
       const data = JSON.stringify({ 
         tasks: Kanban.tasks, 
         passwordVault: PasswordVault.vault, 
-        selectedProjects: [...MacHub.selectedProjects] 
+        selectedProjects: [...MacHub.selectedProjects],
+        notes: Scratchpad.notes || [],
+        habits: HabitTracker.habits || [],
+        zenContent: ZenEditor.content || ''
       }, null, 2);
       if (gistId) {
         await fetch(`https://api.github.com/gists/${gistId}`, { 
@@ -308,6 +396,9 @@ const App = {
         if (data.tasks) Kanban.tasks = data.tasks;
         if (data.passwordVault) PasswordVault.vault = data.passwordVault;
         if (data.selectedProjects) MacHub.selectedProjects = new Set(data.selectedProjects);
+        if (data.notes) Scratchpad.notes = data.notes;
+        if (data.habits) HabitTracker.habits = data.habits;
+        if (data.zenContent) ZenEditor.content = data.zenContent;
         Kanban.render();
         this.updateHomeStats();
         PasswordVault.render();
@@ -401,3 +492,20 @@ window.LoLHub = LoLHub;
 window.QRCodeTool = QRCodeTool;
 window.PasswordVault = PasswordVault;
 window.CharacterGen = CharacterGen;
+window.RSSTracker = RSSTracker;
+window.PomodoroTimer = PomodoroTimer;
+window.Scratchpad = Scratchpad;
+window.FaviconGen = FaviconGen;
+window.MindMap = MindMap;
+window.NameGen = NameGen;
+window.TierList = TierList;
+window.MatchFormatter = MatchFormatter;
+window.ZenEditor = ZenEditor;
+window.DealTracker = DealTracker;
+window.MoviePicker = MoviePicker;
+window.MarkdownExporter = MarkdownExporter;
+window.DailyNote = DailyNote;
+window.GGBuild = GGBuild;
+window.HabitTracker = HabitTracker;
+window.TripPlanner = TripPlanner;
+window.DecisionMaker = DecisionMaker;
