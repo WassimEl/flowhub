@@ -1,4 +1,7 @@
 {
   "name": "flowboard",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
 }
