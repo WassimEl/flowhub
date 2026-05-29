@@ -286,14 +286,31 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .notes-search:focus{border-color:var(--accent)}
 .note-title-input{width:100%;padding:16px 20px;background:transparent;border:none;border-bottom:1px solid var(--border);font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;color:var(--text-primary);outline:none}
 .note-content-input{flex:1;padding:20px;background:transparent;border:none;font-family:'Inter',sans-serif;font-size:14px;line-height:1.8;color:var(--text-primary);outline:none;resize:none;overflow-y:auto}
+/* ===== TOOL SIDEBAR ===== */
+.tool-sidebar-btn{width:100%;padding:9px 12px;border-radius:8px;border:none;background:transparent;color:var(--text-secondary);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:10px;text-align:left}
+.tool-sidebar-btn:hover{background:var(--bg-tertiary);color:var(--text-primary)}
+.tool-sidebar-btn.active{background:var(--accent-bg);color:var(--accent-light);border:1px solid rgba(129,140,248,0.2)}
+.tool-sidebar-btn span{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+/* ===== RESOURCES ===== */
+.res-tab-content{display:none}.res-tab-content.active{display:block}
+.res-section{margin-bottom:28px}
+.res-section-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.res-links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.res-link-card{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-decoration:none;color:var(--text-primary);transition:all 0.2s;display:flex;flex-direction:column;gap:4px}
+.res-link-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.res-link-icon{font-size:20px;margin-bottom:4px}
+.res-link-name{font-size:13px;font-weight:600;color:var(--text-primary)}
+.res-link-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
 /* ===== TIER LIST ===== */
 .tierlist-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:1000px;margin:0 auto}
 .tier-row{display:flex;gap:0;margin-bottom:4px;border-radius:8px;overflow:hidden;min-height:72px}
-.tier-label{width:64px;min-width:64px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:white}
+.tier-label{width:64px;min-width:64px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:white;cursor:pointer}
 .tier-items{flex:1;display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-left:none;min-height:72px;align-content:flex-start}
-.tier-item{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:500;cursor:grab;user-select:none;background:var(--bg-tertiary);border:1px solid var(--border);transition:all 0.2s;white-space:nowrap}
-.tier-item:hover{border-color:var(--accent);transform:scale(1.05)}
+.tier-item{padding:6px 12px;border-radius:6px;font-size:13px;font-weight:500;cursor:grab;user-select:none;background:var(--bg-tertiary);border:1px solid var(--border);transition:all 0.2s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.tier-item:hover{border-color:var(--accent);transform:scale(1.03)}
 .tier-item.dragging{opacity:0.5;cursor:grabbing}
+.tier-item-del{opacity:0;font-size:12px;cursor:pointer;color:var(--red);line-height:1;padding:0;background:none;border:none;transition:opacity 0.15s}
+.tier-item:hover .tier-item-del{opacity:1}
 .tier-items.drag-over-tier{background:rgba(129,140,248,0.08);border-color:var(--accent)}
 .tierlist-pool{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;min-height:80px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;margin-top:20px}
 /* ===== HABIT TRACKER ===== */
@@ -360,49 +377,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 ::-webkit-scrollbar-track{background:var(--bg-primary)}
 ::-webkit-scrollbar-thumb{background:var(--bg-tertiary);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
-
-/* ===== PCPARTPICKER DEVIS ===== */
-.pcpart-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:1000px;margin:0 auto}
-.pcpart-input-wrap{margin-bottom:24px}
-.pcpart-textarea{width:100%;min-height:180px;padding:14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;resize:vertical;outline:none;transition:all 0.2s}
-.pcpart-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(129,140,248,0.1)}
-.pcpart-textarea::placeholder{color:var(--text-muted)}
-.pcpart-paste-hint{font-size:12px;color:var(--text-muted);margin-top:8px;display:flex;align-items:center;gap:6px}
-.pcpart-controls{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;align-items:flex-end}
-.pcpart-config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px}
-.pcpart-config-item{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
-.pcpart-config-item label{display:block;font-size:11px;color:var(--text-secondary);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px}
-.pcpart-config-item input,.pcpart-config-item select{width:100%;padding:8px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;color:var(--text-primary);font-family:'Inter',sans-serif;font-size:13px;outline:none}
-.pcpart-config-item input:focus,.pcpart-config-item select:focus{border-color:var(--accent)}
-.pcpart-devis{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px;margin-top:20px}
-.pcpart-devis-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px}
-.pcpart-devis-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600}
-.pcpart-devis-meta{font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace}
-.pcpart-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px}
-.pcpart-table th{text-align:left;padding:10px 12px;background:var(--bg-tertiary);color:var(--text-secondary);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border)}
-.pcpart-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-primary);vertical-align:top}
-.pcpart-table tr:hover td{background:var(--bg-tertiary)}
-.pcpart-table .part-type{color:var(--text-muted);font-size:11px;font-family:'JetBrains Mono',monospace}
-.pcpart-table .part-name{font-weight:500}
-.pcpart-table .part-price{text-align:right;font-family:'JetBrains Mono',monospace;color:var(--green);font-weight:600;white-space:nowrap}
-.pcpart-table .part-qty{text-align:center;color:var(--text-muted);font-size:12px}
-.pcpart-totals{border-top:2px solid var(--border);padding-top:16px}
-.pcpart-total-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;color:var(--text-secondary)}
-.pcpart-total-row.grand{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--text-primary);border-top:1px solid var(--border);margin-top:8px;padding-top:12px}
-.pcpart-total-row .total-label{display:flex;align-items:center;gap:8px}
-.pcpart-total-row .total-value{font-family:'JetBrains Mono',monospace;color:var(--green);font-weight:600}
-.pcpart-total-row.grand .total-value{color:var(--accent);font-size:22px}
-.pcpart-actions{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
-.pcpart-empty{text-align:center;padding:40px;color:var(--text-muted);font-size:13px}
-.pcpart-empty-icon{font-size:40px;margin-bottom:12px;opacity:0.4}
-.pcpart-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;background:var(--accent-bg);color:var(--accent-light);border:1px solid rgba(129,140,248,0.2)}
-.pcpart-client-input{width:100%;padding:10px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;margin-bottom:16px;outline:none}
-.pcpart-client-input:focus{border-color:var(--accent)}
-.pcpart-notes-input{width:100%;padding:10px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:13px;min-height:60px;resize:vertical;outline:none}
-.pcpart-notes-input:focus{border-color:var(--accent)}
-.pcpart-parse-error{color:var(--red);font-size:13px;padding:12px;background:rgba(248,113,113,0.07);border:1px solid rgba(248,113,113,0.2);border-radius:8px;margin-bottom:16px;display:none}
-.pcpart-parse-error.show{display:block}
-
 </style>
 <base target="_blank">
 </head>
@@ -496,7 +470,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div class="home-stats">
         <div class="home-stat"><div class="home-stat-value" id="home-task-count">0</div><div class="home-stat-label">Tâches actives</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-done-count">0</div><div class="home-stat-label">Terminées</div></div>
-        <div class="home-stat"><div class="home-stat-value">24</div><div class="home-stat-label">Outils disponibles</div></div>
+        <div class="home-stat"><div class="home-stat-value">30</div><div class="home-stat-label">Outils disponibles</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-progress">0%</div><div class="home-stat-label">Progression</div></div>
     </div>
     <div class="home-modules">
@@ -515,7 +489,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             <div class="module-card" onclick="showPage('tools');activateTool('habit')"><div class="module-icon">🔥</div><div class="module-name">Habit Tracker</div><div class="module-desc">Grille GitHub-style. Streak counter, stats mensuelles, habits personnalisables.</div><div class="module-meta"><span class="module-badge">Daily</span><span class="module-badge">Streak</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('decision')"><div class="module-icon">🎡</div><div class="module-name">Roue de la Fortune</div><div class="module-desc">Tirage aléatoire pondéré avec animation. Parfait pour choisir un jeu ou film.</div><div class="module-meta"><span class="module-badge">Fun</span><span class="module-badge">Random</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('pwd')"><div class="module-icon">🔐</div><div class="module-name">Coffre Mots de Passe</div><div class="module-desc">Génère et sauvegarde tes mots de passe. Coffre séparé par utilisateur.</div><div class="module-meta"><span class="module-badge">Sécurité</span><span class="module-badge">Local</span></div></div>
-            <div class="module-card" onclick="showPage('tools');activateTool('pcpartpicker')"><div class="module-icon">🖥️</div><div class="module-name">PC Devis Extractor</div><div class="module-desc">Colle un tableau PCPartPicker → devis simplifié avec main-d'œuvre, frais et marge.</div><div class="module-meta"><span class="module-badge">Business</span><span class="module-badge">Local</span></div></div>
         </div>
     </div>
 </div>
@@ -558,42 +531,44 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 
 <!-- PAGE: TOOLS -->
 <div class="page" id="page-tools">
-    <div class="tools-container">
-        <div class="tools-header"><h2>🛠️ Outils & Utilitaires</h2></div>
-        <div class="tools-toolbar">
-            <div class="tool-nav-group">
-                <span class="tool-nav-label">System</span>
-                <button class="btn active" id="btn-tool-machub" onclick="activateTool('machub')">🖥️ MacHub</button>
-                <button class="btn" id="btn-tool-pwd" onclick="activateTool('pwd')">🔐 Coffre MDP</button>
-                <button class="btn" id="btn-tool-qr" onclick="activateTool('qr')">📱 QR Code</button>
-            </div>
-            <div class="tool-nav-group">
-                <span class="tool-nav-label">Gaming</span>
-                <button class="btn" id="btn-tool-lol" onclick="activateTool('lol')">⚔️ Team Builder</button>
-                <button class="btn" id="btn-tool-tournament" onclick="activateTool('tournament')">🏆 Tournoi 1v1</button>
-                <button class="btn" id="btn-tool-char" onclick="activateTool('char')">🎭 Personnages</button>
-                <button class="btn" id="btn-tool-tierlist" onclick="activateTool('tierlist')">📊 Tier List</button>
-            </div>
-            <div class="tool-nav-group">
-                <span class="tool-nav-label">Productivité</span>
-                <button class="btn" id="btn-tool-pomodoro" onclick="activateTool('pomodoro')">⏱️ Pomodoro</button>
-                <button class="btn" id="btn-tool-notes" onclick="activateTool('notes')">📝 Notes</button>
-                <button class="btn" id="btn-tool-habit" onclick="activateTool('habit')">🔥 Habits</button>
-                <button class="btn" id="btn-tool-daily" onclick="activateTool('daily')">📅 Daily Note</button>
-                <button class="btn" id="btn-tool-focus" onclick="openFocusMode()">✍️ Focus</button>
-            </div>
-            <div class="tool-nav-group">
-                <span class="tool-nav-label">Business</span>
-                <button class="btn" id="btn-tool-pcpartpicker" onclick="activateTool('pcpartpicker')">🖥️ PC Devis</button>
-            </div>
-            <div class="tool-nav-group">
-                <span class="tool-nav-label">Fun</span>
-                <button class="btn" id="btn-tool-decision" onclick="activateTool('decision')">🎡 Roue</button>
-                <button class="btn" id="btn-tool-namegen" onclick="activateTool('namegen')">✨ Noms</button>
-                <button class="btn" id="btn-tool-movie" onclick="activateTool('movie')">🎬 Movie Night</button>
-                <button class="btn" id="btn-tool-mindmap" onclick="activateTool('mindmap')">🧠 Mind Map</button>
-            </div>
-        </div>
+  <div style="display:flex;min-height:calc(100vh - 64px);">
+
+    <!-- SIDEBAR NAV -->
+    <div id="tools-sidebar" style="width:220px;min-width:220px;background:var(--bg-card);border-right:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;position:sticky;top:64px;height:calc(100vh - 64px);">
+
+      <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:8px 8px 4px;">🖥️ Système</div>
+      <button class="tool-sidebar-btn active" id="btn-tool-machub" onclick="activateTool('machub')"><span>🖥️</span> MacHub</button>
+      <button class="tool-sidebar-btn" id="btn-tool-pwd" onclick="activateTool('pwd')"><span>🔐</span> Coffre MDP</button>
+      <button class="tool-sidebar-btn" id="btn-tool-qr" onclick="activateTool('qr')"><span>📱</span> QR Code</button>
+            <button class="tool-sidebar-btn" id="btn-tool-pcpart" onclick="activateTool('pcpart')"><span>💸</span> PC Devis</button>
+
+      <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:16px 8px 4px;">🎮 Gaming</div>
+      <button class="tool-sidebar-btn" id="btn-tool-lol" onclick="activateTool('lol')"><span>⚔️</span> Team Builder</button>
+      <button class="tool-sidebar-btn" id="btn-tool-tournament" onclick="activateTool('tournament')"><span>🏆</span> Tournoi 1v1</button>
+      <button class="tool-sidebar-btn" id="btn-tool-char" onclick="activateTool('char')"><span>🎭</span> Personnages</button>
+      <button class="tool-sidebar-btn" id="btn-tool-tierlist" onclick="activateTool('tierlist')"><span>📊</span> Tier List</button>
+                  <button class="tool-sidebar-btn" id="btn-tool-crosshair" onclick="activateTool('crosshair')"><span>🎯</span> Crosshair</button>
+      <button class="tool-sidebar-btn" id="btn-tool-resources" onclick="activateTool('resources')"><span>📚</span> Ressources</button>
+
+      <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:16px 8px 4px;">⏱️ Productivité</div>
+      <button class="tool-sidebar-btn" id="btn-tool-pomodoro" onclick="activateTool('pomodoro')"><span>⏱️</span> Pomodoro</button>
+      <button class="tool-sidebar-btn" id="btn-tool-notes" onclick="activateTool('notes')"><span>📝</span> Notes</button>
+      <button class="tool-sidebar-btn" id="btn-tool-habit" onclick="activateTool('habit')"><span>🔥</span> Habits</button>
+      <button class="tool-sidebar-btn" id="btn-tool-daily" onclick="activateTool('daily')"><span>📅</span> Daily Note</button>
+<button class="tool-sidebar-btn" id="btn-tool-trip" onclick="activateTool('trip')"><span>✈️</span> Trip Planner</button>
+      <button class="tool-sidebar-btn" id="btn-tool-deal" onclick="activateTool('deal')"><span>🏷️</span> Deal Tracker</button>
+
+      <button class="tool-sidebar-btn" id="btn-tool-focus" onclick="openFocusMode()"><span>✍️</span> Focus Mode</button>
+      <button class="tool-sidebar-btn" id="btn-tool-poll" onclick="activateTool('poll')"><span>🗳️</span> Poll Maker</button>
+
+      <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:16px 8px 4px;">🎲 Fun</div>
+      <button class="tool-sidebar-btn" id="btn-tool-decision" onclick="activateTool('decision')"><span>🎡</span> Roue Fortune</button>
+            <button class="tool-sidebar-btn" id="btn-tool-mindmap" onclick="activateTool('mindmap')"><span>🧠</span> Mind Map</button>
+
+    </div>
+
+    <!-- TOOL CONTENT AREA -->
+    <div class="tools-container" style="flex:1;padding:28px;overflow-y:auto;min-width:0;">
 
         <!-- ===== MACHUB ===== -->
         <div id="tool-machub" class="tool-view active">
@@ -864,24 +839,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             </div>
         </div>
 
-        <!-- ===== MOVIE NIGHT ===== -->
-        <div id="tool-movie" class="tool-view">
-            <div class="movie-wrap">
-                <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:8px;">🎬 Movie Night Picker</h3>
-                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Ajoute des films à ta watchlist et laisse le hasard décider.</p>
-                <div class="form-row" style="margin-bottom:16px;">
-                    <div class="form-group" style="margin-bottom:0;"><label class="form-label">Ajouter un film</label><input type="text" class="form-input" id="movie-input" placeholder="Titre du film..." onkeydown="if(event.key==='Enter')addMovie()"></div>
-                    <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;"><button class="btn btn-primary" onclick="addMovie()" style="width:100%;justify-content:center;">+ Ajouter</button></div>
-                </div>
-                <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-                    <select class="form-select" id="movie-genre" style="width:auto;"><option value="">Tous genres</option><option value="Action">Action</option><option value="Comédie">Comédie</option><option value="Horreur">Horreur</option><option value="Sci-Fi">Sci-Fi</option><option value="Drame">Drame</option><option value="Anime">Anime</option></select>
-                    <button class="btn btn-primary" onclick="pickRandomMovie()" style="padding:10px 24px;">🎲 Choisir au hasard</button>
-                </div>
-                <div id="movie-pick-result" style="display:none;" class="movie-result-card"><div class="movie-poster" id="movie-poster">🎬</div><div class="movie-info"><h3 id="movie-pick-title">-</h3><p id="movie-pick-meta" style="color:var(--text-secondary);">-</p></div></div>
-                <div class="movie-watchlist"><h4 style="font-family:'Space Grotesk',sans-serif;margin-bottom:12px;">📋 Watchlist (<span id="movie-list-count">0</span>)</h4><div id="movie-list"></div></div>
-            </div>
-        </div>
-
         <!-- ===== MIND MAP ===== -->
         <div id="tool-mindmap" class="tool-view">
             <div class="mindmap-wrap">
@@ -895,107 +852,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <div style="position:relative;overflow:hidden;">
                     <canvas id="mindmap-canvas" style="display:block;cursor:default;background:var(--bg-primary);"></canvas>
                     <div id="mindmap-nodes" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ===== PCPARTPICKER DEVIS ===== -->
-        <div id="tool-pcpartpicker" class="tool-view">
-            <div class="pcpart-wrap">
-                <div style="text-align:center;margin-bottom:28px;">
-                    <div style="font-size:44px;margin-bottom:10px;">🖥️</div>
-                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:6px;">PCPartPicker Devis Extractor</h3>
-                    <p style="color:var(--text-secondary);font-size:13px;max-width:500px;margin:0 auto;">Colle le texte copié depuis PCPartPicker (format table ou liste). Le parser extrait les composants, prix et génère un devis avec main-d'œuvre.</p>
-                </div>
-
-                <div class="pcpart-parse-error" id="pcpart-error">❌ Impossible de parser le contenu. Vérifie que tu as bien copié la liste depuis PCPartPicker.</div>
-
-                <div class="pcpart-input-wrap">
-                    <label class="form-label">📋 Colle ici le contenu PCPartPicker</label>
-                    <textarea class="pcpart-textarea" id="pcpart-input" placeholder="CPU | Intel Core i5-13600K | €289.99&#10;Motherboard | MSI B760 | €149.99&#10;...&#10;&#10;Ou colle le format table complet depuis PCPartPicker (Component | Selection | Base | Promo | Shipping | Tax | Price)"></textarea>
-                    <div class="pcpart-paste-hint">💡 Astuce : sur PCPartPicker, clique sur le bouton de partage → "Plain Text" ou copie la table directement</div>
-                </div>
-
-                <div class="pcpart-config-grid">
-                    <div class="pcpart-config-item">
-                        <label>Nom client</label>
-                        <input type="text" id="pcpart-client" placeholder="Client..." value="">
-                    </div>
-                    <div class="pcpart-config-item">
-                        <label>Main-d'œuvre</label>
-                        <input type="number" id="pcpart-labor" value="150" min="0" step="5">
-                    </div>
-                    <div class="pcpart-config-item">
-                        <label>Frais de port</label>
-                        <input type="number" id="pcpart-shipping" value="0" min="0" step="5">
-                    </div>
-                    <div class="pcpart-config-item">
-                        <label>Marge (%)</label>
-                        <input type="number" id="pcpart-margin" value="0" min="0" max="100" step="1">
-                    </div>
-                    <div class="pcpart-config-item">
-                        <label>Devise</label>
-                        <select id="pcpart-currency">
-                            <option value="€">€ EUR</option>
-                            <option value="$">$ USD</option>
-                            <option value="£">£ GBP</option>
-                        </select>
-                    </div>
-                    <div class="pcpart-config-item">
-                        <label>TVA (%)</label>
-                        <input type="number" id="pcpart-tva" value="20" min="0" max="100" step="1">
-                    </div>
-                </div>
-
-                <div class="pcpart-controls">
-                    <button class="btn btn-primary" onclick="parsePCPartPicker()">🔍 Parser & Générer</button>
-                    <button class="btn" onclick="clearPCPartPicker()">🗑 Vider</button>
-                    <button class="btn" onclick="loadPCPartExample()">📋 Exemple</button>
-                </div>
-
-                <div id="pcpart-result" style="display:none;">
-                    <div class="pcpart-devis">
-                        <div class="pcpart-devis-header">
-                            <div>
-                                <div class="pcpart-devis-title">📄 Devis PC</div>
-                                <div class="pcpart-devis-meta" id="pcpart-devis-meta">—</div>
-                            </div>
-                            <div style="display:flex;gap:8px;">
-                                <span class="pcpart-badge" id="pcpart-badge-parts">0 pièces</span>
-                                <span class="pcpart-badge" id="pcpart-badge-total">—</span>
-                            </div>
-                        </div>
-
-                        <div style="margin-bottom:16px;">
-                            <input type="text" class="pcpart-client-input" id="pcpart-client-display" placeholder="Nom du client..." oninput="updatePCPartPreview()">
-                            <textarea class="pcpart-notes-input" id="pcpart-notes" placeholder="Notes personnalisées (optionnel)..." oninput="updatePCPartPreview()"></textarea>
-                        </div>
-
-                        <table class="pcpart-table" id="pcpart-table">
-                            <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Composant</th>
-                                    <th style="text-align:center">Qté</th>
-                                    <th style="text-align:right">Prix</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pcpart-tbody"></tbody>
-                        </table>
-
-                        <div class="pcpart-totals" id="pcpart-totals"></div>
-                    </div>
-
-                    <div class="pcpart-actions">
-                        <button class="btn btn-primary" onclick="copyPCPartMarkdown()">📋 Copier Markdown</button>
-                        <button class="btn btn-green" onclick="downloadPCPartMarkdown()">💾 Télécharger .md</button>
-                    </div>
-                </div>
-
-                <div class="pcpart-empty" id="pcpart-empty">
-                    <div class="pcpart-empty-icon">🖥️</div>
-                    <div>Colle le contenu de ta liste PCPartPicker pour commencer</div>
                 </div>
             </div>
         </div>
@@ -1019,8 +875,340 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <div style="display:flex;gap:8px;"><button class="btn" onclick="copyDailyNote()">📋 Copier</button><button class="btn btn-green" onclick="downloadDailyNote()">💾 Télécharger .md</button></div>
             </div>
         </div>
-    </div>
-</div>
+
+        <!-- ===== CHAOS CROSSHAIR ===== -->
+        <!-- ===== PC PART DEVIS ===== -->
+        <div id="tool-pcpart" class="tool-view">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:900px;margin:0 auto;">
+                <div style="text-align:center;margin-bottom:24px;">
+                    <div style="font-size:48px;margin-bottom:12px;">💸</div>
+                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">PC Devis</h3>
+                    <p style="color:var(--text-secondary);font-size:13px;">Colle le contenu copié depuis PCPartPicker (onglet "Texte brut" ou copie complète de la page).</p>
+                </div>
+                <div id="pcpart-input-section">
+                    <div class="form-row" style="margin-bottom:16px;">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Nom du client</label>
+                            <input type="text" class="form-input" id="pcpart-client" placeholder="Nom du client...">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Main-d'œuvre (€)</label>
+                            <input type="number" class="form-input" id="pcpart-labor" placeholder="150" value="150" min="0">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Frais de livraison (€)</label>
+                            <input type="number" class="form-input" id="pcpart-shipping" placeholder="0" value="0" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label class="form-label">Lien PCPartPicker</label>
+                        <input type="url" class="form-input" id="pcpart-url" placeholder="https://be.pcpartpicker.com/list/...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contenu PCPartPicker (colle ici)</label>
+                        <textarea class="form-textarea" id="pcpart-raw" placeholder="Colle le contenu complet de PCPartPicker ici...
+
+Exemple :
+CPU
+AMD Ryzen 5 7500F...
+AMD Ryzen 5 7500F...	€124.92	...
+Amazon Belgium
+..." style="min-height:200px;font-family:'JetBrains Mono',monospace;font-size:12px;"></textarea>
+                    </div>
+                    <div style="display:flex;gap:8px;margin-bottom:20px;">
+                        <button class="btn btn-primary" onclick="parsePCPart()" style="flex:1;justify-content:center;">⚡ Générer le devis</button>
+                        <button class="btn btn-danger" onclick="resetDevis()" style="padding:8px 16px;">↺ Reset</button>
+                    </div>
+                </div>
+                <div id="pcpart-result" style="display:none;">
+                    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+                        <button class="btn" onclick="copyDevis()">📋 Copier texte</button>
+                        <button class="btn btn-green" onclick="exportDevisMarkdown()">💾 Export Markdown</button>
+                    </div>
+                    <div id="pcpart-devis-content"></div>
+                </div>
+            </div>
+        </div>
+
+<div id="tool-crosshair" class="tool-view">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:800px;margin:0 auto;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:8px;">🎯 Chaos Crosshair</h3>
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Crosshair aléatoire pour forcer ton adaptation. Entraîne-toi avec des configs que tu n'utiliserais jamais.</p>
+                <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;">
+                    <button class="filter-chip active" id="ch-mode-light" onclick="setCrosshairMode('light',this)">🌿 Léger</button>
+                    <button class="filter-chip" id="ch-mode-medium" onclick="setCrosshairMode('medium',this)">⚡ Moyen</button>
+                    <button class="filter-chip" id="ch-mode-hardcore" onclick="setCrosshairMode('hardcore',this)">🔥 Hardcore</button>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                    <div>
+                        <div id="crosshair-preview" style="width:100%;height:200px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                            <canvas id="crosshair-canvas" width="200" height="200"></canvas>
+                        </div>
+                        <div style="margin-top:12px;display:flex;gap:8px;">
+                            <button class="btn btn-primary" onclick="generateCrosshair()" style="flex:1;justify-content:center;">🎲 Générer</button>
+                            <button class="btn" onclick="copyCrosshairCode()" style="flex:1;justify-content:center;">📋 Copier code</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;height:200px;overflow-y:auto;">
+                            <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:10px;">Paramètres</div>
+                            <div id="crosshair-params" style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-family:'JetBrains Mono',monospace;"></div>
+                        </div>
+                        <div style="margin-top:12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;padding:12px;">
+                            <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">CODE EXPORTABLE</div>
+                            <div id="crosshair-code" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);word-break:break-all;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:12px;">📚 Historique</div>
+                    <div id="crosshair-history" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TRIP PLANNER ===== -->
+        <div id="tool-trip" class="tool-view">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:900px;margin:0 auto;">
+                <div style="text-align:center;margin-bottom:24px;">
+                    <div style="font-size:48px;margin-bottom:12px;">✈️</div>
+                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Trip Planner</h3>
+                    <p style="color:var(--text-secondary);font-size:13px;">Planifie tes voyages, compare les destinations et estime les coûts.</p>
+                </div>
+                <div class="form-row" style="margin-bottom:16px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Destination</label>
+                        <input type="text" class="form-input" id="trip-dest" placeholder="Paris, Tokyo, New York...">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Dates</label>
+                        <input type="text" class="form-input" id="trip-dates" placeholder="12-19 juin 2026">
+                    </div>
+                </div>
+                <div class="form-row" style="margin-bottom:16px;">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Budget transport (€)</label>
+                        <input type="number" class="form-input" id="trip-transport" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Budget logement (€)</label>
+                        <input type="number" class="form-input" id="trip-lodging" placeholder="0" min="0">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Budget activités (€)</label>
+                        <input type="number" class="form-input" id="trip-activities" placeholder="0" min="0">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label class="form-label">Notes / Itinéraire</label>
+                    <textarea class="form-textarea" id="trip-notes" placeholder="Jour 1: Arrivée, check-in hotel...
+Jour 2: Visite musée..." style="min-height:120px;"></textarea>
+                </div>
+                <div style="display:flex;gap:8px;margin-bottom:24px;">
+                    <button class="btn btn-primary" onclick="addTrip()" style="flex:1;justify-content:center;">+ Ajouter le voyage</button>
+                </div>
+                <div id="trip-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+            </div>
+        </div>
+
+<!-- ===== DEAL TRACKER ===== -->
+        <div id="tool-deal" class="tool-view">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:900px;margin:0 auto;">
+                <div style="text-align:center;margin-bottom:24px;">
+                    <div style="font-size:48px;margin-bottom:12px;">🏷️</div>
+                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Deal Tracker</h3>
+                    <p style="color:var(--text-secondary);font-size:13px;">Suivi des prix, alertes de bons plans et wishlist avec seuil d'achat.</p>
+                </div>
+                <div class="form-row" style="margin-bottom:16px;">
+                    <div class="form-group" style="margin-bottom:0;flex:2;">
+                        <label class="form-label">Produit</label>
+                        <input type="text" class="form-input" id="deal-product" placeholder="Nom du produit...">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Prix actuel (€)</label>
+                        <input type="number" class="form-input" id="deal-current" placeholder="0" min="0" step="0.01">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Prix cible (€)</label>
+                        <input type="number" class="form-input" id="deal-target" placeholder="0" min="0" step="0.01">
+                    </div>
+                </div>
+                <div class="form-row" style="margin-bottom:16px;">
+                    <div class="form-group" style="margin-bottom:0;flex:2;">
+                        <label class="form-label">Lien / URL</label>
+                        <input type="url" class="form-input" id="deal-url" placeholder="https://...">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label class="form-label">Catégorie</label>
+                        <select class="form-select" id="deal-category">
+                            <option value="🖥️">🖥️ PC Hardware</option>
+                            <option value="🎮">🎮 Gaming</option>
+                            <option value="📱">📱 Tech</option>
+                            <option value="🎧">🎧 Audio</option>
+                            <option value="👕">👕 Mode</option>
+                            <option value="🏠">🏠 Maison</option>
+                            <option value="✈️">✈️ Voyage</option>
+                            <option value="🍕">🍕 Food</option>
+                            <option value="📚">📚 Autre</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;margin-bottom:24px;">
+                    <button class="btn btn-primary" onclick="addDeal()" style="flex:1;justify-content:center;">+ Ajouter le deal</button>
+                </div>
+                <div id="deal-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+            </div>
+        </div>
+
+<!-- ===== SOCIAL PREVIEW ===== -->
+        <div id="tool-socialpreview" class="tool-view">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:800px;margin:0 auto;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:8px;">🖼️ Social Preview Card</h3>
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Simule le rendu de ton lien sur Twitter/X, Discord et LinkedIn.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div>
+                        <div class="form-group"><label class="form-label">Titre</label><input type="text" class="form-input" id="sp-title" placeholder="Titre de ta page" oninput="renderSocialPreview()"></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="sp-desc" placeholder="Description de ta page..." oninput="renderSocialPreview()" style="min-height:60px;"></textarea></div>
+                        <div class="form-group"><label class="form-label">URL</label><input type="text" class="form-input" id="sp-url" placeholder="flowboard.vercel.app" oninput="renderSocialPreview()"></div>
+                        <div class="form-group"><label class="form-label">Image OG (URL)</label><input type="text" class="form-input" id="sp-img" placeholder="https://..." oninput="renderSocialPreview()"></div>
+                        <div class="form-group"><label class="form-label">Thème</label><div style="display:flex;gap:6px;margin-top:4px;"><button class="filter-chip active" onclick="setSPTheme('twitter',this)">Twitter/X</button><button class="filter-chip" onclick="setSPTheme('discord',this)">Discord</button><button class="filter-chip" onclick="setSPTheme('linkedin',this)">LinkedIn</button></div></div>
+                    </div>
+                    <div>
+                        <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;">Aperçu</div>
+                        <div id="sp-preview"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== POLL MAKER ===== -->
+        <div id="tool-poll" class="tool-view">
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:700px;margin:0 auto;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:8px;">📊 Poll Maker</h3>
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Sondage simple avec résultats en temps réel. Tout en local.</p>
+                <div id="poll-create-section">
+                    <div class="form-group"><label class="form-label">Question</label><input type="text" class="form-input" id="poll-question" placeholder="Ta question ici..."></div>
+                    <div class="form-group"><label class="form-label">Options</label><div id="poll-options-inputs"><input type="text" class="form-input" style="margin-bottom:8px;" placeholder="Option 1"><input type="text" class="form-input" placeholder="Option 2"></div></div>
+                    <div style="display:flex;gap:8px;margin-bottom:20px;"><button class="btn" onclick="addPollOption()">+ Option</button><button class="btn btn-primary" onclick="createPoll()" style="flex:1;justify-content:center;">🗳️ Créer le sondage</button></div>
+                </div>
+                <div id="poll-vote-section" style="display:none;">
+                    <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;margin-bottom:16px;">
+                        <h4 id="poll-q-display" style="font-family:'Space Grotesk',sans-serif;font-size:18px;margin-bottom:16px;"></h4>
+                        <div id="poll-vote-options" style="display:flex;flex-direction:column;gap:8px;"></div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn" onclick="exportPollMarkdown()">💾 Export Markdown</button>
+                        <button class="btn btn-danger" onclick="resetPoll()">↺ Nouveau sondage</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== RESSOURCES ===== -->
+        <div id="tool-resources" class="tool-view">
+            <div style="max-width:1000px;margin:0 auto;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:4px;">📚 Ressources & Liens</h3>
+                <p style="color:var(--text-secondary);font-size:13px;margin-bottom:24px;">Collection de liens utiles organisée par catégorie.</p>
+                <div id="resources-tabs" style="display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:0;">
+                    <button class="machub-tab active" onclick="showResTab('jeux',this)">🎮 Jeux</button>
+                    <button class="machub-tab" onclick="showResTab('films',this)">🎬 Films/Séries</button>
+                    <button class="machub-tab" onclick="showResTab('comparaison',this)">📊 Comparaison</button>
+                    <button class="machub-tab" onclick="showResTab('plus',this)">➕ Plus</button>
+                </div>
+
+                <!-- JEUX -->
+                <div id="res-jeux" class="res-tab-content active">
+                    <div class="res-section"><div class="res-section-title">ℹ️ Infos</div><div class="res-links-grid">
+                        <a href="https://gamestatus.info/en" target="_blank" class="res-link-card"><div class="res-link-icon">🎮</div><div class="res-link-name">Crack Status</div><div class="res-link-desc">Statut des protections & sorties</div></a>
+                        <a href="https://news.instant-gaming.com/fr" target="_blank" class="res-link-card"><div class="res-link-icon">📰</div><div class="res-link-name">News Instant Gaming</div><div class="res-link-desc">Actualités gaming & promos</div></a>
+                        <a href="https://crackwatcher.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🔍</div><div class="res-link-name">CrackWatcher</div><div class="res-link-desc">Suivi des protections DRM</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">🌐 Web</div><div class="res-links-grid">
+                        <a href="https://gam.onl/" target="_blank" class="res-link-card"><div class="res-link-icon">🕹️</div><div class="res-link-name">GameOnline</div><div class="res-link-desc">Jeux en ligne gratuits</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">📦 MegaThread</div><div class="res-links-grid">
+                        <a href="https://r-roms.github.io/" target="_blank" class="res-link-card"><div class="res-link-icon">🕹️</div><div class="res-link-name">Retro Games Mega Thread</div><div class="res-link-desc">ROMs & émulation rétro</div></a>
+                        <a href="https://rentry.org/pgames#direct-download-ddl-sites" target="_blank" class="res-link-card"><div class="res-link-icon">📦</div><div class="res-link-name">Games Mega Thread</div><div class="res-link-desc">Sites DDL répertoriés</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">🛒 Autre</div><div class="res-links-grid">
+                        <a href="https://isthereanydeal.com/" target="_blank" class="res-link-card"><div class="res-link-icon">💸</div><div class="res-link-name">IsThereAnyDeal</div><div class="res-link-desc">Meilleures promos marché blanc</div></a>
+                        <a href="https://mega.nz/file/R4pxBYZa#aYnBbWu_pyDrokT8J1GUmDGL8RmtqHJ8AOchdOIZolY" target="_blank" class="res-link-card"><div class="res-link-icon">🗜️</div><div class="res-link-name">Archive Torrent ZIP</div><div class="res-link-desc">Archive personnelle</div></a>
+                    </div></div>
+                </div>
+
+                <!-- FILMS -->
+                <div id="res-films" class="res-tab-content">
+                    <div class="res-section"><div class="res-section-title">📦 MegaThread</div><div class="res-links-grid">
+                        <a href="https://fmhy.pages.dev/non-english#french-francais" target="_blank" class="res-link-card"><div class="res-link-icon">🇫🇷</div><div class="res-link-name">FMHY Français</div><div class="res-link-desc">Liens FR films/séries multilangue</div></a>
+                        <a href="https://rentry.co/zdno5k4z" target="_blank" class="res-link-card"><div class="res-link-icon">📋</div><div class="res-link-name">Rentry Mega Thread</div><div class="res-link-desc">Collection de liens film/série</div></a>
+                        <a href="https://theindex.moe/library/anime" target="_blank" class="res-link-card"><div class="res-link-icon">🎌</div><div class="res-link-name">Anime Mega Thread</div><div class="res-link-desc">Index anime complet</div></a>
+                        <a href="https://pastebin.com/SuwS6kri" target="_blank" class="res-link-card"><div class="res-link-icon">📝</div><div class="res-link-name">MegaMegaThread</div><div class="res-link-desc">Méga-compilation de ressources</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">▶️ Streaming / Download</div><div class="res-links-grid">
+                        <a href="https://hydracker.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🌊</div><div class="res-link-name">Hydracker (DarkiWorld)</div><div class="res-link-desc">Streaming & téléchargement FR</div></a>
+                    </div></div>
+                </div>
+
+                <!-- COMPARAISON -->
+                <div id="res-comparaison" class="res-tab-content">
+                    <div class="res-section"><div class="res-section-title">🖱️ Hardware</div><div class="res-links-grid">
+                        <a href="https://docs.google.com/spreadsheets/d/1NMDwOkn3uynv7aIBZxrIl9kLiV7t9OXJJIFySD-pOrY/edit?gid=2062135880#gid=2062135880" target="_blank" class="res-link-card"><div class="res-link-icon">🖱️</div><div class="res-link-name">Test Souris / Tapis / IEM</div><div class="res-link-desc">Comparatif périphériques gaming</div></a>
+                        <a href="https://docs.google.com/spreadsheets/d/1CVS1pg1Ln8q52f6vPV45PTQZCUjB33-FugqLhwpND3A/edit?gid=0#gid=0" target="_blank" class="res-link-card"><div class="res-link-icon">💾</div><div class="res-link-name">SSD Comparaison</div><div class="res-link-desc">Benchmark et classement SSD</div></a>
+                        <a href="https://docs.google.com/spreadsheets/d/1wAcWruFXxGAw0ckt8sn_YaajzSLOdG7vq1WmmEwwo3c/edit?gid=1719706335#gid=1719706335" target="_blank" class="res-link-card"><div class="res-link-icon">⚡</div><div class="res-link-name">Tierlist Alim PC</div><div class="res-link-desc">Classement alimentations PC</div></a>
+                        <a href="https://docs.google.com/spreadsheets/d/1H_ZJVRr_1yr8dnUE2FlrUMaWectzKoLhzXMQQoPJGmk/edit?gid=757992332#gid=757992332" target="_blank" class="res-link-card"><div class="res-link-icon">🎮</div><div class="res-link-name">Test GPU</div><div class="res-link-desc">Comparatif cartes graphiques</div></a>
+                        <a href="https://www.systemrequirementslab.com/cyri" target="_blank" class="res-link-card"><div class="res-link-icon">🖥️</div><div class="res-link-name">CanYouRunIt</div><div class="res-link-desc">Vérifier les configs requises</div></a>
+                    </div></div>
+                </div>
+
+                <!-- PLUS -->
+                <div id="res-plus" class="res-tab-content">
+                    <div class="res-section"><div class="res-section-title">🎮 Steam</div><div class="res-links-grid">
+                        <a href="https://steambrew.app/" target="_blank" class="res-link-card"><div class="res-link-icon">🍺</div><div class="res-link-name">SteamBrew (Millennium)</div><div class="res-link-desc">Thèmes & mods Steam</div></a>
+                        <a href="https://github.com/Depressurizer/Depressurizer" target="_blank" class="res-link-card"><div class="res-link-icon">🗂️</div><div class="res-link-name">Depressurizer</div><div class="res-link-desc">Organisateur de librairie Steam</div></a>
+                        <a href="https://steamladder.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🏅</div><div class="res-link-name">SteamLadder</div><div class="res-link-desc">Classements & stats Steam</div></a>
+                        <a href="https://steamstat.us/" target="_blank" class="res-link-card"><div class="res-link-icon">📡</div><div class="res-link-name">SteamStatus</div><div class="res-link-desc">Statut des serveurs Steam</div></a>
+                        <a href="https://steamdb.info/" target="_blank" class="res-link-card"><div class="res-link-icon">🗃️</div><div class="res-link-name">SteamDB</div><div class="res-link-desc">Base de données Steam complète</div></a>
+                        <a href="https://steampeek.hu/" target="_blank" class="res-link-card"><div class="res-link-icon">🔭</div><div class="res-link-name">Steampeek</div><div class="res-link-desc">Découverte de jeux Steam</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">📚 Suivi & Collections</div><div class="res-links-grid">
+                        <a href="https://letterboxd.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🎬</div><div class="res-link-name">Letterboxd</div><div class="res-link-desc">Journal & suivi de films</div></a>
+                        <a href="https://backloggd.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🎮</div><div class="res-link-name">Backloggd</div><div class="res-link-desc">Suivi de jeux vidéo</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">🛠️ Outils — Jeux</div><div class="res-links-grid">
+                        <a href="https://wassimel.github.io/LoL-duel-and-team-build/" target="_blank" class="res-link-card"><div class="res-link-icon">⚔️</div><div class="res-link-name">LoL Duel + Team Build</div><div class="res-link-desc">Générateur d'équipes LoL</div></a>
+                        <a href="https://howlongtobeat.com/" target="_blank" class="res-link-card"><div class="res-link-icon">⏱️</div><div class="res-link-name">HowLongToBeat</div><div class="res-link-desc">Durée de vie des jeux</div></a>
+                        <a href="https://csgoskins.gg/" target="_blank" class="res-link-card"><div class="res-link-icon">🔫</div><div class="res-link-name">CS2 Market</div><div class="res-link-desc">Prix des skins CS2</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">✏️ Édition</div><div class="res-links-grid">
+                        <a href="https://www.photopea.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🖼️</div><div class="res-link-name">Photopea</div><div class="res-link-desc">Photoshop en ligne gratuit</div></a>
+                        <a href="https://www.canva.com/fr_be/" target="_blank" class="res-link-card"><div class="res-link-icon">🎨</div><div class="res-link-name">Canva</div><div class="res-link-desc">Design graphique simplifié</div></a>
+                        <a href="https://pixlr.com/fr/" target="_blank" class="res-link-card"><div class="res-link-icon">✂️</div><div class="res-link-name">Pixlr</div><div class="res-link-desc">Éditeur photo en ligne</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">🎬 Film / Vidéo</div><div class="res-links-grid">
+                        <a href="https://www.movieposterdb.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🎞️</div><div class="res-link-name">MoviePosterDB</div><div class="res-link-desc">Base de données d'affiches</div></a>
+                        <a href="https://film-grab.com/" target="_blank" class="res-link-card"><div class="res-link-icon">📸</div><div class="res-link-name">FilmGrab</div><div class="res-link-desc">Screenshots cinématographiques</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">🔧 Autre</div><div class="res-links-grid">
+                        <a href="https://humanbenchmark.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🧠</div><div class="res-link-name">HumanBenchmark</div><div class="res-link-desc">Tests de réflexes & mémoire</div></a>
+                        <a href="https://downdetector.fr/" target="_blank" class="res-link-card"><div class="res-link-icon">📡</div><div class="res-link-name">Downdetector</div><div class="res-link-desc">Statut des services en ligne</div></a>
+                        <a href="https://www.shopyourtv.com/" target="_blank" class="res-link-card"><div class="res-link-icon">📺</div><div class="res-link-name">ShopYourTv</div><div class="res-link-desc">Identifier les produits de séries TV</div></a>
+                        <a href="https://www.startmycar.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🚗</div><div class="res-link-name">StartMyCar</div><div class="res-link-desc">Accessoires & pièces auto</div></a>
+                        <a href="https://librivox.org/search?primary_key=0&search_category=author&search_page=1&search_form=get_results&search_order=alpha" target="_blank" class="res-link-card"><div class="res-link-icon">📖</div><div class="res-link-name">LibriVox</div><div class="res-link-desc">Livres audio gratuits</div></a>
+                        <a href="https://www.dealabs.com/" target="_blank" class="res-link-card"><div class="res-link-icon">🏷️</div><div class="res-link-name">Dealabs</div><div class="res-link-desc">Bons plans & promotions</div></a>
+                        <a href="https://pimeyes.com/en" target="_blank" class="res-link-card"><div class="res-link-icon">👁️</div><div class="res-link-name">PimEyes</div><div class="res-link-desc">Recherche faciale en ligne</div></a>
+                    </div></div>
+                    <div class="res-section"><div class="res-section-title">🧩 Extensions</div><div class="res-links-grid">
+                        <a href="https://chromewebstore.google.com/detail/faststream-video-player/kkeakohpadmbldjaiggikmnldlfkdfog" target="_blank" class="res-link-card"><div class="res-link-icon">⚡</div><div class="res-link-name">FastStream</div><div class="res-link-desc">Player vidéo amélioré</div></a>
+                        <a href="https://fr.igraal.com/parrainage?parrain=AG_599dd29e08cd5&utm_medium=raf&utm_source=refer_friend" target="_blank" class="res-link-card"><div class="res-link-icon">💰</div><div class="res-link-name">IGraal</div><div class="res-link-desc">Cashback shopping</div></a>
+                        <a href="https://chromewebstore.google.com/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi" target="_blank" class="res-link-card"><div class="res-link-icon">👎</div><div class="res-link-name">Return YouTube Dislike</div><div class="res-link-desc">Restaure les dislikes YouTube</div></a>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end tools-container -->
+  </div><!-- end flex wrapper -->
+</div><!-- end page-tools -->
 
 <!-- MODAL TÂCHE -->
 <div class="modal-overlay" id="task-modal">
@@ -1090,9 +1278,8 @@ function loadUserData() {
     const savedHabits = localStorage.getItem(getStorageKey('habits'));
     if (savedHabits) { try { habits = JSON.parse(savedHabits); } catch(e) {} }
     if (!habits.length) habits = [{id:'1',name:'Sport',emoji:'💪',days:{}},{id:'2',name:'Lecture',emoji:'📚',days:{}},{id:'3',name:'Code',emoji:'💻',days:{}}];
-    const savedMovies = localStorage.getItem(getStorageKey('movies'));
-    if (savedMovies) { try { movieList = JSON.parse(savedMovies); } catch(e) {} }
     isAdmin = localStorage.getItem('flowboard_admin') === 'true';
+    loadTrips(); loadDeals();
     // Don't re-render kanban here — tasks are shared and already rendered on init
     updateHomeStats(); renderPasswordVault();
     renderNotesTabs(); renderHabits(); renderMovieList();
@@ -1154,7 +1341,7 @@ function showPage(pageId) {
 
 function activateTool(toolId) {
     document.querySelectorAll('.tool-view').forEach(v => { v.style.display = 'none'; v.classList.remove('active'); });
-    document.querySelectorAll('[id^="btn-tool-"]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tool-sidebar-btn').forEach(b => b.classList.remove('active'));
     const tv = document.getElementById('tool-' + toolId);
     if (tv) { tv.style.display = 'block'; tv.classList.add('active'); }
     document.getElementById('btn-tool-' + toolId)?.classList.add('active');
@@ -1164,8 +1351,21 @@ function activateTool(toolId) {
     }
     if (toolId === 'tierlist') { initTierList(); }
     if (toolId === 'mindmap') { initMindMap(); }
-    if (toolId === 'decision') { drawWheel(); }
+    if (toolId === 'decision') { drawWheel(); renderDecisionOptions(); }
     if (toolId === 'daily') { generateDailyNote(); }
+    if (toolId === 'pcpart') { /* rendered on demand */ }
+            if (toolId === 'trip') { loadTrips(); renderTrips(); }
+    if (toolId === 'deal') { loadDeals(); renderDeals(); }
+    if (toolId === 'crosshair') { generateCrosshair(); }
+    if (toolId === 'socialpreview') { renderSocialPreview(); }
+    if (toolId === 'poll') { /* rendered by create flow */ }
+    if (toolId === 'resources') { /* static */ }
+}
+function showResTab(tabId, btn) {
+    document.querySelectorAll('.res-tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#resources-tabs .machub-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('res-' + tabId)?.classList.add('active');
+    btn.classList.add('active');
 }
 
 // ===== HOME STATS =====
@@ -1533,45 +1733,76 @@ function exportNoteMarkdown(){
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${n.title.replace(/[^a-z0-9]/gi,'_')}.md`;a.click();
 }
 
-// ===== TIER LIST =====
+// ===== TIER LIST (FIXED) =====
 const TIER_DEFS=[{label:'S',color:'#ff4757'},{label:'A',color:'#ff6b35'},{label:'B',color:'#ffd93d'},{label:'C',color:'#6bcb77'},{label:'D',color:'#4d96ff'}];
 let tierData={S:[],A:[],B:[],C:[],D:[],pool:[]};
 let tierDragging=null,tierDragFrom=null;
 const TIER_TEMPLATES={
-    lol:['Jinx','Zed','Ahri','Thresh','Vi','Yasuo','Lux','Kaisa','Darius','Ekko','Lee Sin','Yone'],
-    movies:['Inception','Interstellar','The Dark Knight','Pulp Fiction','Parasite','1917','Dune','No Country for Old Men'],
-    tools:['VS Code','GitHub','Docker','Figma','Obsidian','Notion','Linear','Vercel','Supabase'],
-    games:['CS2','Elden Ring','LoL','Minecraft','GTA V','Dark Souls','Among Us','Fortnite','Valorant']
+    lol:['Jinx','Zed','Ahri','Thresh','Vi','Yasuo','Lux','Kaisa','Darius','Ekko','Lee Sin','Yone','Akali','Graves'],
+    movies:['Inception','Interstellar','The Dark Knight','Pulp Fiction','Parasite','1917','Dune','No Country for Old Men','Oppenheimer'],
+    tools:['VS Code','GitHub','Docker','Figma','Obsidian','Notion','Linear','Vercel','Supabase','Raycast'],
+    games:['CS2','Elden Ring','LoL','Minecraft','GTA V','Dark Souls','Valorant','Hunt: Showdown','Grey Zone']
 };
-function initTierList(){if(!tierData.pool.length&&!Object.values(tierData).slice(0,-1).flat().length)tierData.pool=['Item 1','Item 2','Item 3','Item 4'];renderTierList();}
+function initTierList(){
+    if(!tierData.pool.length && !Object.values(tierData).flat().length){
+        tierData.pool=['Élément 1','Élément 2','Élément 3','Élément 4','Élément 5'];
+    }
+    renderTierList();
+}
 function renderTierList(){
     const container=document.getElementById('tier-rows');if(!container)return;
     container.innerHTML='';
     TIER_DEFS.forEach(t=>{
         const row=document.createElement('div');row.className='tier-row';
-        const label=document.createElement('div');label.className='tier-label';label.style.background=t.color;label.textContent=t.label;
+        const label=document.createElement('div');
+        label.className='tier-label';label.style.background=t.color;label.textContent=t.label;
+        label.title='Double-clic pour ajouter un élément dans '+t.label;
+        label.ondblclick=()=>addItemToTier(t.label);
         const items=document.createElement('div');items.className='tier-items';items.dataset.tier=t.label;
-        (tierData[t.label]||[]).forEach(item=>items.appendChild(createTierItem(item,t.label)));
-        items.addEventListener('dragover',e=>{e.preventDefault();items.classList.add('drag-over-tier');});
-        items.addEventListener('dragleave',()=>items.classList.remove('drag-over-tier'));
-        items.addEventListener('drop',e=>{e.preventDefault();items.classList.remove('drag-over-tier');if(tierDragging){const from=tierDragFrom;const to=t.label;if(from!==to){tierData[from]=(tierData[from]||[]).filter(x=>x!==tierDragging);(tierData[to]=tierData[to]||[]).push(tierDragging);}renderTierList();}});
+        (tierData[t.label]||[]).forEach(item=>items.appendChild(makeTierItemEl(item,t.label)));
+        setupTierDropZone(items, t.label);
         row.appendChild(label);row.appendChild(items);container.appendChild(row);
     });
-    const pool=document.getElementById('tierlist-pool');if(!pool)return;pool.innerHTML='';
-    (tierData.pool||[]).forEach(item=>pool.appendChild(createTierItem(item,'pool')));
-    pool.addEventListener('dragover',e=>{e.preventDefault();pool.style.borderColor='var(--accent)';});
-    pool.addEventListener('dragleave',()=>pool.style.borderColor='');
-    pool.addEventListener('drop',e=>{e.preventDefault();pool.style.borderColor='';if(tierDragging&&tierDragFrom!=='pool'){tierData[tierDragFrom]=(tierData[tierDragFrom]||[]).filter(x=>x!==tierDragging);(tierData.pool=tierData.pool||[]).push(tierDragging);renderTierList();}});
+    const pool=document.getElementById('tierlist-pool');if(!pool)return;
+    pool.innerHTML='';
+    (tierData.pool||[]).forEach(item=>pool.appendChild(makeTierItemEl(item,'pool')));
+    setupTierDropZone(pool,'pool');
 }
-function createTierItem(name,from){
-    const el=document.createElement('div');el.className='tier-item';el.textContent=name;el.draggable=true;
-    el.addEventListener('dragstart',()=>{tierDragging=name;tierDragFrom=from;el.classList.add('dragging');});
-    el.addEventListener('dragend',()=>{tierDragging=null;tierDragFrom=null;el.classList.remove('dragging');});
-    el.addEventListener('dblclick',()=>{const n=prompt('Renommer :',name);if(n&&n.trim()){const arr=tierData[from];const i=arr.indexOf(name);if(i>-1)arr[i]=n.trim();renderTierList();}});
-    el.addEventListener('contextmenu',e=>{e.preventDefault();if(confirm(`Supprimer "${name}" ?`)){tierData[from]=(tierData[from]||[]).filter(x=>x!==name);renderTierList();}});
+function makeTierItemEl(name, fromTier){
+    const el=document.createElement('div');el.className='tier-item';el.draggable=true;
+    const nameSpan=document.createElement('span');nameSpan.textContent=name;
+    const delBtn=document.createElement('button');delBtn.className='tier-item-del';delBtn.textContent='×';delBtn.title='Supprimer';
+    delBtn.onclick=(e)=>{e.stopPropagation();e.preventDefault();deleteTierItem(name,fromTier);};
+    el.appendChild(nameSpan);el.appendChild(delBtn);
+    el.addEventListener('dragstart',e=>{tierDragging=name;tierDragFrom=fromTier;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    el.addEventListener('dragend',()=>{el.classList.remove('dragging');tierDragging=null;tierDragFrom=null;document.querySelectorAll('.tier-items,.tierlist-pool').forEach(z=>z.classList.remove('drag-over-tier'));});
+    el.addEventListener('dblclick',e=>{e.stopPropagation();const n=prompt('Renommer :',name);if(n&&n.trim()&&n.trim()!==name){const arr=tierData[fromTier];const i=arr.indexOf(name);if(i>-1){arr[i]=n.trim();renderTierList();}}});
     return el;
 }
-function addTierItem(){const n=prompt('Nom de l\'élément :');if(n&&n.trim()){(tierData.pool=tierData.pool||[]).push(n.trim());renderTierList();}}
+function setupTierDropZone(el, tierLabel){
+    el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('drag-over-tier');});
+    el.addEventListener('dragleave',e=>{if(!el.contains(e.relatedTarget))el.classList.remove('drag-over-tier');});
+    el.addEventListener('drop',e=>{
+        e.preventDefault();el.classList.remove('drag-over-tier');
+        if(!tierDragging||tierDragFrom===null)return;
+        if(tierDragFrom===tierLabel)return;
+        const fromArr=tierData[tierDragFrom]||[];
+        const idx=fromArr.indexOf(tierDragging);if(idx>-1)fromArr.splice(idx,1);
+        (tierData[tierLabel]=tierData[tierLabel]||[]).push(tierDragging);
+        renderTierList();
+    });
+}
+function addTierItem(){
+    const n=prompt('Nom de l\'élément :');if(!n||!n.trim())return;
+    (tierData.pool=tierData.pool||[]).push(n.trim());renderTierList();showToast('Élément ajouté dans le pool','success');
+}
+function addItemToTier(tier){
+    const n=prompt(`Ajouter directement dans ${tier} :`);if(!n||!n.trim())return;
+    (tierData[tier]=tierData[tier]||[]).push(n.trim());renderTierList();showToast('Ajouté dans '+tier,'success');
+}
+function deleteTierItem(name, fromTier){
+    tierData[fromTier]=(tierData[fromTier]||[]).filter(x=>x!==name);renderTierList();
+}
 function resetTierList(){if(confirm('Réinitialiser la tier list ?')){tierData={S:[],A:[],B:[],C:[],D:[],pool:[]};renderTierList();}}
 function loadTierTemplate(){
     const t=document.getElementById('tierlist-template').value;if(!t)return;
@@ -1579,11 +1810,8 @@ function loadTierTemplate(){
     document.getElementById('tierlist-template').value='';
 }
 function exportTierList(){
-    const el=document.getElementById('tier-rows').closest('.tierlist-wrap');
-    showToast('Export en cours...','info');
-    // Simple text export
     let text='Tier List\n\n';
-    TIER_DEFS.forEach(t=>{if((tierData[t.label]||[]).length)text+=`${t.label}: ${tierData[t.label].join(', ')}\n`;});
+    TIER_DEFS.forEach(t=>{if((tierData[t.label]||[]).length)text+=`[${t.label}] ${tierData[t.label].join(' • ')}\n`;});
     const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tierlist.txt';a.click();
 }
 
@@ -1701,33 +1929,6 @@ function generateNames(){
     nameHistory.unshift(...results.slice(0,3));
 }
 
-// ===== MOVIE NIGHT =====
-function saveMovies(){if(currentUser)localStorage.setItem(getStorageKey('movies'),JSON.stringify(movieList));}
-function addMovie(){
-    const input=document.getElementById('movie-input');const title=input.value.trim();if(!title)return;
-    const genre=document.getElementById('movie-genre').value;
-    movieList.push({id:Date.now().toString(),title,genre,added:Date.now()});
-    saveMovies();renderMovieList();input.value='';showToast('Film ajouté !','success');
-}
-function pickRandomMovie(){
-    const genre=document.getElementById('movie-genre').value;
-    const pool=genre?movieList.filter(m=>m.genre===genre):movieList;
-    if(!pool.length){showToast('Aucun film disponible','error');return;}
-    const pick=pool[Math.floor(Math.random()*pool.length)];
-    document.getElementById('movie-pick-result').style.display='flex';
-    document.getElementById('movie-pick-title').textContent=pick.title;
-    document.getElementById('movie-pick-meta').textContent=pick.genre||'Genre non défini';
-    document.getElementById('movie-poster').textContent='🎬';
-    showToast('🎬 '+pick.title,'success');
-}
-function renderMovieList(){
-    const list=document.getElementById('movie-list');const count=document.getElementById('movie-list-count');if(!list)return;
-    count.textContent=movieList.length;
-    if(!movieList.length){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted);">Ta watchlist est vide.</div>';return;}
-    list.innerHTML=movieList.map(m=>`<div class="movie-watchlist-item"><span>${escapeHtml(m.title)}</span><div style="display:flex;gap:8px;align-items:center;">${m.genre?`<span style="font-size:11px;color:var(--text-muted);">${m.genre}</span>`:''}<button class="pwd-vault-btn" onclick="removeMovie('${m.id}')">🗑</button></div></div>`).join('');
-}
-function removeMovie(id){movieList=movieList.filter(m=>m.id!==id);saveMovies();renderMovieList();}
-
 // ===== MIND MAP =====
 let mindNodes=[],mindEdges=[],mindSelected=null,mindConnecting=null,mindDragging=null,mindDragOffset={x:0,y:0};
 const MIND_COLORS=['var(--accent)','var(--green)','var(--purple)','var(--pink)','var(--teal)','var(--orange)','var(--yellow)'];
@@ -1838,298 +2039,6 @@ function downloadDailyNote(){
     const a=document.createElement('a');a.download=`daily-${today}.md`;a.href=URL.createObjectURL(blob);a.click();
 }
 
-
-// ===== PCPARTPICKER DEVIS EXTRACTOR =====
-let pcpartData = { parts: [], client: '', notes: '', labor: 150, shipping: 0, margin: 0, currency: '€', tva: 20 };
-
-const PCPART_EXAMPLE = `CPU		Intel Core i5-13600K 3.5 GHz 14-Core Processor		€289.99
-CPU Cooler		Deepcool AK400 66.47 CFM CPU Cooler		€34.99
-Motherboard		MSI PRO B760M-A WIFI DDR4 Micro ATX LGA1700		€149.99
-Memory		Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3200		€64.99
-Storage		Samsung 980 Pro 1 TB M.2-2280 PCIe 4.0 X4 NVME		€89.99
-Video Card		MSI GeForce RTX 4060 Ti 8 GB VENTUS 2X OC		€399.99
-Case		Fractal Design Pop Air ATX Mid Tower		€89.99
-Power Supply		Corsair RM750e (2023) 750 W 80+ Gold		€109.99`;
-
-function parsePCPartPicker() {
-    const raw = document.getElementById('pcpart-input').value.trim();
-    const errorEl = document.getElementById('pcpart-error');
-    if (!raw) { errorEl.classList.add('show'); return; }
-    errorEl.classList.remove('show');
-
-    // Récupérer les configs
-    pcpartData.labor = parseFloat(document.getElementById('pcpart-labor').value) || 0;
-    pcpartData.shipping = parseFloat(document.getElementById('pcpart-shipping').value) || 0;
-    pcpartData.margin = parseFloat(document.getElementById('pcpart-margin').value) || 0;
-    pcpartData.currency = document.getElementById('pcpart-currency').value;
-    pcpartData.tva = parseFloat(document.getElementById('pcpart-tva').value) || 0;
-    pcpartData.client = document.getElementById('pcpart-client').value.trim();
-    pcpartData.notes = document.getElementById('pcpart-notes').value.trim();
-
-    const parts = parsePCPartText(raw);
-    if (!parts.length) { errorEl.classList.add('show'); return; }
-
-    pcpartData.parts = parts;
-    renderPCPartResult();
-    showToast(parts.length + ' composants extraits ✓', 'success');
-}
-
-function parsePCPartText(text) {
-    const lines = text.split(/\r?\n/).filter(l => l.trim());
-    const parts = [];
-
-    // Patterns de prix
-    const priceRegex = /[\$€£]\s*([\d,]+\.\d{2})\s*$/;
-
-    for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith('*') || trimmed.startsWith('—') || trimmed.startsWith('|')) continue;
-        if (trimmed.match(/^(Component|Selection|Base|Promo|Shipping|Tax|Price|Where|Total)/i)) continue;
-        if (trimmed.match(/^(CPU|Motherboard|Memory|Storage|Video Card|Case|Power Supply|Operating System|Monitor|Expansion|Peripherals|Accessories|Choose A|Choose An)/i) && trimmed.length < 40 && !priceRegex.test(trimmed)) continue;
-
-        // Essayer de parser différents formats
-        let part = null;
-
-        // Format 1: Table markdown | Component | Selection | Base | ... | Price |
-        if (trimmed.includes('|')) {
-            const cols = trimmed.split('|').map(c => c.trim()).filter(c => c);
-            if (cols.length >= 2) {
-                const type = cols[0];
-                const name = cols[1];
-                // Chercher le prix dans la dernière colonne ou colonnes avant-dernières
-                for (let i = cols.length - 1; i >= 0; i--) {
-                    const priceMatch = cols[i].match(priceRegex);
-                    if (priceMatch) {
-                        const priceStr = priceMatch[1].replace(',', '');
-                        const price = parseFloat(priceStr);
-                        if (!isNaN(price) && price > 0) {
-                            part = { type: cleanType(type), name: cleanName(name), price: price, qty: 1 };
-                            break;
-                        }
-                    }
-                }
-                if (!part && cols.length >= 2) {
-                    // Pas de prix trouvé, prendre quand même le nom
-                    part = { type: cleanType(cols[0]), name: cleanName(cols[1]), price: 0, qty: 1 };
-                }
-            }
-        }
-        // Format 2: Tab-separé ou multi-espaces avec prix à la fin
-        else {
-            const priceMatch = trimmed.match(priceRegex);
-            if (priceMatch) {
-                const priceStr = priceMatch[1].replace(',', '');
-                const price = parseFloat(priceStr);
-                const priceIndex = trimmed.indexOf(priceMatch[0]);
-                const beforePrice = trimmed.substring(0, priceIndex).trim();
-
-                // Essayer de séparer type et nom
-                const tokens = beforePrice.split(/	+|\s{2,}/);
-                if (tokens.length >= 2) {
-                    const possibleType = tokens[0].trim();
-                    const possibleName = tokens.slice(1).join(' ').trim();
-                    if (isKnownType(possibleType)) {
-                        part = { type: cleanType(possibleType), name: cleanName(possibleName), price: price, qty: 1 };
-                    } else {
-                        part = { type: 'Autre', name: cleanName(beforePrice), price: price, qty: 1 };
-                    }
-                } else {
-                    part = { type: 'Autre', name: cleanName(beforePrice), price: price, qty: 1 };
-                }
-            }
-        }
-
-        if (part && part.name && part.name.length > 2) {
-            parts.push(part);
-        }
-    }
-
-    return parts;
-}
-
-function isKnownType(str) {
-    const types = ['CPU', 'CPU Cooler', 'Motherboard', 'Memory', 'Storage', 'Video Card', 'Case', 'Power Supply',
-        'Operating System', 'Monitor', 'Expansion Cards', 'Peripherals', 'Accessories', 'Sound Card',
-        'Wired Network Adapter', 'Wireless Network Adapter', 'Headphones', 'Keyboard', 'Mouse', 'Speaker',
-        'Webcam', 'Case Fan', 'Fan Controller', 'Thermal Compound', 'External Storage', 'Optical Drive',
-        'UPS System', 'Case Accessory'];
-    const lower = str.toLowerCase();
-    return types.some(t => lower.includes(t.toLowerCase()));
-}
-
-function cleanType(type) {
-    const map = {
-        'cpu cooler': 'Refroidissement', 'cpu': 'Processeur', 'motherboard': 'Carte mère',
-        'memory': 'RAM', 'storage': 'Stockage', 'video card': 'Carte graphique',
-        'case': 'Boîtier', 'power supply': 'Alimentation', 'operating system': 'OS',
-        'monitor': 'Écran', 'sound card': 'Carte son', 'wired network adapter': 'Réseau',
-        'wireless network adapter': 'WiFi', 'headphones': 'Audio', 'keyboard': 'Clavier',
-        'mouse': 'Souris', 'speaker': 'Audio', 'webcam': 'Webcam', 'case fan': 'Ventilation',
-        'fan controller': 'Ventilation', 'thermal compound': 'Pâte thermique',
-        'external storage': 'Stockage externe', 'optical drive': 'Lecteur optique',
-        'ups system': 'Onduleur', 'case accessory': 'Accessoire'
-    };
-    const lower = type.toLowerCase().trim();
-    return map[lower] || type.charAt(0).toUpperCase() + type.slice(1);
-}
-
-function cleanName(name) {
-    return name.replace(/\(From parametric filter\)/gi, '')
-        .replace(/\(From parametric selection\)/gi, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-}
-
-function renderPCPartResult() {
-    const resultEl = document.getElementById('pcpart-result');
-    const emptyEl = document.getElementById('pcpart-empty');
-    const tbody = document.getElementById('pcpart-tbody');
-    const totalsEl = document.getElementById('pcpart-totals');
-    const metaEl = document.getElementById('pcpart-devis-meta');
-    const badgeParts = document.getElementById('pcpart-badge-parts');
-    const badgeTotal = document.getElementById('pcpart-badge-total');
-
-    resultEl.style.display = 'block';
-    emptyEl.style.display = 'none';
-
-    // Client display
-    document.getElementById('pcpart-client-display').value = pcpartData.client;
-
-    // Render table
-    let partsTotal = 0;
-    tbody.innerHTML = pcpartData.parts.map(p => {
-        partsTotal += p.price * p.qty;
-        return `<tr>
-            <td><span class="part-type">${escapeHtml(p.type)}</span></td>
-            <td><span class="part-name">${escapeHtml(p.name)}</span></td>
-            <td style="text-align:center"><span class="part-qty">×${p.qty}</span></td>
-            <td class="part-price">${formatPrice(p.price * p.qty)}</td>
-        </tr>`;
-    }).join('');
-
-    // Calculs
-    const marginAmount = partsTotal * (pcpartData.margin / 100);
-    const subtotal = partsTotal + marginAmount;
-    const tvaAmount = subtotal * (pcpartData.tva / 100);
-    const grandTotal = subtotal + tvaAmount + pcpartData.labor + pcpartData.shipping;
-
-    const cur = pcpartData.currency;
-
-    totalsEl.innerHTML = `
-        <div class="pcpart-total-row"><span class="total-label">Pièces</span><span class="total-value">${cur}${partsTotal.toFixed(2)}</span></div>
-        ${pcpartData.margin > 0 ? `<div class="pcpart-total-row"><span class="total-label">Marge (${pcpartData.margin}%)</span><span class="total-value">${cur}${marginAmount.toFixed(2)}</span></div>` : ''}
-        <div class="pcpart-total-row"><span class="total-label">Sous-total</span><span class="total-value">${cur}${subtotal.toFixed(2)}</span></div>
-        ${pcpartData.tva > 0 ? `<div class="pcpart-total-row"><span class="total-label">TVA (${pcpartData.tva}%)</span><span class="total-value">${cur}${tvaAmount.toFixed(2)}</span></div>` : ''}
-        <div class="pcpart-total-row"><span class="total-label">🔧 Main-d'œuvre</span><span class="total-value">${cur}${pcpartData.labor.toFixed(2)}</span></div>
-        ${pcpartData.shipping > 0 ? `<div class="pcpart-total-row"><span class="total-label">📦 Frais de port</span><span class="total-value">${cur}${pcpartData.shipping.toFixed(2)}</span></div>` : ''}
-        <div class="pcpart-total-row grand"><span class="total-label">💰 TOTAL</span><span class="total-value">${cur}${grandTotal.toFixed(2)}</span></div>
-    `;
-
-    const dateStr = new Date().toLocaleDateString('fr-FR');
-    metaEl.textContent = `Devis du ${dateStr}${pcpartData.client ? ' — ' + pcpartData.client : ''}`;
-    badgeParts.textContent = `${pcpartData.parts.length} pièce${pcpartData.parts.length > 1 ? 's' : ''}`;
-    badgeTotal.textContent = `Total: ${cur}${grandTotal.toFixed(2)}`;
-}
-
-function formatPrice(price) {
-    return pcpartData.currency + price.toFixed(2);
-}
-
-function updatePCPartPreview() {
-    pcpartData.client = document.getElementById('pcpart-client-display').value.trim();
-    pcpartData.notes = document.getElementById('pcpart-notes').value.trim();
-    const metaEl = document.getElementById('pcpart-devis-meta');
-    const dateStr = new Date().toLocaleDateString('fr-FR');
-    metaEl.textContent = `Devis du ${dateStr}${pcpartData.client ? ' — ' + pcpartData.client : ''}`;
-}
-
-function clearPCPartPicker() {
-    document.getElementById('pcpart-input').value = '';
-    document.getElementById('pcpart-result').style.display = 'none';
-    document.getElementById('pcpart-empty').style.display = 'block';
-    document.getElementById('pcpart-error').classList.remove('show');
-    pcpartData = { parts: [], client: '', notes: '', labor: 150, shipping: 0, margin: 0, currency: '€', tva: 20 };
-    showToast('Devis effacé', 'info');
-}
-
-function loadPCPartExample() {
-    document.getElementById('pcpart-input').value = PCPART_EXAMPLE;
-    showToast('Exemple chargé ! Clique sur Parser', 'success');
-}
-
-function generatePCPartMarkdown() {
-    const cur = pcpartData.currency;
-    const dateStr = new Date().toLocaleDateString('fr-FR');
-    let md = `# 🖥️ Devis PC — ${dateStr}
-
-`;
-    if (pcpartData.client) md += `**Client :** ${pcpartData.client}
-
-`;
-    md += `## Composants
-
-`;
-    md += `| Type | Composant | Prix |
-`;
-    md += `|------|-----------|------|
-`;
-
-    let partsTotal = 0;
-    pcpartData.parts.forEach(p => {
-        partsTotal += p.price * p.qty;
-        md += `| ${p.type} | ${p.name} | ${cur}${(p.price * p.qty).toFixed(2)} |
-`;
-    });
-
-    const marginAmount = partsTotal * (pcpartData.margin / 100);
-    const subtotal = partsTotal + marginAmount;
-    const tvaAmount = subtotal * (pcpartData.tva / 100);
-    const grandTotal = subtotal + tvaAmount + pcpartData.labor + pcpartData.shipping;
-
-    md += `
-## Totaux
-
-`;
-    md += `- **Pièces :** ${cur}${partsTotal.toFixed(2)}
-`;
-    if (pcpartData.margin > 0) md += `- **Marge (${pcpartData.margin}%) :** ${cur}${marginAmount.toFixed(2)}
-`;
-    md += `- **Sous-total :** ${cur}${subtotal.toFixed(2)}
-`;
-    if (pcpartData.tva > 0) md += `- **TVA (${pcpartData.tva}%) :** ${cur}${tvaAmount.toFixed(2)}
-`;
-    md += `- **🔧 Main-d'œuvre :** ${cur}${pcpartData.labor.toFixed(2)}
-`;
-    if (pcpartData.shipping > 0) md += `- **📦 Frais de port :** ${cur}${pcpartData.shipping.toFixed(2)}
-`;
-    md += `- **💰 TOTAL :** ${cur}${grandTotal.toFixed(2)}
-`;
-
-    if (pcpartData.notes) md += `
-## Notes
-
-${pcpartData.notes}
-`;
-
-    return md;
-}
-
-function copyPCPartMarkdown() {
-    const md = generatePCPartMarkdown();
-    navigator.clipboard.writeText(md).then(() => showToast('Markdown copié !', 'success'));
-}
-
-function downloadPCPartMarkdown() {
-    const md = generatePCPartMarkdown();
-    const clientSlug = pcpartData.client ? pcpartData.client.replace(/[^a-z0-9]/gi, '_') : 'devis';
-    const blob = new Blob([md], { type: 'text/plain' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `devis_pc_${clientSlug}_${new Date().toISOString().split('T')[0]}.md`;
-    a.click();
-    showToast('Devis téléchargé !', 'success');
-}
-
 // ===== EXPORT / IMPORT =====
 function exportJSON(){document.getElementById('dropdown-menu').classList.remove('active');const d=JSON.stringify({tasks,passwordVault,selectedProjects:[...selectedProjects],notes,habits,movieList},null,2);const blob=new Blob([d],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`flowboard-${currentUser||'anon'}-${new Date().toISOString().split('T')[0]}.json`;a.click();showToast('Export réussi','success');}
 function importJSON(){document.getElementById('dropdown-menu').classList.remove('active');const input=document.createElement('input');input.type='file';input.accept='.json';input.onchange=e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.tasks)tasks=d.tasks;if(d.passwordVault)passwordVault=d.passwordVault;if(d.selectedProjects)selectedProjects=new Set(d.selectedProjects);if(d.notes)notes=d.notes;if(d.habits)habits=d.habits;if(d.movieList)movieList=d.movieList;renderKanban();updateHomeStats();renderPasswordVault();renderNotesTabs();renderHabits();renderMovieList();showToast('Import réussi','success');}catch(err){showToast('Fichier invalide','error');}};reader.readAsText(file);};input.click();}
@@ -2195,7 +2104,534 @@ document.addEventListener('DOMContentLoaded',()=>{
     activateTool('machub');
 });
 
-document.getElementById('task-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeTaskModal();});
+// ===== CHAOS CROSSHAIR =====
+let crosshairMode='light', crosshairHistory=[], currentCrosshair=null;
+const CH_COLORS=['#ff4444','#ff8800','#ffff00','#00ff88','#00ccff','#aa44ff','#ffffff','#ff44aa','#44ffff'];
+function setCrosshairMode(mode,btn){crosshairMode=mode;document.querySelectorAll('[id^="ch-mode-"]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');generateCrosshair();}
+function generateCrosshair(){
+    const rand=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+    const randF=(min,max,dec=1)=>parseFloat((Math.random()*(max-min)+min).toFixed(dec));
+    const color=CH_COLORS[rand(0,CH_COLORS.length-1)];
+    let params={};
+    if(crosshairMode==='light'){
+        params={color,size:rand(3,6),thickness:randF(0.5,2),gap:rand(-2,4),dot:Math.random()<0.3,outline:Math.random()<0.2,style:Math.random()<0.7?'classic':'center-dot'};
+    } else if(crosshairMode==='medium'){
+        params={color,size:rand(2,8),thickness:randF(0.5,3),gap:rand(-4,6),dot:Math.random()<0.5,outline:Math.random()<0.4,style:['classic','cross','t-shape'][rand(0,2)]};
+    } else {
+        params={color,size:rand(0,12),thickness:randF(0.5,5),gap:rand(-6,8),dot:Math.random()<0.7,outline:Math.random()<0.6,style:['classic','cross','t-shape','circle','dot-only'][rand(0,4)],alpha:randF(0.4,1)};
+    }
+    currentCrosshair=params;
+    drawCrosshair(params);
+    showCrosshairParams(params);
+    const code=generateCrosshairCode(params);
+    document.getElementById('crosshair-code').textContent=code;
+    crosshairHistory.unshift({...params,code,id:Date.now().toString()});
+    if(crosshairHistory.length>12)crosshairHistory.pop();
+    renderCrosshairHistory();
+}
+function drawCrosshair(p){
+    const canvas=document.getElementById('crosshair-canvas');if(!canvas)return;
+    const ctx=canvas.getContext('2d');const w=200,h=200,cx=100,cy=100;
+    ctx.clearRect(0,0,w,h);
+    ctx.globalAlpha=p.alpha||1;
+    const color=p.color;const size=p.size*4;const thick=Math.max(1,p.thickness*2);const gap=p.gap*2;
+    if(p.style==='dot-only'){ctx.beginPath();ctx.arc(cx,cy,thick*2,0,2*Math.PI);ctx.fillStyle=color;ctx.fill();}
+    else if(p.style==='circle'){ctx.beginPath();ctx.arc(cx,cy,size,0,2*Math.PI);ctx.strokeStyle=color;ctx.lineWidth=thick;ctx.stroke();}
+    else {
+        ctx.strokeStyle=color;ctx.lineWidth=thick;ctx.lineCap='round';
+        const draw=(x1,y1,x2,y2)=>{if(p.outline){ctx.strokeStyle='rgba(0,0,0,0.7)';ctx.lineWidth=thick+2;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.strokeStyle=color;ctx.lineWidth=thick;}ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();};
+        if(p.style!=='t-shape'){draw(cx-size,cy,cx-gap,cy);draw(cx+gap,cy,cx+size,cy);}
+        draw(cx,cy-size,cx,cy-gap);draw(cx,cy+gap,cx,cy+size);
+    }
+    if(p.dot&&p.style!=='dot-only'){ctx.beginPath();ctx.arc(cx,cy,thick,0,2*Math.PI);ctx.fillStyle=color;ctx.fill();}
+    ctx.globalAlpha=1;
+}
+function showCrosshairParams(p){
+    const el=document.getElementById('crosshair-params');if(!el)return;
+    el.innerHTML=Object.entries({Couleur:p.color,Style:p.style,Taille:p.size,Épaisseur:p.thickness,Gap:p.gap,Point:p.dot?'Oui':'Non',Outline:p.outline?'Oui':'Non'}).map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);">${k}</span><span style="color:var(--text-primary);">${k==='Couleur'?`<span style="display:inline-block;width:12px;height:12px;background:${v};border-radius:2px;vertical-align:middle;margin-right:4px;"></span>${v}`:v}</span></div>`).join('');
+}
+function generateCrosshairCode(p){return `0;P;c;${CH_COLORS.indexOf(p.color)};s;${p.size};t;${p.thickness};o;${p.outline?1:0};d;${p.dot?1:0};g;${p.gap};st;${p.style}`;}
+function copyCrosshairCode(){if(currentCrosshair){navigator.clipboard.writeText(generateCrosshairCode(currentCrosshair)).then(()=>showToast('Code copié !','success'));}}
+function renderCrosshairHistory(){
+    const el=document.getElementById('crosshair-history');if(!el)return;
+    el.innerHTML=crosshairHistory.map((h,i)=>`<div onclick="restoreCrosshair(${i})" style="width:60px;height:60px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;position:relative;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'"><canvas width="60" height="60" id="ch-hist-${i}"></canvas></div>`).join('');
+    crosshairHistory.forEach((h,i)=>{const c=document.getElementById(`ch-hist-${i}`);if(c){const scale=0.3;const p={...h,size:h.size*scale||h.size,gap:h.gap*scale};drawCrosshairOn(c,h,30,30,0.35);}});
+}
+function drawCrosshairOn(canvas,p,cx,cy,scale){
+    const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.globalAlpha=p.alpha||1;
+    const color=p.color;const size=Math.max(2,p.size*scale*4);const thick=Math.max(1,p.thickness*scale*2);const gap=p.gap*scale*2;
+    ctx.strokeStyle=color;ctx.lineWidth=thick;ctx.lineCap='round';
+    if(p.style==='dot-only'){ctx.beginPath();ctx.arc(cx,cy,thick*2,0,2*Math.PI);ctx.fillStyle=color;ctx.fill();}
+    else{if(p.style!=='t-shape'){ctx.beginPath();ctx.moveTo(cx-size,cy);ctx.lineTo(cx-Math.max(0,gap),cy);ctx.stroke();ctx.beginPath();ctx.moveTo(cx+Math.max(0,gap),cy);ctx.lineTo(cx+size,cy);ctx.stroke();}ctx.beginPath();ctx.moveTo(cx,cy-size);ctx.lineTo(cx,cy-Math.max(0,gap));ctx.stroke();ctx.beginPath();ctx.moveTo(cx,cy+Math.max(0,gap));ctx.lineTo(cx,cy+size);ctx.stroke();}
+    if(p.dot){ctx.beginPath();ctx.arc(cx,cy,thick,0,2*Math.PI);ctx.fillStyle=color;ctx.fill();}
+    ctx.globalAlpha=1;
+}
+function restoreCrosshair(i){currentCrosshair=crosshairHistory[i];drawCrosshair(currentCrosshair);showCrosshairParams(currentCrosshair);document.getElementById('crosshair-code').textContent=generateCrosshairCode(currentCrosshair);}
+
+// ===== SOCIAL PREVIEW =====
+let spTheme='twitter';
+function setSPTheme(t,btn){spTheme=t;document.querySelectorAll('#tool-socialpreview .filter-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderSocialPreview();}
+function renderSocialPreview(){
+    const title=document.getElementById('sp-title')?.value||'Titre de ta page';
+    const desc=document.getElementById('sp-desc')?.value||'Une description courte et percutante pour ton contenu.';
+    const url=document.getElementById('sp-url')?.value||'flowboard.vercel.app';
+    const img=document.getElementById('sp-img')?.value;
+    const el=document.getElementById('sp-preview');if(!el)return;
+    const imgHtml=img?`<div style="width:100%;height:140px;background:url('${img}') center/cover no-repeat;border-radius:${spTheme==='twitter'?'12px 12px 0 0':'4px 4px 0 0'};"></div>`:`<div style="width:100%;height:100px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:${spTheme==='twitter'?'12px 12px 0 0':'4px 4px 0 0'};display:flex;align-items:center;justify-content:center;font-size:32px;">🌐</div>`;
+    if(spTheme==='twitter'){
+        el.innerHTML=`<div style="border:1px solid #2f3336;border-radius:16px;overflow:hidden;background:#000;max-width:500px;">${imgHtml}<div style="padding:12px 16px;"><div style="font-size:15px;font-weight:600;color:#e7e9ea;margin-bottom:4px;">${escapeHtml(title)}</div><div style="font-size:13px;color:#71767b;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(desc)}</div><div style="font-size:13px;color:#71767b;">🔗 ${escapeHtml(url)}</div></div></div>`;
+    } else if(spTheme==='discord'){
+        el.innerHTML=`<div style="border-left:4px solid var(--accent);background:#2b2d31;border-radius:4px;overflow:hidden;max-width:500px;">${imgHtml}<div style="padding:10px 12px;"><div style="font-size:13px;color:#00b0f4;font-weight:600;margin-bottom:4px;">${escapeHtml(url)}</div><div style="font-size:15px;font-weight:600;color:var(--accent);margin-bottom:4px;">${escapeHtml(title)}</div><div style="font-size:13px;color:#dbdee1;line-height:1.5;">${escapeHtml(desc)}</div></div></div>`;
+    } else {
+        el.innerHTML=`<div style="border:1px solid #dce6f1;border-radius:4px;overflow:hidden;background:#fff;max-width:500px;">${imgHtml}<div style="padding:12px;"><div style="font-size:14px;font-weight:600;color:#000;margin-bottom:4px;">${escapeHtml(title)}</div><div style="font-size:12px;color:#666;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(desc)}</div><div style="font-size:11px;color:#999;text-transform:uppercase;">${escapeHtml(url)}</div></div></div>`;
+    }
+}
+
+// ===== POLL MAKER =====
+let currentPoll=null;
+function addPollOption(){const c=document.getElementById('poll-options-inputs');const inp=document.createElement('input');inp.type='text';inp.className='form-input';inp.style.marginBottom='8px';inp.placeholder='Option '+(c.children.length+1);c.appendChild(inp);}
+function createPoll(){
+    const q=document.getElementById('poll-question').value.trim();if(!q){showToast('Entre une question','error');return;}
+    const inputs=document.querySelectorAll('#poll-options-inputs input');const opts=Array.from(inputs).map(i=>i.value.trim()).filter(v=>v);
+    if(opts.length<2){showToast('Minimum 2 options','error');return;}
+    currentPoll={question:q,options:opts.map(o=>({text:o,votes:0})),total:0};
+    document.getElementById('poll-create-section').style.display='none';
+    document.getElementById('poll-vote-section').style.display='block';
+    renderPollVote();
+}
+function renderPollVote(){
+    if(!currentPoll)return;
+    document.getElementById('poll-q-display').textContent=currentPoll.question;
+    const total=currentPoll.options.reduce((s,o)=>s+o.votes,0);
+    document.getElementById('poll-vote-options').innerHTML=currentPoll.options.map((o,i)=>{
+        const pct=total>0?Math.round(o.votes/total*100):0;
+        return `<div style="background:var(--bg-tertiary);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:6px;">
+            <button onclick="vote(${i})" style="width:100%;padding:12px 16px;background:none;border:none;color:var(--text-primary);cursor:pointer;text-align:left;font-size:14px;position:relative;display:flex;justify-content:space-between;align-items:center;">
+                <span>${escapeHtml(o.text)}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-secondary);">${o.votes} vote${o.votes!==1?'s':''} — ${pct}%</span>
+            </button>
+            <div style="height:4px;background:var(--bg-primary);"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--purple));transition:width 0.5s;"></div></div>
+        </div>`;
+    }).join('');
+}
+function vote(i){if(!currentPoll)return;currentPoll.options[i].votes++;currentPoll.total++;renderPollVote();showToast('Vote enregistré !','success');}
+function resetPoll(){currentPoll=null;document.getElementById('poll-create-section').style.display='block';document.getElementById('poll-vote-section').style.display='none';document.getElementById('poll-question').value='';document.getElementById('poll-options-inputs').innerHTML='<input type="text" class="form-input" style="margin-bottom:8px;" placeholder="Option 1"><input type="text" class="form-input" placeholder="Option 2">';}
+function exportPollMarkdown(){
+    if(!currentPoll)return;const total=currentPoll.options.reduce((s,o)=>s+o.votes,0);
+    let md=`# 📊 ${currentPoll.question}\n\n`;md+=currentPoll.options.map(o=>{const pct=total>0?Math.round(o.votes/total*100):0;return `- **${o.text}** — ${o.votes} vote${o.votes!==1?'s':''} (${pct}%)`;}).join('\n');md+=`\n\n*Total : ${total} votes*`;
+    navigator.clipboard.writeText(md).then(()=>showToast('Markdown copié !','success'));
+}
+
+// ===== PC PART DEVIS =====
+let devisData = null;
+
+const PCPART_CATEGORIES = {
+    'CPU': 'Processeur',
+    'CPU Cooler': 'Ventirad',
+    'Motherboard': 'Carte Mère',
+    'Memory': 'RAM',
+    'Storage': 'Stockage',
+    'Video Card': 'Carte Graphique',
+    'Case': 'Boîtier',
+    'Power Supply': 'Alimentation',
+    'Operating System': 'OS',
+    'Case Fan': 'Ventilateur',
+    'Monitor': 'Écran',
+    'Headphones': 'Casque',
+    'Keyboard': 'Clavier',
+    'Mouse': 'Souris',
+    'Speakers': 'Enceintes',
+    'Webcam': 'Webcam',
+    'Sound Card': 'Carte Son',
+    'Wired Networking': 'Réseau Filaire',
+    'Wireless Networking': 'Réseau WiFi',
+    'Fan Controller': 'Contrôleur Ventilateurs',
+    'Thermal Compound': 'Pâte Thermique',
+    'External Hard Drive': 'Disque Dur Externe',
+    'Optical Drive': 'Lecteur Optique',
+    'UPS': 'Onduleur'
+};
+
+function parsePCPart() {
+    const raw = document.getElementById('pcpart-raw').value.trim();
+    if (!raw) { showToast('Colle le contenu PCPartPicker', 'error'); return; }
+
+    const client = document.getElementById('pcpart-client').value.trim() || 'Client';
+    const labor = parseFloat(document.getElementById('pcpart-labor').value) || 0;
+    const shipping = parseFloat(document.getElementById('pcpart-shipping').value) || 0;
+    const pcpartUrl = document.getElementById('pcpart-url').value.trim();
+
+    const lines = raw.split('\n');
+    const components = [];
+    let detectedCurrency = '€';
+
+    // Detect currency from first price found
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (line.includes('$')) { detectedCurrency = '$'; break; }
+        if (line.includes('£')) { detectedCurrency = '£'; break; }
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        const catFr = PCPART_CATEGORIES[line];
+        if (!catFr) continue;
+
+        if (i + 1 >= lines.length) continue;
+        const name = lines[i + 1].trim();
+        if (!name) continue;
+
+        if (i + 2 >= lines.length) continue;
+        const priceLine = lines[i + 2].trim();
+        if (!priceLine.startsWith(name)) continue;
+
+        const parts = priceLine.split('\t');
+        let price = null;
+
+        for (let j = 1; j < parts.length; j++) {
+            const part = parts[j].trim();
+            if (part.startsWith('€') || part.startsWith('$') || part.startsWith('£')) {
+                const priceStr = part.replace(/[€$£]/g, '').replace(/\s/g, '').replace(',', '.');
+                const p = parseFloat(priceStr);
+                if (!isNaN(p) && p > 0 && p < 50000) {
+                    price = p;
+                    break;
+                }
+            }
+        }
+
+        if (price !== null) {
+            components.push({ name: name, cat: catFr, price: price });
+            i += 3;
+        }
+    }
+
+    if (!components.length) {
+        showToast('Aucun composant détecté. Essaie de copier le contenu complet depuis PCPartPicker.', 'error');
+        return;
+    }
+
+    const subtotal = components.reduce((s, c) => s + c.price, 0);
+    devisData = { components, subtotal, currency: detectedCurrency, client, labor, shipping, pcpartUrl, notes: '' };
+    renderDevis();
+    document.getElementById('pcpart-result').style.display = 'block';
+    showToast(`${components.length} composants détectés !`, 'success');
+}
+
+function renderDevis() {
+    if (!devisData) return;
+    const { components, currency, client, labor, shipping, subtotal, pcpartUrl } = devisData;
+    const total = subtotal + labor + shipping;
+
+    const urlSection = pcpartUrl ? `<div style="margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:8px;border:1px solid var(--border);">
+        <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:6px;">🔗 Lien PCPartPicker</div>
+        <a href="${escapeHtml(pcpartUrl)}" target="_blank" style="color:var(--accent);font-size:13px;word-break:break-all;text-decoration:none;">${escapeHtml(pcpartUrl)}</a>
+    </div>` : '';
+
+    document.getElementById('pcpart-devis-content').innerHTML = `
+    <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:16px;">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;">${escapeHtml(client)}</div>
+                <div style="font-size:12px;color:var(--text-muted);">${new Date().toLocaleDateString('fr-FR')}</div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:700;color:var(--green);">${currency}${total.toFixed(2)}</div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <thead>
+                <tr style="background:var(--bg-tertiary);">
+                    <th style="text-align:left;padding:10px 16px;color:var(--text-secondary);font-size:11px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;">Composant</th>
+                    <th style="text-align:left;padding:10px 8px;color:var(--text-secondary);font-size:11px;text-transform:uppercase;">Catégorie</th>
+                    <th style="text-align:right;padding:10px 16px;color:var(--text-secondary);font-size:11px;text-transform:uppercase;">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${components.map(c => `<tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:10px 16px;font-weight:500;">${escapeHtml(c.name)}</td>
+                    <td style="padding:10px 8px;color:var(--text-muted);font-size:12px;">${escapeHtml(c.cat)}</td>
+                    <td style="padding:10px 16px;text-align:right;font-family:'JetBrains Mono',monospace;color:var(--text-primary);">${currency}${c.price.toFixed(2)}</td>
+                </tr>`).join('')}
+            </tbody>
+        </table>
+        <div style="padding:16px 20px;border-top:1px solid var(--border);">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+                    <span style="color:var(--text-secondary);">Sous-total pièces</span>
+                    <span style="font-family:'JetBrains Mono',monospace;">${currency}${subtotal.toFixed(2)}</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+                    <span style="color:var(--text-secondary);">Main-d'œuvre</span>
+                    <span style="font-family:'JetBrains Mono',monospace;">${currency}${labor.toFixed(2)}</span>
+                </div>
+                ${shipping > 0 ? `<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+                    <span style="color:var(--text-secondary);">Frais de livraison</span>
+                    <span style="font-family:'JetBrains Mono',monospace;">${currency}${shipping.toFixed(2)}</span>
+                </div>` : ''}
+                <div style="display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700;padding-top:10px;border-top:1px solid var(--border);">
+                    <span>TOTAL TTC</span>
+                    <span style="font-family:'JetBrains Mono',monospace;color:var(--green);font-size:20px;">${currency}${total.toFixed(2)}</span>
+                </div>
+                <div style="margin-top:8px;">
+                    <label style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;display:block;margin-bottom:6px;">Notes</label>
+                    <textarea style="width:100%;padding:8px 12px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:6px;color:var(--text-primary);font-size:13px;resize:vertical;min-height:60px;outline:none;" 
+                    placeholder="Notes pour le client..." oninput="devisData.notes=this.value">${escapeHtml(devisData.notes || '')}</textarea>
+                </div>
+                ${urlSection}
+            </div>
+        </div>
+    </div>`;
+}
+
+function copyDevis() {
+    if (!devisData) return;
+    const { components, currency, client, labor, shipping, subtotal, pcpartUrl, notes } = devisData;
+    const total = subtotal + labor + shipping;
+
+    let txt = `DEVIS — ${client}\n${new Date().toLocaleDateString('fr-FR')}\n${'─'.repeat(40)}\n`;
+    components.forEach(c => txt += `${c.name.padEnd(40)} ${currency}${c.price.toFixed(2)}\n`);
+    txt += `${'─'.repeat(40)}\nSous-total : ${currency}${subtotal.toFixed(2)}\n`;
+    txt += `Main-d'œuvre : ${currency}${labor.toFixed(2)}\n`;
+    if (shipping > 0) txt += `Frais de livraison : ${currency}${shipping.toFixed(2)}\n`;
+    txt += `${'─'.repeat(40)}\nTOTAL TTC : ${currency}${total.toFixed(2)}\n`;
+    if (notes) txt += `\nNotes : ${notes}\n`;
+    if (pcpartUrl) txt += `\n🔗 PCPartPicker : ${pcpartUrl}`;
+
+    navigator.clipboard.writeText(txt).then(() => showToast('Devis copié !', 'success'));
+}
+
+function exportDevisMarkdown() {
+    if (!devisData) return;
+    const { components, currency, client, labor, shipping, subtotal, pcpartUrl, notes } = devisData;
+    const total = subtotal + labor + shipping;
+
+    let md = `# 🖥️ Devis — ${client}\n*${new Date().toLocaleDateString('fr-FR')}*\n\n## Composants\n\n| Composant | Catégorie | Prix |\n|---|---|---|\n`;
+    components.forEach(c => md += `| ${c.name} | ${c.cat} | ${currency}${c.price.toFixed(2)} |\n`);
+    md += `\n## Récapitulatif\n\n- Sous-total pièces : **${currency}${subtotal.toFixed(2)}**\n`;
+    md += `- Main-d'œuvre : **${currency}${labor.toFixed(2)}**\n`;
+    if (shipping > 0) md += `- Frais de livraison : **${currency}${shipping.toFixed(2)}**\n`;
+    md += `\n### Total TTC : **${currency}${total.toFixed(2)}**\n`;
+    if (notes) md += `\n> ${notes}\n`;
+    if (pcpartUrl) md += `\n🔗 [Voir sur PCPartPicker](${pcpartUrl})`;
+
+    const blob = new Blob([md], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.download = `devis-${client.replace(/\s+/g, '-')}.md`;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    showToast('Markdown exporté !', 'success');
+}
+
+function resetDevis() {
+    devisData = null;
+    document.getElementById('pcpart-result').style.display = 'none';
+    document.getElementById('pcpart-raw').value = '';
+    document.getElementById('pcpart-client').value = '';
+    document.getElementById('pcpart-labor').value = '150';
+    document.getElementById('pcpart-shipping').value = '0';
+    document.getElementById('pcpart-url').value = '';
+}
+
+// ===== TRIP PLANNER =====
+let trips = [];
+
+function saveTrips() { if (currentUser) localStorage.setItem(getStorageKey('trips'), JSON.stringify(trips)); }
+function loadTrips() {
+    const s = localStorage.getItem(getStorageKey('trips'));
+    if (s) try { trips = JSON.parse(s); } catch (e) {}
+}
+
+function addTrip() {
+    const dest = document.getElementById('trip-dest').value.trim();
+    const dates = document.getElementById('trip-dates').value.trim();
+    const transport = parseFloat(document.getElementById('trip-transport').value) || 0;
+    const lodging = parseFloat(document.getElementById('trip-lodging').value) || 0;
+    const activities = parseFloat(document.getElementById('trip-activities').value) || 0;
+    const notes = document.getElementById('trip-notes').value.trim();
+
+    if (!dest) { showToast('Entre une destination', 'error'); return; }
+
+    const total = transport + lodging + activities;
+    trips.push({
+        id: Date.now().toString(),
+        dest, dates, transport, lodging, activities, total, notes,
+        created: Date.now()
+    });
+    saveTrips();
+    renderTrips();
+    clearTripForm();
+    showToast('Voyage ajouté !', 'success');
+}
+
+function clearTripForm() {
+    document.getElementById('trip-dest').value = '';
+    document.getElementById('trip-dates').value = '';
+    document.getElementById('trip-transport').value = '';
+    document.getElementById('trip-lodging').value = '';
+    document.getElementById('trip-activities').value = '';
+    document.getElementById('trip-notes').value = '';
+}
+
+function renderTrips() {
+    const list = document.getElementById('trip-list');
+    if (!list) return;
+
+    if (!trips.length) {
+        list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">Aucun voyage planifié. Ajoute ton premier trip !</div>';
+        return;
+    }
+
+    const sorted = [...trips].sort((a, b) => b.created - a.created);
+    list.innerHTML = sorted.map(t => {
+        const budgetBars = [
+            { label: 'Transport', val: t.transport, color: 'var(--accent)' },
+            { label: 'Logement', val: t.lodging, color: 'var(--purple)' },
+            { label: 'Activités', val: t.activities, color: 'var(--teal)' }
+        ].filter(b => b.val > 0);
+
+        const maxVal = Math.max(t.transport, t.lodging, t.activities, 1);
+
+        return `<div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;transition:all 0.2s;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px;flex-wrap:wrap;">
+                <div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin-bottom:4px;">✈️ ${escapeHtml(t.dest)}</div>
+                    <div style="font-size:13px;color:var(--text-muted);">${t.dates ? escapeHtml(t.dates) : 'Dates non définies'}</div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--green);">€${t.total.toFixed(0)}</span>
+                    <button class="pwd-vault-btn btn-danger" onclick="deleteTrip('${t.id}')" style="padding:4px 8px;font-size:12px;">🗑</button>
+                </div>
+            </div>
+            ${budgetBars.length ? `<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+                ${budgetBars.map(b => `<div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:11px;color:var(--text-muted);width:70px;">${b.label}</span>
+                    <div style="flex:1;height:6px;background:var(--bg-tertiary);border-radius:3px;overflow:hidden;">
+                        <div style="height:100%;width:${(b.val / maxVal * 100)}%;background:${b.color};border-radius:3px;"></div>
+                    </div>
+                    <span style="font-size:11px;color:var(--text-secondary);font-family:'JetBrains Mono',monospace;width:50px;text-align:right;">€${b.val}</span>
+                </div>`).join('')}
+            </div>` : ''}
+            ${t.notes ? `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;padding:10px;background:var(--bg-tertiary);border-radius:6px;">${escapeHtml(t.notes).replace(/\n/g, '<br>')}</div>` : ''}
+        </div>`;
+    }).join('');
+}
+
+function deleteTrip(id) {
+    if (!confirm('Supprimer ce voyage ?')) return;
+    trips = trips.filter(t => t.id !== id);
+    saveTrips();
+    renderTrips();
+    showToast('Voyage supprimé', 'info');
+}
+
+// ===== DEAL TRACKER =====
+let deals = [];
+
+function saveDeals() { if (currentUser) localStorage.setItem(getStorageKey('deals'), JSON.stringify(deals)); }
+function loadDeals() {
+    const s = localStorage.getItem(getStorageKey('deals'));
+    if (s) try { deals = JSON.parse(s); } catch (e) {}
+}
+
+function addDeal() {
+    const product = document.getElementById('deal-product').value.trim();
+    const current = parseFloat(document.getElementById('deal-current').value) || 0;
+    const target = parseFloat(document.getElementById('deal-target').value) || 0;
+    const url = document.getElementById('deal-url').value.trim();
+    const category = document.getElementById('deal-category').value;
+
+    if (!product) { showToast('Entre un nom de produit', 'error'); return; }
+
+    deals.push({
+        id: Date.now().toString(),
+        product, current, target, url, category,
+        created: Date.now(),
+        history: [{ price: current, date: new Date().toISOString() }]
+    });
+    saveDeals();
+    renderDeals();
+    clearDealForm();
+    showToast('Deal ajouté !', 'success');
+}
+
+function clearDealForm() {
+    document.getElementById('deal-product').value = '';
+    document.getElementById('deal-current').value = '';
+    document.getElementById('deal-target').value = '';
+    document.getElementById('deal-url').value = '';
+    document.getElementById('deal-category').value = '🖥️';
+}
+
+function renderDeals() {
+    const list = document.getElementById('deal-list');
+    if (!list) return;
+
+    if (!deals.length) {
+        list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">Aucun deal suivi. Ajoute ton premier produit !</div>';
+        return;
+    }
+
+    const sorted = [...deals].sort((a, b) => {
+        const aDiff = a.target > 0 ? (a.current - a.target) / a.target : 0;
+        const bDiff = b.target > 0 ? (b.current - b.target) / b.target : 0;
+        return aDiff - bDiff;
+    });
+
+    list.innerHTML = sorted.map(d => {
+        const diff = d.target > 0 ? d.current - d.target : 0;
+        const pct = d.target > 0 ? Math.round((diff / d.target) * 100) : 0;
+        const isGood = diff <= 0;
+        const statusColor = isGood ? 'var(--green)' : 'var(--yellow)';
+        const statusBg = isGood ? 'rgba(52,211,153,0.1)' : 'rgba(251,191,36,0.1)';
+        const statusBorder = isGood ? 'rgba(52,211,153,0.2)' : 'rgba(251,191,36,0.2)';
+
+        return `<div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;transition:all 0.2s;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+                <div style="flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                        <span style="font-size:16px;">${d.category}</span>
+                        <span style="font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(d.product)}</span>
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--text-primary);">€${d.current.toFixed(2)}</span>
+                        ${d.target > 0 ? `<span style="font-size:12px;color:var(--text-muted);">→ cible €${d.target.toFixed(2)}</span>
+                        <span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;background:${statusBg};color:${statusColor};border:1px solid ${statusBorder};">${isGood ? '✓ Bon prix' : '+' + pct + '%'}</span>` : ''}
+                    </div>
+                </div>
+                <div style="display:flex;gap:6px;flex-shrink:0;">
+                    ${d.url ? `<a href="${escapeHtml(d.url)}" target="_blank" class="pwd-vault-btn" style="text-decoration:none;">↗</a>` : ''}
+                    <button class="pwd-vault-btn" onclick="updateDealPrice('${d.id}')">💶</button>
+                    <button class="pwd-vault-btn btn-danger" onclick="deleteDeal('${d.id}')">🗑</button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function updateDealPrice(id) {
+    const deal = deals.find(d => d.id === id);
+    if (!deal) return;
+    const newPrice = prompt('Nouveau prix (€) :', deal.current);
+    if (newPrice === null || newPrice === '') return;
+    const p = parseFloat(newPrice);
+    if (isNaN(p) || p < 0) { showToast('Prix invalide', 'error'); return; }
+    deal.current = p;
+    deal.history.push({ price: p, date: new Date().toISOString() });
+    saveDeals();
+    renderDeals();
+    showToast('Prix mis à jour', 'success');
+}
+
+function deleteDeal(id) {
+    if (!confirm('Supprimer ce deal ?')) return;
+    deals = deals.filter(d => d.id !== id);
+    saveDeals();
+    renderDeals();
+    showToast('Deal supprimé', 'info');
+}
+
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTaskModal();closeFocusMode();}if(e.key==='n'&&e.ctrlKey){e.preventDefault();openTaskModal();}});
 document.getElementById('auth-username').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
 </script>
