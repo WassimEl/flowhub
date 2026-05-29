@@ -481,7 +481,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
         <p class="section-subtitle">Accède rapidement à tes outils favoris</p>
         <div class="modules-grid">
             <div class="module-card" onclick="showPage('kanban')"><div class="module-icon">📋</div><div class="module-name">Gestionnaire de Projets</div><div class="module-desc">Kanban board avec drag & drop, priorités, tags et assignation de membres.</div><div class="module-meta"><span class="module-badge">Kanban</span><span class="module-badge">Cloud</span></div></div>
-            <div class="module-card" onclick="showPage('tools');activateTool('machub')"><div class="module-icon">🖥️</div><div class="module-name">Mac mini M4 Hub</div><div class="module-desc">Sélecteur interactif de projets serveur, comparatif des modèles Apple Silicon.</div><div class="module-meta"><span class="module-badge">Admin</span><span class="module-badge">Serveur</span></div></div>
+            <div class="module-card" onclick="showPage('tools')"><div class="module-icon">🖥️</div><div class="module-name">Mac mini M4 Hub</div><div class="module-desc">Sélecteur interactif de projets serveur, comparatif des modèles Apple Silicon.</div><div class="module-meta"><span class="module-badge">Admin</span><span class="module-badge">Serveur</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('lol')"><div class="module-icon">⚔️</div><div class="module-name">LoL Hub</div><div class="module-desc">Team Builder aléatoire + Tournoi 1v1 avec bracket automatique.</div><div class="module-meta"><span class="module-badge">Gaming</span><span class="module-badge">Tournoi</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('pomodoro')"><div class="module-icon">⏱️</div><div class="module-name">Pomodoro Timer</div><div class="module-desc">Timer 25/5 lié au Kanban. Suis ton temps par tâche, stats de productivité.</div><div class="module-meta"><span class="module-badge">Focus</span><span class="module-badge">Stats</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('notes')"><div class="module-icon">📝</div><div class="module-name">Notes Rapides</div><div class="module-desc">Scratchpad multi-onglets avec Markdown basique, recherche et épinglage.</div><div class="module-meta"><span class="module-badge">Notes</span><span class="module-badge">Local</span></div></div>
@@ -537,7 +537,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div id="tools-sidebar" style="width:220px;min-width:220px;background:var(--bg-card);border-right:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;position:sticky;top:64px;height:calc(100vh - 64px);">
 
       <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:8px 8px 4px;">🖥️ Système</div>
-      <button class="tool-sidebar-btn active" id="btn-tool-machub" onclick="activateTool('machub')"><span>🖥️</span> MacHub</button>
+      <button class="tool-sidebar-btn" id="btn-tool-machub" onclick="activateTool('machub')"><span>🖥️</span> MacHub</button>
       <button class="tool-sidebar-btn" id="btn-tool-pwd" onclick="activateTool('pwd')"><span>🔐</span> Coffre MDP</button>
       <button class="tool-sidebar-btn" id="btn-tool-qr" onclick="activateTool('qr')"><span>📱</span> QR Code</button>
             <button class="tool-sidebar-btn" id="btn-tool-pcpart" onclick="activateTool('pcpart')"><span>💸</span> PC Devis</button>
@@ -569,9 +569,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 
     <!-- TOOL CONTENT AREA -->
     <div class="tools-container" style="flex:1;padding:28px;overflow-y:auto;min-width:0;">
+<div id="tools-welcome" style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:40px;">
+            <div>
+                <div style="font-size:64px;margin-bottom:20px;">🛠️</div>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:12px;">Outils</h3>
+                <p style="color:var(--text-secondary);max-width:400px;margin:0 auto;">Sélectionne un outil dans la barre latérale pour commencer.</p>
+            </div>
+        </div>
+
 
         <!-- ===== MACHUB ===== -->
-        <div id="tool-machub" class="tool-view active">
+        <div id="tool-machub" class="tool-view">
             <div id="machub-locked" style="display:none;text-align:center;padding:80px 40px;">
                 <div style="font-size:64px;margin-bottom:20px;">🔒</div>
                 <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:12px;">Accès Restreint</h3>
@@ -580,7 +588,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <div class="auth-error" id="admin-error" style="max-width:280px;margin:0 auto 16px;">Mot de passe incorrect</div>
                 <button class="btn btn-primary" onclick="checkAdmin()" style="max-width:280px;width:100%;justify-content:center;">🔓 Déverrouiller</button>
             </div>
-            <div id="machub-content">
+            <div id="machub-content" style="display:none;">
                 <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;">
                     <div style="text-align:center;margin-bottom:32px;"><div style="font-size:48px;margin-bottom:12px;">🖥️</div><h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Mac mini M4 Hub</h3><p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Comparatif complet, sélecteur de projets serveur interactif et calculateur de ressources.</p></div>
                     <div class="machub-tabs">
@@ -1342,6 +1350,8 @@ function showPage(pageId) {
 function activateTool(toolId) {
     document.querySelectorAll('.tool-view').forEach(v => { v.style.display = 'none'; v.classList.remove('active'); });
     document.querySelectorAll('.tool-sidebar-btn').forEach(b => b.classList.remove('active'));
+    const welcome = document.getElementById('tools-welcome');
+    if (welcome) welcome.style.display = 'none';
     const tv = document.getElementById('tool-' + toolId);
     if (tv) { tv.style.display = 'block'; tv.classList.add('active'); }
     document.getElementById('btn-tool-' + toolId)?.classList.add('active');
@@ -2100,8 +2110,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     renderKanban();
     updateHomeStats();
 
-    // Init first tool view — respect admin lock
-    activateTool('machub');
+    // No default tool selected — user must choose
 });
 
 // ===== CHAOS CROSSHAIR =====
