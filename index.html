@@ -360,7 +360,51 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 ::-webkit-scrollbar-track{background:var(--bg-primary)}
 ::-webkit-scrollbar-thumb{background:var(--bg-tertiary);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
+
+/* ===== PCPARTPICKER DEVIS ===== */
+.pcpart-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:1000px;margin:0 auto}
+.pcpart-input-wrap{margin-bottom:24px}
+.pcpart-textarea{width:100%;min-height:180px;padding:14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;resize:vertical;outline:none;transition:all 0.2s}
+.pcpart-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(129,140,248,0.1)}
+.pcpart-textarea::placeholder{color:var(--text-muted)}
+.pcpart-paste-hint{font-size:12px;color:var(--text-muted);margin-top:8px;display:flex;align-items:center;gap:6px}
+.pcpart-controls{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;align-items:flex-end}
+.pcpart-config-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.pcpart-config-item{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px}
+.pcpart-config-item label{display:block;font-size:11px;color:var(--text-secondary);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px}
+.pcpart-config-item input,.pcpart-config-item select{width:100%;padding:8px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;color:var(--text-primary);font-family:'Inter',sans-serif;font-size:13px;outline:none}
+.pcpart-config-item input:focus,.pcpart-config-item select:focus{border-color:var(--accent)}
+.pcpart-devis{background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px;margin-top:20px}
+.pcpart-devis-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.pcpart-devis-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600}
+.pcpart-devis-meta{font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace}
+.pcpart-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px}
+.pcpart-table th{text-align:left;padding:10px 12px;background:var(--bg-tertiary);color:var(--text-secondary);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;border-bottom:1px solid var(--border)}
+.pcpart-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-primary);vertical-align:top}
+.pcpart-table tr:hover td{background:var(--bg-tertiary)}
+.pcpart-table .part-type{color:var(--text-muted);font-size:11px;font-family:'JetBrains Mono',monospace}
+.pcpart-table .part-name{font-weight:500}
+.pcpart-table .part-price{text-align:right;font-family:'JetBrains Mono',monospace;color:var(--green);font-weight:600;white-space:nowrap}
+.pcpart-table .part-qty{text-align:center;color:var(--text-muted);font-size:12px}
+.pcpart-totals{border-top:2px solid var(--border);padding-top:16px}
+.pcpart-total-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;color:var(--text-secondary)}
+.pcpart-total-row.grand{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--text-primary);border-top:1px solid var(--border);margin-top:8px;padding-top:12px}
+.pcpart-total-row .total-label{display:flex;align-items:center;gap:8px}
+.pcpart-total-row .total-value{font-family:'JetBrains Mono',monospace;color:var(--green);font-weight:600}
+.pcpart-total-row.grand .total-value{color:var(--accent);font-size:22px}
+.pcpart-actions{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.pcpart-empty{text-align:center;padding:40px;color:var(--text-muted);font-size:13px}
+.pcpart-empty-icon{font-size:40px;margin-bottom:12px;opacity:0.4}
+.pcpart-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace;background:var(--accent-bg);color:var(--accent-light);border:1px solid rgba(129,140,248,0.2)}
+.pcpart-client-input{width:100%;padding:10px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;margin-bottom:16px;outline:none}
+.pcpart-client-input:focus{border-color:var(--accent)}
+.pcpart-notes-input{width:100%;padding:10px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:13px;min-height:60px;resize:vertical;outline:none}
+.pcpart-notes-input:focus{border-color:var(--accent)}
+.pcpart-parse-error{color:var(--red);font-size:13px;padding:12px;background:rgba(248,113,113,0.07);border:1px solid rgba(248,113,113,0.2);border-radius:8px;margin-bottom:16px;display:none}
+.pcpart-parse-error.show{display:block}
+
 </style>
+<base target="_blank">
 </head>
 <body>
 <div class="toast-container" id="toast-container"></div>
@@ -452,7 +496,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div class="home-stats">
         <div class="home-stat"><div class="home-stat-value" id="home-task-count">0</div><div class="home-stat-label">Tâches actives</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-done-count">0</div><div class="home-stat-label">Terminées</div></div>
-        <div class="home-stat"><div class="home-stat-value">23</div><div class="home-stat-label">Outils disponibles</div></div>
+        <div class="home-stat"><div class="home-stat-value">24</div><div class="home-stat-label">Outils disponibles</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-progress">0%</div><div class="home-stat-label">Progression</div></div>
     </div>
     <div class="home-modules">
@@ -471,6 +515,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             <div class="module-card" onclick="showPage('tools');activateTool('habit')"><div class="module-icon">🔥</div><div class="module-name">Habit Tracker</div><div class="module-desc">Grille GitHub-style. Streak counter, stats mensuelles, habits personnalisables.</div><div class="module-meta"><span class="module-badge">Daily</span><span class="module-badge">Streak</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('decision')"><div class="module-icon">🎡</div><div class="module-name">Roue de la Fortune</div><div class="module-desc">Tirage aléatoire pondéré avec animation. Parfait pour choisir un jeu ou film.</div><div class="module-meta"><span class="module-badge">Fun</span><span class="module-badge">Random</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('pwd')"><div class="module-icon">🔐</div><div class="module-name">Coffre Mots de Passe</div><div class="module-desc">Génère et sauvegarde tes mots de passe. Coffre séparé par utilisateur.</div><div class="module-meta"><span class="module-badge">Sécurité</span><span class="module-badge">Local</span></div></div>
+            <div class="module-card" onclick="showPage('tools');activateTool('pcpartpicker')"><div class="module-icon">🖥️</div><div class="module-name">PC Devis Extractor</div><div class="module-desc">Colle un tableau PCPartPicker → devis simplifié avec main-d'œuvre, frais et marge.</div><div class="module-meta"><span class="module-badge">Business</span><span class="module-badge">Local</span></div></div>
         </div>
     </div>
 </div>
@@ -536,6 +581,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <button class="btn" id="btn-tool-habit" onclick="activateTool('habit')">🔥 Habits</button>
                 <button class="btn" id="btn-tool-daily" onclick="activateTool('daily')">📅 Daily Note</button>
                 <button class="btn" id="btn-tool-focus" onclick="openFocusMode()">✍️ Focus</button>
+            </div>
+            <div class="tool-nav-group">
+                <span class="tool-nav-label">Business</span>
+                <button class="btn" id="btn-tool-pcpartpicker" onclick="activateTool('pcpartpicker')">🖥️ PC Devis</button>
             </div>
             <div class="tool-nav-group">
                 <span class="tool-nav-label">Fun</span>
@@ -846,6 +895,107 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <div style="position:relative;overflow:hidden;">
                     <canvas id="mindmap-canvas" style="display:block;cursor:default;background:var(--bg-primary);"></canvas>
                     <div id="mindmap-nodes" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ===== PCPARTPICKER DEVIS ===== -->
+        <div id="tool-pcpartpicker" class="tool-view">
+            <div class="pcpart-wrap">
+                <div style="text-align:center;margin-bottom:28px;">
+                    <div style="font-size:44px;margin-bottom:10px;">🖥️</div>
+                    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:6px;">PCPartPicker Devis Extractor</h3>
+                    <p style="color:var(--text-secondary);font-size:13px;max-width:500px;margin:0 auto;">Colle le texte copié depuis PCPartPicker (format table ou liste). Le parser extrait les composants, prix et génère un devis avec main-d'œuvre.</p>
+                </div>
+
+                <div class="pcpart-parse-error" id="pcpart-error">❌ Impossible de parser le contenu. Vérifie que tu as bien copié la liste depuis PCPartPicker.</div>
+
+                <div class="pcpart-input-wrap">
+                    <label class="form-label">📋 Colle ici le contenu PCPartPicker</label>
+                    <textarea class="pcpart-textarea" id="pcpart-input" placeholder="CPU | Intel Core i5-13600K | €289.99&#10;Motherboard | MSI B760 | €149.99&#10;...&#10;&#10;Ou colle le format table complet depuis PCPartPicker (Component | Selection | Base | Promo | Shipping | Tax | Price)"></textarea>
+                    <div class="pcpart-paste-hint">💡 Astuce : sur PCPartPicker, clique sur le bouton de partage → "Plain Text" ou copie la table directement</div>
+                </div>
+
+                <div class="pcpart-config-grid">
+                    <div class="pcpart-config-item">
+                        <label>Nom client</label>
+                        <input type="text" id="pcpart-client" placeholder="Client..." value="">
+                    </div>
+                    <div class="pcpart-config-item">
+                        <label>Main-d'œuvre</label>
+                        <input type="number" id="pcpart-labor" value="150" min="0" step="5">
+                    </div>
+                    <div class="pcpart-config-item">
+                        <label>Frais de port</label>
+                        <input type="number" id="pcpart-shipping" value="0" min="0" step="5">
+                    </div>
+                    <div class="pcpart-config-item">
+                        <label>Marge (%)</label>
+                        <input type="number" id="pcpart-margin" value="0" min="0" max="100" step="1">
+                    </div>
+                    <div class="pcpart-config-item">
+                        <label>Devise</label>
+                        <select id="pcpart-currency">
+                            <option value="€">€ EUR</option>
+                            <option value="$">$ USD</option>
+                            <option value="£">£ GBP</option>
+                        </select>
+                    </div>
+                    <div class="pcpart-config-item">
+                        <label>TVA (%)</label>
+                        <input type="number" id="pcpart-tva" value="20" min="0" max="100" step="1">
+                    </div>
+                </div>
+
+                <div class="pcpart-controls">
+                    <button class="btn btn-primary" onclick="parsePCPartPicker()">🔍 Parser & Générer</button>
+                    <button class="btn" onclick="clearPCPartPicker()">🗑 Vider</button>
+                    <button class="btn" onclick="loadPCPartExample()">📋 Exemple</button>
+                </div>
+
+                <div id="pcpart-result" style="display:none;">
+                    <div class="pcpart-devis">
+                        <div class="pcpart-devis-header">
+                            <div>
+                                <div class="pcpart-devis-title">📄 Devis PC</div>
+                                <div class="pcpart-devis-meta" id="pcpart-devis-meta">—</div>
+                            </div>
+                            <div style="display:flex;gap:8px;">
+                                <span class="pcpart-badge" id="pcpart-badge-parts">0 pièces</span>
+                                <span class="pcpart-badge" id="pcpart-badge-total">—</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:16px;">
+                            <input type="text" class="pcpart-client-input" id="pcpart-client-display" placeholder="Nom du client..." oninput="updatePCPartPreview()">
+                            <textarea class="pcpart-notes-input" id="pcpart-notes" placeholder="Notes personnalisées (optionnel)..." oninput="updatePCPartPreview()"></textarea>
+                        </div>
+
+                        <table class="pcpart-table" id="pcpart-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Composant</th>
+                                    <th style="text-align:center">Qté</th>
+                                    <th style="text-align:right">Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pcpart-tbody"></tbody>
+                        </table>
+
+                        <div class="pcpart-totals" id="pcpart-totals"></div>
+                    </div>
+
+                    <div class="pcpart-actions">
+                        <button class="btn btn-primary" onclick="copyPCPartMarkdown()">📋 Copier Markdown</button>
+                        <button class="btn btn-green" onclick="downloadPCPartMarkdown()">💾 Télécharger .md</button>
+                    </div>
+                </div>
+
+                <div class="pcpart-empty" id="pcpart-empty">
+                    <div class="pcpart-empty-icon">🖥️</div>
+                    <div>Colle le contenu de ta liste PCPartPicker pour commencer</div>
                 </div>
             </div>
         </div>
@@ -1686,6 +1836,298 @@ function downloadDailyNote(){
     const today=new Date().toISOString().split('T')[0];
     const blob=new Blob([document.getElementById('daily-preview').textContent],{type:'text/plain'});
     const a=document.createElement('a');a.download=`daily-${today}.md`;a.href=URL.createObjectURL(blob);a.click();
+}
+
+
+// ===== PCPARTPICKER DEVIS EXTRACTOR =====
+let pcpartData = { parts: [], client: '', notes: '', labor: 150, shipping: 0, margin: 0, currency: '€', tva: 20 };
+
+const PCPART_EXAMPLE = `CPU		Intel Core i5-13600K 3.5 GHz 14-Core Processor		€289.99
+CPU Cooler		Deepcool AK400 66.47 CFM CPU Cooler		€34.99
+Motherboard		MSI PRO B760M-A WIFI DDR4 Micro ATX LGA1700		€149.99
+Memory		Corsair Vengeance LPX 32 GB (2 x 16 GB) DDR4-3200		€64.99
+Storage		Samsung 980 Pro 1 TB M.2-2280 PCIe 4.0 X4 NVME		€89.99
+Video Card		MSI GeForce RTX 4060 Ti 8 GB VENTUS 2X OC		€399.99
+Case		Fractal Design Pop Air ATX Mid Tower		€89.99
+Power Supply		Corsair RM750e (2023) 750 W 80+ Gold		€109.99`;
+
+function parsePCPartPicker() {
+    const raw = document.getElementById('pcpart-input').value.trim();
+    const errorEl = document.getElementById('pcpart-error');
+    if (!raw) { errorEl.classList.add('show'); return; }
+    errorEl.classList.remove('show');
+
+    // Récupérer les configs
+    pcpartData.labor = parseFloat(document.getElementById('pcpart-labor').value) || 0;
+    pcpartData.shipping = parseFloat(document.getElementById('pcpart-shipping').value) || 0;
+    pcpartData.margin = parseFloat(document.getElementById('pcpart-margin').value) || 0;
+    pcpartData.currency = document.getElementById('pcpart-currency').value;
+    pcpartData.tva = parseFloat(document.getElementById('pcpart-tva').value) || 0;
+    pcpartData.client = document.getElementById('pcpart-client').value.trim();
+    pcpartData.notes = document.getElementById('pcpart-notes').value.trim();
+
+    const parts = parsePCPartText(raw);
+    if (!parts.length) { errorEl.classList.add('show'); return; }
+
+    pcpartData.parts = parts;
+    renderPCPartResult();
+    showToast(parts.length + ' composants extraits ✓', 'success');
+}
+
+function parsePCPartText(text) {
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    const parts = [];
+
+    // Patterns de prix
+    const priceRegex = /[\$€£]\s*([\d,]+\.\d{2})\s*$/;
+
+    for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('*') || trimmed.startsWith('—') || trimmed.startsWith('|')) continue;
+        if (trimmed.match(/^(Component|Selection|Base|Promo|Shipping|Tax|Price|Where|Total)/i)) continue;
+        if (trimmed.match(/^(CPU|Motherboard|Memory|Storage|Video Card|Case|Power Supply|Operating System|Monitor|Expansion|Peripherals|Accessories|Choose A|Choose An)/i) && trimmed.length < 40 && !priceRegex.test(trimmed)) continue;
+
+        // Essayer de parser différents formats
+        let part = null;
+
+        // Format 1: Table markdown | Component | Selection | Base | ... | Price |
+        if (trimmed.includes('|')) {
+            const cols = trimmed.split('|').map(c => c.trim()).filter(c => c);
+            if (cols.length >= 2) {
+                const type = cols[0];
+                const name = cols[1];
+                // Chercher le prix dans la dernière colonne ou colonnes avant-dernières
+                for (let i = cols.length - 1; i >= 0; i--) {
+                    const priceMatch = cols[i].match(priceRegex);
+                    if (priceMatch) {
+                        const priceStr = priceMatch[1].replace(',', '');
+                        const price = parseFloat(priceStr);
+                        if (!isNaN(price) && price > 0) {
+                            part = { type: cleanType(type), name: cleanName(name), price: price, qty: 1 };
+                            break;
+                        }
+                    }
+                }
+                if (!part && cols.length >= 2) {
+                    // Pas de prix trouvé, prendre quand même le nom
+                    part = { type: cleanType(cols[0]), name: cleanName(cols[1]), price: 0, qty: 1 };
+                }
+            }
+        }
+        // Format 2: Tab-separé ou multi-espaces avec prix à la fin
+        else {
+            const priceMatch = trimmed.match(priceRegex);
+            if (priceMatch) {
+                const priceStr = priceMatch[1].replace(',', '');
+                const price = parseFloat(priceStr);
+                const priceIndex = trimmed.indexOf(priceMatch[0]);
+                const beforePrice = trimmed.substring(0, priceIndex).trim();
+
+                // Essayer de séparer type et nom
+                const tokens = beforePrice.split(/	+|\s{2,}/);
+                if (tokens.length >= 2) {
+                    const possibleType = tokens[0].trim();
+                    const possibleName = tokens.slice(1).join(' ').trim();
+                    if (isKnownType(possibleType)) {
+                        part = { type: cleanType(possibleType), name: cleanName(possibleName), price: price, qty: 1 };
+                    } else {
+                        part = { type: 'Autre', name: cleanName(beforePrice), price: price, qty: 1 };
+                    }
+                } else {
+                    part = { type: 'Autre', name: cleanName(beforePrice), price: price, qty: 1 };
+                }
+            }
+        }
+
+        if (part && part.name && part.name.length > 2) {
+            parts.push(part);
+        }
+    }
+
+    return parts;
+}
+
+function isKnownType(str) {
+    const types = ['CPU', 'CPU Cooler', 'Motherboard', 'Memory', 'Storage', 'Video Card', 'Case', 'Power Supply',
+        'Operating System', 'Monitor', 'Expansion Cards', 'Peripherals', 'Accessories', 'Sound Card',
+        'Wired Network Adapter', 'Wireless Network Adapter', 'Headphones', 'Keyboard', 'Mouse', 'Speaker',
+        'Webcam', 'Case Fan', 'Fan Controller', 'Thermal Compound', 'External Storage', 'Optical Drive',
+        'UPS System', 'Case Accessory'];
+    const lower = str.toLowerCase();
+    return types.some(t => lower.includes(t.toLowerCase()));
+}
+
+function cleanType(type) {
+    const map = {
+        'cpu cooler': 'Refroidissement', 'cpu': 'Processeur', 'motherboard': 'Carte mère',
+        'memory': 'RAM', 'storage': 'Stockage', 'video card': 'Carte graphique',
+        'case': 'Boîtier', 'power supply': 'Alimentation', 'operating system': 'OS',
+        'monitor': 'Écran', 'sound card': 'Carte son', 'wired network adapter': 'Réseau',
+        'wireless network adapter': 'WiFi', 'headphones': 'Audio', 'keyboard': 'Clavier',
+        'mouse': 'Souris', 'speaker': 'Audio', 'webcam': 'Webcam', 'case fan': 'Ventilation',
+        'fan controller': 'Ventilation', 'thermal compound': 'Pâte thermique',
+        'external storage': 'Stockage externe', 'optical drive': 'Lecteur optique',
+        'ups system': 'Onduleur', 'case accessory': 'Accessoire'
+    };
+    const lower = type.toLowerCase().trim();
+    return map[lower] || type.charAt(0).toUpperCase() + type.slice(1);
+}
+
+function cleanName(name) {
+    return name.replace(/\(From parametric filter\)/gi, '')
+        .replace(/\(From parametric selection\)/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function renderPCPartResult() {
+    const resultEl = document.getElementById('pcpart-result');
+    const emptyEl = document.getElementById('pcpart-empty');
+    const tbody = document.getElementById('pcpart-tbody');
+    const totalsEl = document.getElementById('pcpart-totals');
+    const metaEl = document.getElementById('pcpart-devis-meta');
+    const badgeParts = document.getElementById('pcpart-badge-parts');
+    const badgeTotal = document.getElementById('pcpart-badge-total');
+
+    resultEl.style.display = 'block';
+    emptyEl.style.display = 'none';
+
+    // Client display
+    document.getElementById('pcpart-client-display').value = pcpartData.client;
+
+    // Render table
+    let partsTotal = 0;
+    tbody.innerHTML = pcpartData.parts.map(p => {
+        partsTotal += p.price * p.qty;
+        return `<tr>
+            <td><span class="part-type">${escapeHtml(p.type)}</span></td>
+            <td><span class="part-name">${escapeHtml(p.name)}</span></td>
+            <td style="text-align:center"><span class="part-qty">×${p.qty}</span></td>
+            <td class="part-price">${formatPrice(p.price * p.qty)}</td>
+        </tr>`;
+    }).join('');
+
+    // Calculs
+    const marginAmount = partsTotal * (pcpartData.margin / 100);
+    const subtotal = partsTotal + marginAmount;
+    const tvaAmount = subtotal * (pcpartData.tva / 100);
+    const grandTotal = subtotal + tvaAmount + pcpartData.labor + pcpartData.shipping;
+
+    const cur = pcpartData.currency;
+
+    totalsEl.innerHTML = `
+        <div class="pcpart-total-row"><span class="total-label">Pièces</span><span class="total-value">${cur}${partsTotal.toFixed(2)}</span></div>
+        ${pcpartData.margin > 0 ? `<div class="pcpart-total-row"><span class="total-label">Marge (${pcpartData.margin}%)</span><span class="total-value">${cur}${marginAmount.toFixed(2)}</span></div>` : ''}
+        <div class="pcpart-total-row"><span class="total-label">Sous-total</span><span class="total-value">${cur}${subtotal.toFixed(2)}</span></div>
+        ${pcpartData.tva > 0 ? `<div class="pcpart-total-row"><span class="total-label">TVA (${pcpartData.tva}%)</span><span class="total-value">${cur}${tvaAmount.toFixed(2)}</span></div>` : ''}
+        <div class="pcpart-total-row"><span class="total-label">🔧 Main-d'œuvre</span><span class="total-value">${cur}${pcpartData.labor.toFixed(2)}</span></div>
+        ${pcpartData.shipping > 0 ? `<div class="pcpart-total-row"><span class="total-label">📦 Frais de port</span><span class="total-value">${cur}${pcpartData.shipping.toFixed(2)}</span></div>` : ''}
+        <div class="pcpart-total-row grand"><span class="total-label">💰 TOTAL</span><span class="total-value">${cur}${grandTotal.toFixed(2)}</span></div>
+    `;
+
+    const dateStr = new Date().toLocaleDateString('fr-FR');
+    metaEl.textContent = `Devis du ${dateStr}${pcpartData.client ? ' — ' + pcpartData.client : ''}`;
+    badgeParts.textContent = `${pcpartData.parts.length} pièce${pcpartData.parts.length > 1 ? 's' : ''}`;
+    badgeTotal.textContent = `Total: ${cur}${grandTotal.toFixed(2)}`;
+}
+
+function formatPrice(price) {
+    return pcpartData.currency + price.toFixed(2);
+}
+
+function updatePCPartPreview() {
+    pcpartData.client = document.getElementById('pcpart-client-display').value.trim();
+    pcpartData.notes = document.getElementById('pcpart-notes').value.trim();
+    const metaEl = document.getElementById('pcpart-devis-meta');
+    const dateStr = new Date().toLocaleDateString('fr-FR');
+    metaEl.textContent = `Devis du ${dateStr}${pcpartData.client ? ' — ' + pcpartData.client : ''}`;
+}
+
+function clearPCPartPicker() {
+    document.getElementById('pcpart-input').value = '';
+    document.getElementById('pcpart-result').style.display = 'none';
+    document.getElementById('pcpart-empty').style.display = 'block';
+    document.getElementById('pcpart-error').classList.remove('show');
+    pcpartData = { parts: [], client: '', notes: '', labor: 150, shipping: 0, margin: 0, currency: '€', tva: 20 };
+    showToast('Devis effacé', 'info');
+}
+
+function loadPCPartExample() {
+    document.getElementById('pcpart-input').value = PCPART_EXAMPLE;
+    showToast('Exemple chargé ! Clique sur Parser', 'success');
+}
+
+function generatePCPartMarkdown() {
+    const cur = pcpartData.currency;
+    const dateStr = new Date().toLocaleDateString('fr-FR');
+    let md = `# 🖥️ Devis PC — ${dateStr}
+
+`;
+    if (pcpartData.client) md += `**Client :** ${pcpartData.client}
+
+`;
+    md += `## Composants
+
+`;
+    md += `| Type | Composant | Prix |
+`;
+    md += `|------|-----------|------|
+`;
+
+    let partsTotal = 0;
+    pcpartData.parts.forEach(p => {
+        partsTotal += p.price * p.qty;
+        md += `| ${p.type} | ${p.name} | ${cur}${(p.price * p.qty).toFixed(2)} |
+`;
+    });
+
+    const marginAmount = partsTotal * (pcpartData.margin / 100);
+    const subtotal = partsTotal + marginAmount;
+    const tvaAmount = subtotal * (pcpartData.tva / 100);
+    const grandTotal = subtotal + tvaAmount + pcpartData.labor + pcpartData.shipping;
+
+    md += `
+## Totaux
+
+`;
+    md += `- **Pièces :** ${cur}${partsTotal.toFixed(2)}
+`;
+    if (pcpartData.margin > 0) md += `- **Marge (${pcpartData.margin}%) :** ${cur}${marginAmount.toFixed(2)}
+`;
+    md += `- **Sous-total :** ${cur}${subtotal.toFixed(2)}
+`;
+    if (pcpartData.tva > 0) md += `- **TVA (${pcpartData.tva}%) :** ${cur}${tvaAmount.toFixed(2)}
+`;
+    md += `- **🔧 Main-d'œuvre :** ${cur}${pcpartData.labor.toFixed(2)}
+`;
+    if (pcpartData.shipping > 0) md += `- **📦 Frais de port :** ${cur}${pcpartData.shipping.toFixed(2)}
+`;
+    md += `- **💰 TOTAL :** ${cur}${grandTotal.toFixed(2)}
+`;
+
+    if (pcpartData.notes) md += `
+## Notes
+
+${pcpartData.notes}
+`;
+
+    return md;
+}
+
+function copyPCPartMarkdown() {
+    const md = generatePCPartMarkdown();
+    navigator.clipboard.writeText(md).then(() => showToast('Markdown copié !', 'success'));
+}
+
+function downloadPCPartMarkdown() {
+    const md = generatePCPartMarkdown();
+    const clientSlug = pcpartData.client ? pcpartData.client.replace(/[^a-z0-9]/gi, '_') : 'devis';
+    const blob = new Blob([md], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `devis_pc_${clientSlug}_${new Date().toISOString().split('T')[0]}.md`;
+    a.click();
+    showToast('Devis téléchargé !', 'success');
 }
 
 // ===== EXPORT / IMPORT =====
