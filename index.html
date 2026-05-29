@@ -430,6 +430,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             Kanban
         </button>
+        <button class="nav-link" onclick="showPage('admin')" data-page="admin" id="nav-admin" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            Admin
+        </button>
         <button class="nav-link" onclick="showPage('tools')" data-page="tools">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             Outils
@@ -449,7 +453,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
             <div class="dropdown-menu" id="dropdown-menu">
                 <div class="dropdown-item" onclick="exportJSON()">📤 Exporter JSON</div>
                 <div class="dropdown-item" onclick="importJSON()">📥 Importer JSON</div>
-                <div class="dropdown-item" onclick="configureCloud()">☁️ Configurer Cloud</div>
+                <div class="dropdown-item" onclick="openCloudModal()">☁️ Cloud Sync</div>
                 <div class="dropdown-item" onclick="switchUser()">👤 Changer de compte</div>
                 <div class="dropdown-item" onclick="resetData()">🗑 Réinitialiser</div>
             </div>
@@ -470,7 +474,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div class="home-stats">
         <div class="home-stat"><div class="home-stat-value" id="home-task-count">0</div><div class="home-stat-label">Tâches actives</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-done-count">0</div><div class="home-stat-label">Terminées</div></div>
-        <div class="home-stat"><div class="home-stat-value">30</div><div class="home-stat-label">Outils disponibles</div></div>
+        <div class="home-stat"><div class="home-stat-value">20</div><div class="home-stat-label">Outils disponibles</div></div>
         <div class="home-stat"><div class="home-stat-value" id="home-progress">0%</div><div class="home-stat-label">Progression</div></div>
     </div>
     <div class="home-modules">
@@ -481,7 +485,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
         <p class="section-subtitle">Accède rapidement à tes outils favoris</p>
         <div class="modules-grid">
             <div class="module-card" onclick="showPage('kanban')"><div class="module-icon">📋</div><div class="module-name">Gestionnaire de Projets</div><div class="module-desc">Kanban board avec drag & drop, priorités, tags et assignation de membres.</div><div class="module-meta"><span class="module-badge">Kanban</span><span class="module-badge">Cloud</span></div></div>
-            <div class="module-card" onclick="showPage('tools')"><div class="module-icon">🖥️</div><div class="module-name">Mac mini M4 Hub</div><div class="module-desc">Sélecteur interactif de projets serveur, comparatif des modèles Apple Silicon.</div><div class="module-meta"><span class="module-badge">Admin</span><span class="module-badge">Serveur</span></div></div>
+            <div class="module-card" onclick="showPage('admin');showAdminTab('machub')"><div class="module-icon">🖥️</div><div class="module-name">Mac mini M4 Hub</div><div class="module-desc">Sélecteur interactif de projets serveur, comparatif des modèles Apple Silicon.</div><div class="module-meta"><span class="module-badge">Admin</span><span class="module-badge">Serveur</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('lol')"><div class="module-icon">⚔️</div><div class="module-name">LoL Hub</div><div class="module-desc">Team Builder aléatoire + Tournoi 1v1 avec bracket automatique.</div><div class="module-meta"><span class="module-badge">Gaming</span><span class="module-badge">Tournoi</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('pomodoro')"><div class="module-icon">⏱️</div><div class="module-name">Pomodoro Timer</div><div class="module-desc">Timer 25/5 lié au Kanban. Suis ton temps par tâche, stats de productivité.</div><div class="module-meta"><span class="module-badge">Focus</span><span class="module-badge">Stats</span></div></div>
             <div class="module-card" onclick="showPage('tools');activateTool('notes')"><div class="module-icon">📝</div><div class="module-name">Notes Rapides</div><div class="module-desc">Scratchpad multi-onglets avec Markdown basique, recherche et épinglage.</div><div class="module-meta"><span class="module-badge">Notes</span><span class="module-badge">Local</span></div></div>
@@ -498,13 +502,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div class="kanban-container">
         <div class="kanban-header"><h2>📋 Gestionnaire de Projets</h2></div>
 
-        <!-- Read-only / Edit mode banner -->
+        <!-- Read-only notice for users -->
         <div class="kanban-banner readonly" id="kanban-banner">
-            <span class="banner-msg">🔒 Mode lecture — le Kanban est visible par tous. Entre le mot de passe pour modifier.</span>
-            <div style="display:flex;gap:8px;align-items:center;">
-                <input type="password" id="kanban-edit-pwd" placeholder="Mot de passe..." style="padding:7px 12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-size:13px;outline:none;width:160px;" onkeydown="if(event.key==='Enter')unlockKanban()">
-                <button class="btn btn-primary" style="padding:7px 14px;" onclick="unlockKanban()">🔓 Déverrouiller</button>
-            </div>
+            <span class="banner-msg">📋 Plan de travail — lecture seule. Connecte-toi en admin pour modifier.</span>
         </div>
 
         <div class="kanban-toolbar">
@@ -514,11 +514,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
                 <button class="filter-chip" onclick="setKanbanFilter('high',this)">🔴 Haute</button>
                 <button class="filter-chip" onclick="setKanbanFilter('medium',this)">🟡 Moyenne</button>
                 <button class="filter-chip" onclick="setKanbanFilter('low',this)">🔵 Basse</button>
-            </div>
-            <!-- Edit-mode actions (hidden by default) -->
-            <div id="kanban-edit-actions" style="display:none;display:flex;gap:8px;">
-                <button class="btn btn-primary" onclick="openTaskModal()">+ Nouvelle tâche</button>
-                <button class="btn btn-danger" style="padding:8px 12px;" onclick="lockKanban()" title="Verrouiller">🔒</button>
             </div>
         </div>
         <div class="kanban-board">
@@ -537,11 +532,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
     <div id="tools-sidebar" style="width:220px;min-width:220px;background:var(--bg-card);border-right:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;position:sticky;top:64px;height:calc(100vh - 64px);">
 
       <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:8px 8px 4px;">🖥️ Système</div>
-      <button class="tool-sidebar-btn" id="btn-tool-machub" onclick="activateTool('machub')"><span>🖥️</span> MacHub</button>
-      <button class="tool-sidebar-btn" id="btn-tool-pwd" onclick="activateTool('pwd')"><span>🔐</span> Coffre MDP</button>
+            <button class="tool-sidebar-btn" id="btn-tool-pwd" onclick="activateTool('pwd')"><span>🔐</span> Coffre MDP</button>
       <button class="tool-sidebar-btn" id="btn-tool-qr" onclick="activateTool('qr')"><span>📱</span> QR Code</button>
-            <button class="tool-sidebar-btn" id="btn-tool-pcpart" onclick="activateTool('pcpart')"><span>💸</span> PC Devis</button>
-
+            
       <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:16px 8px 4px;">🎮 Gaming</div>
       <button class="tool-sidebar-btn" id="btn-tool-lol" onclick="activateTool('lol')"><span>⚔️</span> Team Builder</button>
       <button class="tool-sidebar-btn" id="btn-tool-tournament" onclick="activateTool('tournament')"><span>🏆</span> Tournoi 1v1</button>
@@ -579,48 +572,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 
 
         <!-- ===== MACHUB ===== -->
-        <div id="tool-machub" class="tool-view">
-            <div id="machub-locked" style="display:none;text-align:center;padding:80px 40px;">
-                <div style="font-size:64px;margin-bottom:20px;">🔒</div>
-                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:12px;">Accès Restreint</h3>
-                <p style="color:var(--text-secondary);max-width:400px;margin:0 auto 24px;">Cette section est réservée aux administrateurs. Entre le mot de passe admin pour continuer.</p>
-                <input type="password" class="auth-input" id="admin-pwd" placeholder="Mot de passe admin..." style="max-width:280px;margin:0 auto 16px;display:block;" onkeydown="if(event.key==='Enter')checkAdmin()">
-                <div class="auth-error" id="admin-error" style="max-width:280px;margin:0 auto 16px;">Mot de passe incorrect</div>
-                <button class="btn btn-primary" onclick="checkAdmin()" style="max-width:280px;width:100%;justify-content:center;">🔓 Déverrouiller</button>
-            </div>
-            <div id="machub-content" style="display:none;">
-                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;">
-                    <div style="text-align:center;margin-bottom:32px;"><div style="font-size:48px;margin-bottom:12px;">🖥️</div><h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Mac mini M4 Hub</h3><p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Comparatif complet, sélecteur de projets serveur interactif et calculateur de ressources.</p></div>
-                    <div class="machub-tabs">
-                        <button class="machub-tab active" onclick="showMacTab('compare')" data-tab="compare">📊 Comparatif</button>
-                        <button class="machub-tab" onclick="showMacTab('projects')" data-tab="projects">🚀 Projets Serveur</button>
-                        <button class="machub-tab" onclick="showMacTab('ram')" data-tab="ram">🧮 Calculateur RAM</button>
-                    </div>
-                    <div class="machub-content active" id="tab-compare">
-                        <div style="overflow-x:auto;"><table class="mac-table"><thead><tr><th>Modèle</th><th>Chip</th><th>CPU</th><th>GPU</th><th>RAM Max</th><th>SSD Max</th><th>Conso Max</th><th>Prix (base)</th></tr></thead><tbody>
-                        <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4pro">M4 PRO</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4 Pro</a></div></td><td>M4 Pro (14c)</td><td>14 cœurs</td><td>20 cœurs</td><td>64 Go</td><td>8 To</td><td><span style="color:var(--red)">~65W</span></td><td class="mac-price">1 599€</td></tr>
-                        <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4">M4</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4</a></div></td><td>M4 (10c)</td><td>10 cœurs</td><td>10 cœurs</td><td>32 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~35W</span></td><td class="mac-price">699€</td></tr>
-                        <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2pro">M2 PRO</span><a href="https://www.apple.com/fr/mac-mini/" target="_blank" class="mac-link">Mac mini M2 Pro</a></div></td><td>M2 Pro (12c)</td><td>12 cœurs</td><td>19 cœurs</td><td>32 Go</td><td>8 To</td><td><span style="color:var(--red)">~55W</span></td><td class="mac-price">1 499€</td></tr>
-                        <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2">M2</span>Mac mini M2</div></td><td>M2 (8c)</td><td>8 cœurs</td><td>10 cœurs</td><td>24 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~30W</span></td><td class="mac-price">699€</td></tr>
-                        <tr><td><div class="mac-model-name"><span class="mac-chip chip-m1">M1</span>Mac mini M1 (2020)</div></td><td>M1 (8c)</td><td>8 cœurs</td><td>8 cœurs</td><td>16 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~39W</span></td><td class="mac-price">~800€ occasion</td></tr>
-                        </tbody></table></div>
-                        <div style="background:var(--bg-primary);border-radius:var(--radius-sm);padding:20px;margin-top:16px;"><h4 style="font-size:14px;margin-bottom:12px;color:var(--accent)">💡 Recommandation</h4><p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Pour un usage serveur polyvalent (media + LLM + VPN + dev), le <strong style="color:var(--text-primary)">Mac mini M4 avec 16 Go de RAM</strong> est le sweet spot. Le M4 Pro n'est utile que pour du montage vidéo 4K+ ou héberger plusieurs LLM en parallèle.</p></div>
-                        <div class="compatibility-check"><h4>🎨 Compatibilité Apps Pro</h4><div class="compat-item"><span class="compat-ok">✓</span> Photoshop 2025 — Parfaitement compatible, accélération Metal native</div><div class="compat-item"><span class="compat-ok">✓</span> Illustrator — Fonctionne sans problème</div><div class="compat-item"><span class="compat-ok">✓</span> Final Cut Pro — Excellent, encode HEVC/H.264 accéléré hardware</div><div class="compat-item"><span class="compat-ok">✓</span> Xcode — Compilation ultra-rapide</div><div class="compat-item"><span class="compat-warn">⚠</span> After Effects — 16 Go peut être juste pour les gros projets</div><div class="compat-item"><span class="compat-ok">✓</span> Blender — Support Metal 3, rendu accéléré</div><div class="compat-item"><span class="compat-ok">✓</span> DaVinci Resolve — Accélération complète via Metal</div></div>
-                    </div>
-                    <div class="machub-content" id="tab-projects">
-                        <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Sélectionne les projets à héberger sur ton Mac mini M4.</p>
-                        <div class="project-grid" id="project-grid"></div>
-                        <div class="ram-meter"><h4>📊 Consommation estimée</h4><div class="ram-bar-container" id="ram-bar"><div class="ram-bar-segment" style="width:100%;background:var(--bg-tertiary);color:var(--text-muted)">16 Go libres</div></div><div class="ram-legend" id="ram-legend"></div><div class="ram-stats"><div class="ram-stat"><div class="ram-stat-value" id="ram-total">16 Go</div><div class="ram-stat-label">RAM totale</div></div><div class="ram-stat"><div class="ram-stat-value" id="ram-allocated">0 Go</div><div class="ram-stat-label">Allouée</div></div><div class="ram-stat"><div class="ram-stat-value" id="ram-remaining">16 Go</div><div class="ram-stat-label">Disponible</div></div></div><div class="ram-warning" id="ram-warning">⚠️ Tu dépasses 16 Go. macOS utilisera le swap (SSD), ce qui réduit les perfs.</div></div>
-                    </div>
-                    <div class="machub-content" id="tab-ram">
-                        <div class="form-group" style="max-width:300px;"><label class="form-label">Configuration RAM</label><select class="form-select" id="ram-config" onchange="updateRamCalc()"><option value="8">8 Go (base)</option><option value="16" selected>16 Go (+200€)</option><option value="24">24 Go (+400€)</option><option value="32">32 Go (+600€)</option></select></div>
-                        <div id="ram-calc-result" style="margin-top:20px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== LOL TEAM BUILDER ===== -->
         <div id="tool-lol" class="tool-view">
             <div class="lol-tool">
                 <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:8px;">👥 Team Builder</h3>
@@ -1218,6 +1169,218 @@ Jour 2: Visite musée..." style="min-height:120px;"></textarea>
   </div><!-- end flex wrapper -->
 </div><!-- end page-tools -->
 
+<!-- CLOUD SYNC MODAL -->
+<div class="modal-overlay" id="cloud-modal">
+    <div class="modal" style="max-width:600px;">
+        <div class="modal-header"><h3>☁️ Cloud Sync — Tutoriel</h3><button class="btn btn-icon" onclick="closeCloudModal()" style="width:32px;height:32px;">✕</button></div>
+        <div id="cloud-config-section">
+            <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;margin-bottom:20px;">
+                <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;">Pourquoi ?</div>
+                <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;margin-bottom:12px;">
+                    FlowBoard est un site <strong>statique</strong> hébergé sur Vercel. Les données sont stockées dans ton navigateur (localStorage). 
+                    Pour que tes modifications du Kanban soient visibles par <strong>tous les utilisateurs</strong>, il faut un backend cloud.
+                </p>
+                <p style="color:var(--text-secondary);font-size:13px;line-height:1.7;margin-bottom:12px;">
+                    La solution <strong>gratuite</strong> : utiliser <strong>GitHub Gist</strong> comme base de données cloud. Tes données sont sauvegardées sur GitHub et synchronisées automatiquement.
+                </p>
+            </div>
+
+            <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;margin-bottom:20px;">
+                <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;">🔧 Configuration (1 min)</div>
+                <ol style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-left:16px;margin-bottom:16px;">
+                    <li>Va sur <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--accent);">github.com/settings/tokens</a></li>
+                    <li>Clique <strong>"Generate new token (classic)"</strong></li>
+                    <li>Coche la case <strong>"gist"</strong> (créer des gists)</li>
+                    <li>Génère le token et copie-le <em>(tu ne le verras qu'une fois)</em></li>
+                    <li>Colle-le dans le champ ci-dessous → clique Connecter</li>
+                </ol>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label class="form-label">Token GitHub Gist</label>
+                    <input type="password" class="form-input" id="cloud-gist-token" placeholder="ghp_xxxxxxxxxxxx...">
+                </div>
+                <div style="display:flex;gap:8px;">
+                    <button class="btn btn-primary" onclick="saveCloudConfig()" style="flex:1;justify-content:center;">🔗 Connecter</button>
+                    <button class="btn btn-danger" onclick="disconnectCloud()" style="padding:8px 16px;">Déconnecter</button>
+                </div>
+                <div id="cloud-status-msg" style="margin-top:12px;font-size:13px;display:none;"></div>
+            </div>
+
+            <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;">
+                <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;">💡 Comment ça marche</div>
+                <ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-left:16px;">
+                    <li>Le Kanban est <strong>partagé</strong> : quand l'admin modifie, tout le monde voit</li>
+                    <li>Ton coffre MDP, notes, habits, trips, deals restent <strong>privés</strong> (par utilisateur)</li>
+                    <li>La synchro se fait <strong>automatiquement</strong> toutes les 30 secondes</li>
+                    <li>Tu peux aussi cliquer sur le statut ☁️ dans la navbar pour forcer la synchro</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE: ADMIN -->
+<div class="page" id="page-admin">
+    <div style="display:flex;min-height:calc(100vh - 64px);">
+        <!-- ADMIN SIDEBAR -->
+        <div id="admin-sidebar" style="width:220px;min-width:220px;background:var(--bg-card);border-right:1px solid var(--border);padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;position:sticky;top:64px;height:calc(100vh - 64px);">
+            <div style="font-size:10px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;padding:8px 8px 4px;">🔒 Admin</div>
+            <button class="tool-sidebar-btn active" id="btn-admin-kanban" onclick="showAdminTab('kanban')"><span>📋</span> Kanban Admin</button>
+            <button class="tool-sidebar-btn" id="btn-admin-machub" onclick="showAdminTab('machub')"><span>🖥️</span> MacHub</button>
+            <button class="tool-sidebar-btn" id="btn-admin-pcpart" onclick="showAdminTab('pcpart')"><span>💸</span> PC Devis</button>
+            <button class="tool-sidebar-btn" id="btn-admin-cloud" onclick="showAdminTab('cloud')"><span>☁️</span> Cloud Sync</button>
+        </div>
+
+        <!-- ADMIN CONTENT -->
+        <div class="tools-container" style="flex:1;padding:28px;overflow-y:auto;min-width:0;">
+
+            <!-- KANBAN ADMIN -->
+            <div id="admin-kanban" class="tool-view active">
+                <div class="kanban-container">
+                    <div class="kanban-header"><h2>📋 Kanban — Mode Admin</h2></div>
+                    <div class="kanban-banner editing" id="kanban-admin-banner">
+                        <span class="banner-msg">✏️ Mode admin — tu peux créer, modifier et déplacer les tâches. Les modifications sont synchronisées sur le cloud.</span>
+                        <button class="btn btn-primary" style="padding:7px 14px;" onclick="forceSyncKanban()">☁️ Sync Now</button>
+                    </div>
+                    <div class="kanban-toolbar">
+                        <div class="search-box"><input type="text" id="admin-search-input" placeholder="Rechercher une tâche..." oninput="filterAdminKanban()"></div>
+                        <div class="filter-group">
+                            <button class="filter-chip active" onclick="setAdminFilter('all',this)">Tout</button>
+                            <button class="filter-chip" onclick="setAdminFilter('high',this)">🔴 Haute</button>
+                            <button class="filter-chip" onclick="setAdminFilter('medium',this)">🟡 Moyenne</button>
+                            <button class="filter-chip" onclick="setAdminFilter('low',this)">🔵 Basse</button>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn btn-primary" onclick="openTaskModal()">+ Nouvelle tâche</button>
+                        </div>
+                    </div>
+                    <div class="kanban-board">
+                        <div class="kanban-column" data-status="todo"><div class="column-header"><div class="column-title"><span class="column-dot dot-todo"></span>À faire</div><span class="task-count" id="admin-badge-todo">0</span></div><div class="tasks-list" id="admin-todo-list"></div></div>
+                        <div class="kanban-column" data-status="progress"><div class="column-header"><div class="column-title"><span class="column-dot dot-progress"></span>En cours</div><span class="task-count" id="admin-badge-progress">0</span></div><div class="tasks-list" id="admin-progress-list"></div></div>
+                        <div class="kanban-column" data-status="done"><div class="column-header"><div class="column-title"><span class="column-dot dot-done"></span>Terminé</div><span class="task-count" id="admin-badge-done">0</span></div><div class="tasks-list" id="admin-done-list"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MACHUB ADMIN -->
+            <div id="admin-machub" class="tool-view">
+                <div id="admin-machub-content">
+                    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;">
+                        <div style="text-align:center;margin-bottom:32px;"><div style="font-size:48px;margin-bottom:12px;">🖥️</div><h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Mac mini M4 Hub</h3><p style="color:var(--text-secondary);max-width:600px;margin:0 auto;">Comparatif complet, sélecteur de projets serveur interactif et calculateur de ressources.</p></div>
+                        <div class="machub-tabs">
+                            <button class="machub-tab active" onclick="showMacTab('compare')" data-tab="compare">📊 Comparatif</button>
+                            <button class="machub-tab" onclick="showMacTab('projects')" data-tab="projects">🚀 Projets Serveur</button>
+                            <button class="machub-tab" onclick="showMacTab('ram')" data-tab="ram">🧮 Calculateur RAM</button>
+                        </div>
+                        <div class="machub-content active" id="tab-compare">
+                            <div style="overflow-x:auto;"><table class="mac-table"><thead><tr><th>Modèle</th><th>Chip</th><th>CPU</th><th>GPU</th><th>RAM Max</th><th>SSD Max</th><th>Conso Max</th><th>Prix (base)</th></tr></thead><tbody>
+                            <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4pro">M4 PRO</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4 Pro</a></div></td><td>M4 Pro (14c)</td><td>14 cœurs</td><td>20 cœurs</td><td>64 Go</td><td>8 To</td><td><span style="color:var(--red)">~65W</span></td><td class="mac-price">1 599€</td></tr>
+                            <tr><td><div class="mac-model-name"><span class="mac-chip chip-m4">M4</span><a href="https://www.apple.com/fr/shop/buy-mac/mac-mini" target="_blank" class="mac-link">Mac mini M4</a></div></td><td>M4 (10c)</td><td>10 cœurs</td><td>10 cœurs</td><td>32 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~35W</span></td><td class="mac-price">699€</td></tr>
+                            <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2pro">M2 PRO</span><a href="https://www.apple.com/fr/mac-mini/" target="_blank" class="mac-link">Mac mini M2 Pro</a></div></td><td>M2 Pro (12c)</td><td>12 cœurs</td><td>19 cœurs</td><td>32 Go</td><td>8 To</td><td><span style="color:var(--red)">~55W</span></td><td class="mac-price">1 499€</td></tr>
+                            <tr><td><div class="mac-model-name"><span class="mac-chip chip-m2">M2</span>Mac mini M2</div></td><td>M2 (8c)</td><td>8 cœurs</td><td>10 cœurs</td><td>24 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~30W</span></td><td class="mac-price">699€</td></tr>
+                            <tr><td><div class="mac-model-name"><span class="mac-chip chip-m1">M1</span>Mac mini M1 (2020)</div></td><td>M1 (8c)</td><td>8 cœurs</td><td>8 cœurs</td><td>16 Go</td><td>2 To</td><td><span style="color:var(--yellow)">~39W</span></td><td class="mac-price">~800€ occasion</td></tr>
+                            </tbody></table></div>
+                            <div style="background:var(--bg-primary);border-radius:var(--radius-sm);padding:20px;margin-top:16px;"><h4 style="font-size:14px;margin-bottom:12px;color:var(--accent)">💡 Recommandation</h4><p style="color:var(--text-secondary);font-size:13px;line-height:1.7;">Pour un usage serveur polyvalent (media + LLM + VPN + dev), le <strong style="color:var(--text-primary)">Mac mini M4 avec 16 Go de RAM</strong> est le sweet spot. Le M4 Pro n'est utile que pour du montage vidéo 4K+ ou héberger plusieurs LLM en parallèle.</p></div>
+                            <div class="compatibility-check"><h4>🎨 Compatibilité Apps Pro</h4><div class="compat-item"><span class="compat-ok">✓</span> Photoshop 2025 — Parfaitement compatible, accélération Metal native</div><div class="compat-item"><span class="compat-ok">✓</span> Illustrator — Fonctionne sans problème</div><div class="compat-item"><span class="compat-ok">✓</span> Final Cut Pro — Excellent, encode HEVC/H.264 accéléré hardware</div><div class="compat-item"><span class="compat-ok">✓</span> Xcode — Compilation ultra-rapide</div><div class="compat-item"><span class="compat-warn">⚠</span> After Effects — 16 Go peut être juste pour les gros projets</div><div class="compat-item"><span class="compat-ok">✓</span> Blender — Support Metal 3, rendu accéléré</div><div class="compat-item"><span class="compat-ok">✓</span> DaVinci Resolve — Accélération complète via Metal</div></div>
+                        </div>
+                        <div class="machub-content" id="tab-projects">
+                            <p style="color:var(--text-secondary);font-size:13px;margin-bottom:16px;">Sélectionne les projets à héberger sur ton Mac mini M4.</p>
+                            <div class="project-grid" id="project-grid"></div>
+                            <div class="ram-meter"><h4>📊 Consommation estimée</h4><div class="ram-bar-container" id="ram-bar"><div class="ram-bar-segment" style="width:100%;background:var(--bg-tertiary);color:var(--text-muted)">16 Go libres</div></div><div class="ram-legend" id="ram-legend"></div><div class="ram-stats"><div class="ram-stat"><div class="ram-stat-value" id="ram-total">16 Go</div><div class="ram-stat-label">RAM totale</div></div><div class="ram-stat"><div class="ram-stat-value" id="ram-allocated">0 Go</div><div class="ram-stat-label">Allouée</div></div><div class="ram-stat"><div class="ram-stat-value" id="ram-remaining">16 Go</div><div class="ram-stat-label">Disponible</div></div></div><div class="ram-warning" id="ram-warning">⚠️ Tu dépasses 16 Go. macOS utilisera le swap (SSD), ce qui réduit les perfs.</div></div>
+                        </div>
+                        <div class="machub-content" id="tab-ram">
+                            <div class="form-group" style="max-width:300px;"><label class="form-label">Configuration RAM</label><select class="form-select" id="ram-config" onchange="updateRamCalc()"><option value="8">8 Go (base)</option><option value="16" selected>16 Go (+200€)</option><option value="24">24 Go (+400€)</option><option value="32">32 Go (+600€)</option></select></div>
+                            <div id="ram-calc-result" style="margin-top:20px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PC DEVIS ADMIN -->
+            <div id="admin-pcpart" class="tool-view">
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:900px;margin:0 auto;">
+                    <div style="text-align:center;margin-bottom:24px;">
+                        <div style="font-size:48px;margin-bottom:12px;">💸</div>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">PC Devis</h3>
+                        <p style="color:var(--text-secondary);font-size:13px;">Colle le contenu copié depuis PCPartPicker.</p>
+                    </div>
+                    <div id="pcpart-input-section">
+                        <div class="form-row" style="margin-bottom:16px;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Nom du client</label>
+                                <input type="text" class="form-input" id="pcpart-client" placeholder="Nom du client...">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Main-d'œuvre (€)</label>
+                                <input type="number" class="form-input" id="pcpart-labor" placeholder="150" value="150" min="0">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Frais de livraison (€)</label>
+                                <input type="number" class="form-input" id="pcpart-shipping" placeholder="0" value="0" min="0">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:16px;">
+                            <label class="form-label">Lien PCPartPicker</label>
+                            <input type="url" class="form-input" id="pcpart-url" placeholder="https://be.pcpartpicker.com/list/...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Contenu PCPartPicker (colle ici)</label>
+                            <textarea class="form-textarea" id="pcpart-raw" placeholder="Colle le contenu complet de PCPartPicker ici..." style="min-height:200px;font-family:'JetBrains Mono',monospace;font-size:12px;"></textarea>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-bottom:20px;">
+                            <button class="btn btn-primary" onclick="parsePCPart()" style="flex:1;justify-content:center;">⚡ Générer le devis</button>
+                            <button class="btn btn-danger" onclick="resetDevis()" style="padding:8px 16px;">↺ Reset</button>
+                        </div>
+                    </div>
+                    <div id="pcpart-result" style="display:none;">
+                        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+                            <button class="btn" onclick="copyDevis()">📋 Copier texte</button>
+                            <button class="btn btn-green" onclick="exportDevisMarkdown()">💾 Export Markdown</button>
+                        </div>
+                        <div id="pcpart-devis-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLOUD SYNC ADMIN -->
+            <div id="admin-cloud" class="tool-view">
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;max-width:700px;margin:0 auto;">
+                    <div style="text-align:center;margin-bottom:24px;">
+                        <div style="font-size:48px;margin-bottom:12px;">☁️</div>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:8px;">Cloud Sync — Admin</h3>
+                        <p style="color:var(--text-secondary);font-size:13px;">Configure la synchronisation cloud pour que tous les utilisateurs voient le même Kanban.</p>
+                    </div>
+                    <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;margin-bottom:20px;">
+                        <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;">🔧 Configuration</div>
+                        <div class="form-group" style="margin-bottom:12px;">
+                            <label class="form-label">Token GitHub Gist (admin — écriture)</label>
+                            <input type="password" class="form-input" id="admin-gist-token" placeholder="ghp_xxxxxxxxxxxx...">
+                        </div>
+                        <div class="form-group" style="margin-bottom:12px;">
+                            <label class="form-label">Gist ID (partagé avec les users)</label>
+                            <input type="text" class="form-input" id="admin-gist-id" placeholder="Rempli automatiquement après connexion" readonly style="background:var(--bg-tertiary);color:var(--text-muted);">
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn btn-primary" onclick="saveAdminCloudConfig()" style="flex:1;justify-content:center;">🔗 Connecter & Créer Gist</button>
+                            <button class="btn btn-danger" onclick="disconnectAdminCloud()" style="padding:8px 16px;">Déconnecter</button>
+                        </div>
+                        <div id="admin-cloud-status" style="margin-top:12px;font-size:13px;display:none;"></div>
+                    </div>
+                    <div style="background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;">
+                        <div style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:12px;">💡 Comment ça marche</div>
+                        <ol style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-left:16px;">
+                            <li><strong>Admin</strong> : configure ton token GitHub → le Gist est créé automatiquement</li>
+                            <li><strong>Gist ID</strong> : est partagé avec tous les users (lecture anonyme)</li>
+                            <li><strong>Users</strong> : lisent le Kanban depuis le Gist sans aucune configuration</li>
+                            <li><strong>Modifications</strong> : quand tu modifies le Kanban, clic sur "Sync Now" ou attends 30s</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- MODAL TÂCHE -->
 <div class="modal-overlay" id="task-modal">
     <div class="modal">
@@ -1258,6 +1421,7 @@ function login() {
     document.getElementById('user-name').textContent = username;
     document.getElementById('user-avatar').textContent = username.substring(0,2).toUpperCase();
     loadUserData();
+    updateAdminNav();
     showToast('Bienvenue ' + username + ' !', 'success');
 }
 
@@ -1300,6 +1464,7 @@ function checkAdmin() {
         localStorage.setItem('flowboard_admin', 'true');
         document.getElementById('machub-locked').style.display = 'none';
         document.getElementById('machub-content').style.display = 'block';
+        updateAdminNav();
         showToast('Accès admin accordé ✓', 'success');
     } else {
         document.getElementById('admin-error').classList.add('show');
@@ -1345,6 +1510,7 @@ function showPage(pageId) {
     document.querySelector(`[data-page="${pageId}"]`)?.classList.add('active');
     if (pageId === 'home') updateHomeStats();
     if (pageId === 'kanban') renderKanban();
+    if (pageId === 'admin') renderAdminKanban();
 }
 
 function activateTool(toolId) {
@@ -2055,23 +2221,400 @@ function importJSON(){document.getElementById('dropdown-menu').classList.remove(
 function resetData(){document.getElementById('dropdown-menu').classList.remove('active');if(confirm('Réinitialiser toutes les données ?')){tasks=[];passwordVault=[];selectedProjects=new Set();notes=[];habits=[];movieList=[];localStorage.removeItem('flowboard_shared_tasks');renderKanban();updateHomeStats();renderPasswordVault();renderHabits();renderMovieList();showToast('Données réinitialisées','info');}}
 function configureCloud(){document.getElementById('dropdown-menu').classList.remove('active');const token=prompt('Token GitHub Gist (laisser vide pour désactiver) :');if(token===null)return;if(!token){localStorage.removeItem('flowboard_gist_token');localStorage.removeItem('flowboard_gist_id');updateSyncStatus('local');showToast('Synchro cloud désactivée','info');return;}localStorage.setItem('flowboard_gist_token',token);syncToGist();}
 
+// ===== CLOUD SYNC MODAL =====
+function openCloudModal() {
+    document.getElementById('dropdown-menu').classList.remove('active');
+    const modal = document.getElementById('cloud-modal');
+    modal.classList.add('active');
+
+    // Pre-fill token if exists
+    const token = localStorage.getItem('flowboard_gist_token');
+    if (token) {
+        document.getElementById('cloud-gist-token').value = token;
+    }
+    updateCloudStatusUI();
+}
+
+function closeCloudModal() {
+    document.getElementById('cloud-modal').classList.remove('active');
+}
+
+function updateCloudStatusUI() {
+    const msg = document.getElementById('cloud-status-msg');
+    const token = localStorage.getItem('flowboard_gist_token');
+    const gistId = localStorage.getItem('flowboard_gist_id');
+    if (!msg) return;
+
+    msg.style.display = 'block';
+    if (token && gistId) {
+        msg.innerHTML = '<span style="color:var(--green);">✅ Connecté — Gist ID: ' + gistId.substring(0, 8) + '...</span>';
+    } else if (token) {
+        msg.innerHTML = '<span style="color:var(--yellow);">⏳ Token configuré, synchro en cours...</span>';
+    } else {
+        msg.innerHTML = '<span style="color:var(--text-muted);">❌ Non connecté — configure un token GitHub</span>';
+    }
+}
+
+function saveCloudConfig() {
+    const token = document.getElementById('cloud-gist-token').value.trim();
+    if (!token) {
+        showToast('Token requis', 'error');
+        return;
+    }
+    localStorage.setItem('flowboard_gist_token', token);
+    showToast('Token sauvegardé — synchronisation...', 'info');
+    updateCloudStatusUI();
+    syncToGist().then(() => {
+        loadFromGist();
+    });
+}
+
+function disconnectCloud() {
+    if (!confirm('Déconnecter le cloud ? Les données locales restent intactes.')) return;
+    localStorage.removeItem('flowboard_gist_token');
+    localStorage.removeItem('flowboard_gist_id');
+    document.getElementById('cloud-gist-token').value = '';
+    updateSyncStatus('local');
+    updateCloudStatusUI();
+    showToast('Cloud déconnecté', 'info');
+}
+
+// Override old configureCloud function
+function configureCloud() {
+    openCloudModal();
+}
+
+
+// ===== ADMIN PAGE =====
+function showAdminTab(tabId) {
+    document.querySelectorAll('#page-admin .tool-view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('#admin-sidebar .tool-sidebar-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('admin-' + tabId)?.classList.add('active');
+    document.getElementById('btn-admin-' + tabId)?.classList.add('active');
+    if (tabId === 'machub') {
+        if (isAdmin) { document.getElementById('admin-machub-content').style.display = 'block'; }
+        else { document.getElementById('admin-machub-content').style.display = 'none'; }
+    }
+    if (tabId === 'kanban') renderAdminKanban();
+}
+
+// Admin Kanban — full editing
+let adminCurrentFilter = 'all';
+function renderAdminKanban() {
+    const cols = {
+        todo: document.getElementById('admin-todo-list'),
+        progress: document.getElementById('admin-progress-list'),
+        done: document.getElementById('admin-done-list')
+    };
+    Object.values(cols).forEach(c => c.innerHTML = '');
+    const s = document.getElementById('admin-search-input')?.value.toLowerCase() || '';
+    let filtered = tasks.filter(t => {
+        const ms = t.title.toLowerCase().includes(s) || (t.desc||'').toLowerCase().includes(s) || (t.tags||[]).some(g => g.toLowerCase().includes(s));
+        const mf = adminCurrentFilter === 'all' || t.priority === adminCurrentFilter;
+        return ms && mf;
+    });
+    filtered.sort((a,b) => {const o={high:0,medium:1,low:2};return o[a.priority]-o[b.priority]||new Date(a.date)-new Date(b.date);});
+    filtered.forEach(t => {
+        const c = createAdminTaskCard(t);
+        cols[t.status]?.appendChild(c);
+    });
+    Object.entries(cols).forEach(([,col]) => {
+        if (col.children.length === 0) col.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div>Aucune tâche</div></div>';
+    });
+    updateAdminKanbanStats();
+}
+
+function createAdminTaskCard(task) {
+    const div = document.createElement('div');
+    div.className = 'task-card';
+    div.draggable = true;
+    div.dataset.id = task.id;
+    const pl = {high:'Haute',medium:'Moyenne',low:'Basse'};
+    const pc = {high:'priority-high',medium:'priority-medium',low:'priority-low'};
+    const tagsHtml = (task.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+    const today = new Date(), due = task.date ? new Date(task.date) : null;
+    let dc='',di='📅';
+    if (due) { const d = Math.ceil((due-today)/(864e5)); if(d<0){dc='overdue';di='⚠️';}else if(d<=2){dc='soon';di='⏰';} }
+    const prog = task.progress||0;
+    const aHtml = (task.assignees||[]).map(aid => { const m=MEMBERS.find(x=>x.id===aid); return m?`<div class="assignee" style="background:${m.color}" title="${m.name}">${m.initials}</div>`:''; }).join('');
+    div.innerHTML = `<div class="task-priority ${pc[task.priority]}">${pl[task.priority]}</div><div class="task-title">${escapeHtml(task.title)}</div>${task.desc?`<div class="task-desc">${escapeHtml(task.desc)}</div>`:''}<div class="task-meta"><div class="task-tags">${tagsHtml}</div><div class="task-date ${dc}">${di} ${formatDate(task.date)}</div></div>${aHtml?`<div class="task-assignees">${aHtml}</div>`:''}${prog>0?`<div class="task-progress"><div class="task-progress-bar" style="width:${prog}%"></div></div>`:''}<div class="task-actions"><button class="task-btn" onclick="editTask('${task.id}')">✎</button><button class="task-btn" onclick="deleteTask('${task.id}')">🗑</button></div>`;
+    div.addEventListener('dragstart', handleAdminDragStart);
+    div.addEventListener('dragend', handleAdminDragEnd);
+    return div;
+}
+
+function updateAdminKanbanStats() {
+    const c={todo:0,progress:0,done:0};
+    tasks.forEach(t=>c[t.status]++);
+    document.getElementById('admin-badge-todo').textContent=c.todo;
+    document.getElementById('admin-badge-progress').textContent=c.progress;
+    document.getElementById('admin-badge-done').textContent=c.done;
+}
+
+let adminDraggedTask = null;
+function handleAdminDragStart(e){adminDraggedTask=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
+function handleAdminDragEnd(){this.classList.remove('dragging');adminDraggedTask=null;document.querySelectorAll('#page-admin .kanban-column').forEach(c=>c.classList.remove('drag-over'));}
+
+function setupAdminDragAndDrop() {
+    document.querySelectorAll('#page-admin .kanban-column').forEach(col => {
+        col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('drag-over');});
+        col.addEventListener('dragleave',()=>col.classList.remove('drag-over'));
+        col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('drag-over');if(!adminDraggedTask)return;const t=tasks.find(x=>x.id===adminDraggedTask.dataset.id);if(t&&t.status!==col.dataset.status){t.status=col.dataset.status;if(t.status==='done')t.progress=100;if(t.status==='todo')t.progress=0;renderAdminKanban();saveToStorage();showToast('Tâche déplacée','success');}});
+    });
+}
+
+function filterAdminKanban(){renderAdminKanban();}
+function setAdminFilter(f,btn){adminCurrentFilter=f;document.querySelectorAll('#page-admin .filter-chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');renderAdminKanban();}
+function forceSyncKanban(){syncToGist();showToast('Synchronisation forcée ☁️','success');}
+
+// Admin Cloud Config
+function saveAdminCloudConfig() {
+    const token = document.getElementById('admin-gist-token').value.trim();
+    if (!token) { showToast('Token requis', 'error'); return; }
+    localStorage.setItem('flowboard_gist_token', token);
+    showToast('Token sauvegardé — création du Gist...', 'info');
+    syncToGist().then(() => {
+        const gistId = localStorage.getItem('flowboard_gist_id');
+        if (gistId) {
+            document.getElementById('admin-gist-id').value = gistId;
+            showToast('Gist créé ! ID: ' + gistId.substring(0, 8), 'success');
+        }
+    });
+}
+
+function disconnectAdminCloud() {
+    if (!confirm('Déconnecter le cloud ?')) return;
+    localStorage.removeItem('flowboard_gist_token');
+    localStorage.removeItem('flowboard_gist_id');
+    document.getElementById('admin-gist-token').value = '';
+    document.getElementById('admin-gist-id').value = '';
+    updateSyncStatus('local');
+    showToast('Cloud déconnecté', 'info');
+}
+
+// Show/hide admin nav based on admin status
+function updateAdminNav() {
+    const nav = document.getElementById('nav-admin');
+    if (nav) nav.style.display = isAdmin ? 'flex' : 'none';
+}
+
+
+// ===== ADMIN PAGE =====
+function showAdminTab(tabId) {
+    document.querySelectorAll('#page-admin .tool-view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('#admin-sidebar .tool-sidebar-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('admin-' + tabId)?.classList.add('active');
+    document.getElementById('btn-admin-' + tabId)?.classList.add('active');
+    if (tabId === 'machub') {
+        if (isAdmin) { document.getElementById('admin-machub-content').style.display = 'block'; }
+        else { document.getElementById('admin-machub-content').style.display = 'none'; }
+    }
+    if (tabId === 'kanban') renderAdminKanban();
+}
+
+// Admin Kanban — full editing
+let adminCurrentFilter = 'all';
+function renderAdminKanban() {
+    const cols = {
+        todo: document.getElementById('admin-todo-list'),
+        progress: document.getElementById('admin-progress-list'),
+        done: document.getElementById('admin-done-list')
+    };
+    Object.values(cols).forEach(c => c.innerHTML = '');
+    const s = document.getElementById('admin-search-input')?.value.toLowerCase() || '';
+    let filtered = tasks.filter(t => {
+        const ms = t.title.toLowerCase().includes(s) || (t.desc||'').toLowerCase().includes(s) || (t.tags||[]).some(g => g.toLowerCase().includes(s));
+        const mf = adminCurrentFilter === 'all' || t.priority === adminCurrentFilter;
+        return ms && mf;
+    });
+    filtered.sort((a,b) => {const o={high:0,medium:1,low:2};return o[a.priority]-o[b.priority]||new Date(a.date)-new Date(b.date);});
+    filtered.forEach(t => {
+        const c = createAdminTaskCard(t);
+        cols[t.status]?.appendChild(c);
+    });
+    Object.entries(cols).forEach(([,col]) => {
+        if (col.children.length === 0) col.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div>Aucune tâche</div></div>';
+    });
+    updateAdminKanbanStats();
+}
+
+function createAdminTaskCard(task) {
+    const div = document.createElement('div');
+    div.className = 'task-card';
+    div.draggable = true;
+    div.dataset.id = task.id;
+    const pl = {high:'Haute',medium:'Moyenne',low:'Basse'};
+    const pc = {high:'priority-high',medium:'priority-medium',low:'priority-low'};
+    const tagsHtml = (task.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+    const today = new Date(), due = task.date ? new Date(task.date) : null;
+    let dc='',di='📅';
+    if (due) { const d = Math.ceil((due-today)/(864e5)); if(d<0){dc='overdue';di='⚠️';}else if(d<=2){dc='soon';di='⏰';} }
+    const prog = task.progress||0;
+    const aHtml = (task.assignees||[]).map(aid => { const m=MEMBERS.find(x=>x.id===aid); return m?`<div class="assignee" style="background:${m.color}" title="${m.name}">${m.initials}</div>`:''; }).join('');
+    div.innerHTML = `<div class="task-priority ${pc[task.priority]}">${pl[task.priority]}</div><div class="task-title">${escapeHtml(task.title)}</div>${task.desc?`<div class="task-desc">${escapeHtml(task.desc)}</div>`:''}<div class="task-meta"><div class="task-tags">${tagsHtml}</div><div class="task-date ${dc}">${di} ${formatDate(task.date)}</div></div>${aHtml?`<div class="task-assignees">${aHtml}</div>`:''}${prog>0?`<div class="task-progress"><div class="task-progress-bar" style="width:${prog}%"></div></div>`:''}<div class="task-actions"><button class="task-btn" onclick="editTask('${task.id}')">✎</button><button class="task-btn" onclick="deleteTask('${task.id}')">🗑</button></div>`;
+    div.addEventListener('dragstart', handleAdminDragStart);
+    div.addEventListener('dragend', handleAdminDragEnd);
+    return div;
+}
+
+function updateAdminKanbanStats() {
+    const c={todo:0,progress:0,done:0};
+    tasks.forEach(t=>c[t.status]++);
+    document.getElementById('admin-badge-todo').textContent=c.todo;
+    document.getElementById('admin-badge-progress').textContent=c.progress;
+    document.getElementById('admin-badge-done').textContent=c.done;
+}
+
+let adminDraggedTask = null;
+function handleAdminDragStart(e){adminDraggedTask=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
+function handleAdminDragEnd(){this.classList.remove('dragging');adminDraggedTask=null;document.querySelectorAll('#page-admin .kanban-column').forEach(c=>c.classList.remove('drag-over'));}
+
+function setupAdminDragAndDrop() {
+    document.querySelectorAll('#page-admin .kanban-column').forEach(col => {
+        col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('drag-over');});
+        col.addEventListener('dragleave',()=>col.classList.remove('drag-over'));
+        col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('drag-over');if(!adminDraggedTask)return;const t=tasks.find(x=>x.id===adminDraggedTask.dataset.id);if(t&&t.status!==col.dataset.status){t.status=col.dataset.status;if(t.status==='done')t.progress=100;if(t.status==='todo')t.progress=0;renderAdminKanban();saveToStorage();showToast('Tâche déplacée','success');}});
+    });
+}
+
+function filterAdminKanban(){renderAdminKanban();}
+function setAdminFilter(f,btn){adminCurrentFilter=f;document.querySelectorAll('#page-admin .filter-chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');renderAdminKanban();}
+function forceSyncKanban(){syncToGist();showToast('Synchronisation forcée ☁️','success');}
+
+// Admin Cloud Config
+function saveAdminCloudConfig() {
+    const token = document.getElementById('admin-gist-token').value.trim();
+    if (!token) { showToast('Token requis', 'error'); return; }
+    localStorage.setItem('flowboard_gist_token', token);
+    showToast('Token sauvegardé — création du Gist...', 'info');
+    syncToGist().then(() => {
+        const gistId = localStorage.getItem('flowboard_gist_id');
+        if (gistId) {
+            document.getElementById('admin-gist-id').value = gistId;
+            showToast('Gist créé ! ID: ' + gistId.substring(0, 8), 'success');
+        }
+    });
+}
+
+function disconnectAdminCloud() {
+    if (!confirm('Déconnecter le cloud ?')) return;
+    localStorage.removeItem('flowboard_gist_token');
+    localStorage.removeItem('flowboard_gist_id');
+    document.getElementById('admin-gist-token').value = '';
+    document.getElementById('admin-gist-id').value = '';
+    updateSyncStatus('local');
+    showToast('Cloud déconnecté', 'info');
+}
+
+// Show/hide admin nav based on admin status
+function updateAdminNav() {
+    const nav = document.getElementById('nav-admin');
+    if (nav) nav.style.display = isAdmin ? 'flex' : 'none';
+}
+
 // ===== GIST SYNC =====
-async function syncToGist(){
-    const token=localStorage.getItem('flowboard_gist_token');if(!token)return;
+// ADMIN: writes to Gist with token (full access)
+// USER: reads from Gist without token (anonymous read-only)
+
+async function syncToGist() {
+    const token = localStorage.getItem('flowboard_gist_token');
+    if (!token) { showToast('Token manquant — configure le cloud dans Admin → Cloud Sync', 'error'); return; }
     updateSyncStatus('syncing');
-    try{
-        let gistId=localStorage.getItem('flowboard_gist_id');
-        const data=JSON.stringify({tasks,passwordVault,selectedProjects:[...selectedProjects],notes,habits,movieList},null,2);
-        if(gistId){await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'flowboard-data.json':{content:data}},description:'FlowBoard — Données'})});}
-        else{const res=await fetch('https://api.github.com/gists',{method:'POST',headers:{'Authorization':`token ${token}`,'Content-Type':'application/json'},body:JSON.stringify({public:false,description:'FlowBoard — Données',files:{'flowboard-data.json':{content:data}}})});const json=await res.json();if(json.id)localStorage.setItem('flowboard_gist_id',json.id);}
-        updateSyncStatus('synced');showToast('Synchronisé ✓','success');
-    }catch(err){updateSyncStatus('error');}
+    try {
+        let gistId = localStorage.getItem('flowboard_gist_id');
+        const data = JSON.stringify({ tasks, version: 1 }, null, 2);
+
+        if (gistId) {
+            await fetch(`https://api.github.com/gists/${gistId}`, {
+                method: 'PATCH',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    files: { 'flowboard-data.json': { content: data } },
+                    description: 'FlowBoard — Kanban shared data'
+                })
+            });
+        } else {
+            const res = await fetch('https://api.github.com/gists', {
+                method: 'POST',
+                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    public: false,
+                    description: 'FlowBoard — Kanban shared data',
+                    files: { 'flowboard-data.json': { content: data } }
+                })
+            });
+            const json = await res.json();
+            if (json.id) {
+                localStorage.setItem('flowboard_gist_id', json.id);
+                showToast('Gist créé ! ID: ' + json.id.substring(0, 8), 'success');
+            }
+        }
+        updateSyncStatus('synced');
+        showToast('Synchronisé ✓', 'success');
+    } catch (err) {
+        updateSyncStatus('error');
+        showToast('Erreur sync: ' + err.message, 'error');
+    }
 }
-async function loadFromGist(){
-    const token=localStorage.getItem('flowboard_gist_token');const gistId=localStorage.getItem('flowboard_gist_id');if(!token||!gistId)return;
-    try{const res=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`token ${token}`}});const json=await res.json();const content=json.files['flowboard-data.json']?.content;if(content){const d=JSON.parse(content);if(d.tasks)tasks=d.tasks;if(d.passwordVault)passwordVault=d.passwordVault;if(d.selectedProjects)selectedProjects=new Set(d.selectedProjects);if(d.notes)notes=d.notes;if(d.habits)habits=d.habits;if(d.movieList)movieList=d.movieList;renderKanban();updateHomeStats();renderPasswordVault();renderNotesTabs();renderHabits();renderMovieList();updateSyncStatus('synced');}}catch(err){updateSyncStatus('error');}
+
+// USER: reads from Gist anonymously (no token needed)
+// Uses the raw URL to avoid rate limits
+async function loadFromGist() {
+    const gistId = localStorage.getItem('flowboard_gist_id');
+    if (!gistId) return;
+    try {
+        // Try anonymous read first (no token needed)
+        const res = await fetch(`https://api.github.com/gists/${gistId}`);
+        if (!res.ok) throw new Error('Gist not accessible');
+        const json = await res.json();
+        const content = json.files['flowboard-data.json']?.content;
+        if (content) {
+            const d = JSON.parse(content);
+            if (d.tasks) {
+                tasks = d.tasks;
+                localStorage.setItem('flowboard_shared_tasks', JSON.stringify(tasks));
+                renderKanban();
+                renderAdminKanban();
+                updateHomeStats();
+            }
+            updateSyncStatus('synced');
+        }
+    } catch (err) {
+        // Fallback: try with token if user has one (admin)
+        const token = localStorage.getItem('flowboard_gist_token');
+        if (token) {
+            try {
+                const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                const json = await res.json();
+                const content = json.files['flowboard-data.json']?.content;
+                if (content) {
+                    const d = JSON.parse(content);
+                    if (d.tasks) {
+                        tasks = d.tasks;
+                        localStorage.setItem('flowboard_shared_tasks', JSON.stringify(tasks));
+                        renderKanban();
+                        renderAdminKanban();
+                        updateHomeStats();
+                    }
+                    updateSyncStatus('synced');
+                }
+            } catch (e2) {
+                updateSyncStatus('error');
+            }
+        } else {
+            updateSyncStatus('error');
+        }
+    }
 }
-function updateSyncStatus(state){const el=document.getElementById('sync-status');const txt=document.getElementById('sync-text');el.className='sync-status '+state;txt.textContent={local:'Local',syncing:'Sync...',synced:'Cloud ✓',error:'Erreur'}[state]||'Local';}
+
+// Auto-sync kanban when admin makes changes
+function autoSyncKanban() {
+    if (isAdmin && localStorage.getItem('flowboard_gist_token')) {
+        syncToGist();
+    }
+}
 
 // ===== UTILS =====
 function escapeHtml(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
@@ -2097,7 +2640,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     loadFromGist();
-    setInterval(()=>{if(localStorage.getItem('flowboard_gist_token'))syncToGist();},30000);
+    setInterval(()=>{loadFromGist();},15000);
     document.addEventListener('click',e=>{if(!e.target.closest('.dropdown'))document.getElementById('dropdown-menu')?.classList.remove('active');});
 
     // MacHub admin check on load — use global key (not per-user)
@@ -2111,6 +2654,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     updateHomeStats();
 
     // No default tool selected — user must choose
+
+    // Show admin nav if already logged in as admin
+    if (isAdmin) updateAdminNav();
+
+    // Setup admin kanban drag and drop
+    setupAdminDragAndDrop();
+
+    // Load cloud data for all users (no token needed for read)
+    loadFromGist();
 });
 
 // ===== CHAOS CROSSHAIR =====
