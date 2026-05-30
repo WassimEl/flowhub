@@ -379,6 +379,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 ::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 <div class="toast-container" id="toast-container"></div>
@@ -389,9 +390,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
         <div style="font-size:48px;margin-bottom:16px;">◈</div>
         <h2>Bienvenue sur FlowBoard</h2>
         <p>Entre ton pseudo pour accéder à ton espace personnel.</p>
-        <input type="text" class="auth-input" id="auth-username" placeholder="Ton pseudo..." maxlength="20">
+        <input type="text" class="auth-input" id="auth-username" placeholder="Ton pseudo..." maxlength="20" onkeydown="if(event.key==='Enter'){event.preventDefault();login(event);}">
         <div class="auth-error" id="auth-error">Pseudo requis (min 2 caractères)</div>
-        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="login()">🚀 Entrer</button>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="login(event)">🚀 Entrer</button>
         <p style="margin-top:16px;font-size:11px;color:var(--text-muted);">Chaque pseudo a ses propres données. Partage le lien, chacun a son espace séparé.</p>
     </div>
 </div>
@@ -1403,7 +1404,7 @@ Jour 2: Visite musée..." style="min-height:120px;"></textarea>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
+<script>try{console.log("Script loaded");alert("Script loaded");}catch(e){alert("Script error: "+e.message);}
 // ===== AUTH =====
 let currentUser = null;
 const ADMIN_PASSWORD = '1980';
@@ -1411,18 +1412,26 @@ let isAdmin = false;
 let kanbanEditing = false; // Kanban is read-only by default
 
 function login() {
-    const username = document.getElementById('auth-username').value.trim();
-    if (username.length < 2) { document.getElementById('auth-error').classList.add('show'); return; }
-    document.getElementById('auth-error').classList.remove('show');
-    currentUser = username;
-    localStorage.setItem('flowboard_user', username);
-    document.getElementById('auth-overlay').style.display = 'none';
-    document.getElementById('user-badge').style.display = 'flex';
-    document.getElementById('user-name').textContent = username;
-    document.getElementById('user-avatar').textContent = username.substring(0,2).toUpperCase();
-    loadUserData();
-    updateAdminNav();
-    showToast('Bienvenue ' + username + ' !', 'success');
+    try {
+        alert('login() called!');
+        console.log('login() called');
+        const username = document.getElementById('auth-username').value.trim();
+        console.log('username:', username);
+        if (username.length < 2) { document.getElementById('auth-error').classList.add('show'); return; }
+        document.getElementById('auth-error').classList.remove('show');
+        currentUser = username;
+        localStorage.setItem('flowboard_user', username);
+        document.getElementById('auth-overlay').style.display = 'none';
+        document.getElementById('user-badge').style.display = 'flex';
+        document.getElementById('user-name').textContent = username;
+        document.getElementById('user-avatar').textContent = username.substring(0,2).toUpperCase();
+        loadUserData();
+        if (typeof updateAdminNav === 'function') updateAdminNav();
+        showToast('Bienvenue ' + username + ' !', 'success');
+    } catch (e) {
+        alert('Error: ' + e.message);
+        console.error(e);
+    }
 }
 
 function switchUser() {
@@ -1436,6 +1445,11 @@ function switchUser() {
 }
 
 function getStorageKey(key) { return currentUser ? 'flowboard_' + currentUser + '_' + key : 'flowboard_' + key; }
+
+function renderMovieList() {
+    // Placeholder - pas de fonctionnalité film implémentée
+    console.log('renderMovieList appelé (placeholder)');
+}
 
 function loadUserData() {
     if (!currentUser) return;
@@ -2299,7 +2313,7 @@ function showAdminTab(tabId) {
 }
 
 // Admin Kanban — full editing
-let adminCurrentFilter = 'all';
+adminCurrentFilter = 'all';
 function renderAdminKanban() {
     const cols = {
         todo: document.getElementById('admin-todo-list'),
@@ -2351,7 +2365,7 @@ function updateAdminKanbanStats() {
     document.getElementById('admin-badge-done').textContent=c.done;
 }
 
-let adminDraggedTask = null;
+adminDraggedTask = null;
 function handleAdminDragStart(e){adminDraggedTask=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
 function handleAdminDragEnd(){this.classList.remove('dragging');adminDraggedTask=null;document.querySelectorAll('#page-admin .kanban-column').forEach(c=>c.classList.remove('drag-over'));}
 
@@ -2398,119 +2412,6 @@ function updateAdminNav() {
     if (nav) nav.style.display = isAdmin ? 'flex' : 'none';
 }
 
-
-// ===== ADMIN PAGE =====
-function showAdminTab(tabId) {
-    document.querySelectorAll('#page-admin .tool-view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('#admin-sidebar .tool-sidebar-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('admin-' + tabId)?.classList.add('active');
-    document.getElementById('btn-admin-' + tabId)?.classList.add('active');
-    if (tabId === 'machub') {
-        if (isAdmin) { document.getElementById('admin-machub-content').style.display = 'block'; }
-        else { document.getElementById('admin-machub-content').style.display = 'none'; }
-    }
-    if (tabId === 'kanban') renderAdminKanban();
-}
-
-// Admin Kanban — full editing
-let adminCurrentFilter = 'all';
-function renderAdminKanban() {
-    const cols = {
-        todo: document.getElementById('admin-todo-list'),
-        progress: document.getElementById('admin-progress-list'),
-        done: document.getElementById('admin-done-list')
-    };
-    Object.values(cols).forEach(c => c.innerHTML = '');
-    const s = document.getElementById('admin-search-input')?.value.toLowerCase() || '';
-    let filtered = tasks.filter(t => {
-        const ms = t.title.toLowerCase().includes(s) || (t.desc||'').toLowerCase().includes(s) || (t.tags||[]).some(g => g.toLowerCase().includes(s));
-        const mf = adminCurrentFilter === 'all' || t.priority === adminCurrentFilter;
-        return ms && mf;
-    });
-    filtered.sort((a,b) => {const o={high:0,medium:1,low:2};return o[a.priority]-o[b.priority]||new Date(a.date)-new Date(b.date);});
-    filtered.forEach(t => {
-        const c = createAdminTaskCard(t);
-        cols[t.status]?.appendChild(c);
-    });
-    Object.entries(cols).forEach(([,col]) => {
-        if (col.children.length === 0) col.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div>Aucune tâche</div></div>';
-    });
-    updateAdminKanbanStats();
-}
-
-function createAdminTaskCard(task) {
-    const div = document.createElement('div');
-    div.className = 'task-card';
-    div.draggable = true;
-    div.dataset.id = task.id;
-    const pl = {high:'Haute',medium:'Moyenne',low:'Basse'};
-    const pc = {high:'priority-high',medium:'priority-medium',low:'priority-low'};
-    const tagsHtml = (task.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
-    const today = new Date(), due = task.date ? new Date(task.date) : null;
-    let dc='',di='📅';
-    if (due) { const d = Math.ceil((due-today)/(864e5)); if(d<0){dc='overdue';di='⚠️';}else if(d<=2){dc='soon';di='⏰';} }
-    const prog = task.progress||0;
-    const aHtml = (task.assignees||[]).map(aid => { const m=MEMBERS.find(x=>x.id===aid); return m?`<div class="assignee" style="background:${m.color}" title="${m.name}">${m.initials}</div>`:''; }).join('');
-    div.innerHTML = `<div class="task-priority ${pc[task.priority]}">${pl[task.priority]}</div><div class="task-title">${escapeHtml(task.title)}</div>${task.desc?`<div class="task-desc">${escapeHtml(task.desc)}</div>`:''}<div class="task-meta"><div class="task-tags">${tagsHtml}</div><div class="task-date ${dc}">${di} ${formatDate(task.date)}</div></div>${aHtml?`<div class="task-assignees">${aHtml}</div>`:''}${prog>0?`<div class="task-progress"><div class="task-progress-bar" style="width:${prog}%"></div></div>`:''}<div class="task-actions"><button class="task-btn" onclick="editTask('${task.id}')">✎</button><button class="task-btn" onclick="deleteTask('${task.id}')">🗑</button></div>`;
-    div.addEventListener('dragstart', handleAdminDragStart);
-    div.addEventListener('dragend', handleAdminDragEnd);
-    return div;
-}
-
-function updateAdminKanbanStats() {
-    const c={todo:0,progress:0,done:0};
-    tasks.forEach(t=>c[t.status]++);
-    document.getElementById('admin-badge-todo').textContent=c.todo;
-    document.getElementById('admin-badge-progress').textContent=c.progress;
-    document.getElementById('admin-badge-done').textContent=c.done;
-}
-
-let adminDraggedTask = null;
-function handleAdminDragStart(e){adminDraggedTask=this;this.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
-function handleAdminDragEnd(){this.classList.remove('dragging');adminDraggedTask=null;document.querySelectorAll('#page-admin .kanban-column').forEach(c=>c.classList.remove('drag-over'));}
-
-function setupAdminDragAndDrop() {
-    document.querySelectorAll('#page-admin .kanban-column').forEach(col => {
-        col.addEventListener('dragover',e=>{e.preventDefault();col.classList.add('drag-over');});
-        col.addEventListener('dragleave',()=>col.classList.remove('drag-over'));
-        col.addEventListener('drop',e=>{e.preventDefault();col.classList.remove('drag-over');if(!adminDraggedTask)return;const t=tasks.find(x=>x.id===adminDraggedTask.dataset.id);if(t&&t.status!==col.dataset.status){t.status=col.dataset.status;if(t.status==='done')t.progress=100;if(t.status==='todo')t.progress=0;renderAdminKanban();saveToStorage();showToast('Tâche déplacée','success');}});
-    });
-}
-
-function filterAdminKanban(){renderAdminKanban();}
-function setAdminFilter(f,btn){adminCurrentFilter=f;document.querySelectorAll('#page-admin .filter-chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');renderAdminKanban();}
-function forceSyncKanban(){syncToGist();showToast('Synchronisation forcée ☁️','success');}
-
-// Admin Cloud Config
-function saveAdminCloudConfig() {
-    const token = document.getElementById('admin-gist-token').value.trim();
-    if (!token) { showToast('Token requis', 'error'); return; }
-    localStorage.setItem('flowboard_gist_token', token);
-    showToast('Token sauvegardé — création du Gist...', 'info');
-    syncToGist().then(() => {
-        const gistId = localStorage.getItem('flowboard_gist_id');
-        if (gistId) {
-            document.getElementById('admin-gist-id').value = gistId;
-            showToast('Gist créé ! ID: ' + gistId.substring(0, 8), 'success');
-        }
-    });
-}
-
-function disconnectAdminCloud() {
-    if (!confirm('Déconnecter le cloud ?')) return;
-    localStorage.removeItem('flowboard_gist_token');
-    localStorage.removeItem('flowboard_gist_id');
-    document.getElementById('admin-gist-token').value = '';
-    document.getElementById('admin-gist-id').value = '';
-    updateSyncStatus('local');
-    showToast('Cloud déconnecté', 'info');
-}
-
-// Show/hide admin nav based on admin status
-function updateAdminNav() {
-    const nav = document.getElementById('nav-admin');
-    if (nav) nav.style.display = isAdmin ? 'flex' : 'none';
-}
 
 // ===== GIST SYNC =====
 // ADMIN: writes to Gist with token (full access)
@@ -2624,24 +2525,29 @@ function toggleDropdown(){document.getElementById('dropdown-menu').classList.tog
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded',()=>{
-    setupDragAndDrop();
-    updateRamCalc();
-    renderDecisionOptions();
-    renderPomoHistory();
+    try {
+        setupDragAndDrop();
+        updateRamCalc();
+        renderDecisionOptions();
+        renderPomoHistory();
 
-    const savedUser=localStorage.getItem('flowboard_user');
-    if(savedUser){
-        currentUser=savedUser;
-        document.getElementById('auth-overlay').style.display='none';
-        document.getElementById('user-badge').style.display='flex';
-        document.getElementById('user-name').textContent=savedUser;
-        document.getElementById('user-avatar').textContent=savedUser.substring(0,2).toUpperCase();
-        loadUserData();
+        const savedUser=localStorage.getItem('flowboard_user');
+        if(savedUser){
+            currentUser=savedUser;
+            document.getElementById('auth-overlay').style.display='none';
+            document.getElementById('user-badge').style.display='flex';
+            document.getElementById('user-name').textContent=savedUser;
+            document.getElementById('user-avatar').textContent=savedUser.substring(0,2).toUpperCase();
+            loadUserData();
+        }
+
+        loadFromGist();
+        setInterval(()=>{loadFromGist();},15000);
+        document.addEventListener('click',e=>{if(!e.target.closest('.dropdown'))document.getElementById('dropdown-menu')?.classList.remove('active');});
+    } catch (e) {
+        console.error('DOMContentLoaded error:', e);
+        alert('Error: ' + e.message);
     }
-
-    loadFromGist();
-    setInterval(()=>{loadFromGist();},15000);
-    document.addEventListener('click',e=>{if(!e.target.closest('.dropdown'))document.getElementById('dropdown-menu')?.classList.remove('active');});
 
     // MacHub admin check on load — use global key (not per-user)
     isAdmin = localStorage.getItem('flowboard_admin') === 'true';
@@ -3196,5 +3102,6 @@ function deleteDeal(id) {
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTaskModal();closeFocusMode();}if(e.key==='n'&&e.ctrlKey){e.preventDefault();openTaskModal();}});
 document.getElementById('auth-username').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
 </script>
+<script src="flowboard-admin-patch.js"></script>
 </body>
 </html>
